@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "107589498933",
+    "project_id": "chatbox-f5584",
+    "storage_bucket": "chatbox-f5584.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107589498933:android:ff593fbf73b7dbda1d997c",
+        "android_client_info": {
+          "package_name": "com.chatbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLn_Vj4RJYGbsirweR9GArx0OuYU3o6AE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
