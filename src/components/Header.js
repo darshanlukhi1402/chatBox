@@ -3,9 +3,9 @@ import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {hp, wp} from '../utils/constant';
 import {colors} from '../utils/colors';
 
-const Header = ({source}) => {
+const Header = ({source, onPress}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Image source={source} style={styles.backIconStyle} />
     </TouchableOpacity>
   );

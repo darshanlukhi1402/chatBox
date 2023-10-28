@@ -14,7 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import LinearButton from '../../components/LinearButton';
 
 const SignUp = () => {
-  const {navigate} = useNavigation();
+  const {navigate, goBack} = useNavigation();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -53,7 +53,7 @@ const SignUp = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header source={images.back} />
+      <Header source={images.back} onPress={() => goBack()} />
       <View style={styles.headerStyle}>
         <Text style={styles.loinTextStyle}>{strings.sign_up_with_email}</Text>
         <Text style={styles.welcomeMessage}>{strings.signUpLine}</Text>
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   downStyle: {
     flex: 1,
     justifyContent: 'flex-end',
+    marginBottom: hp(20),
   },
   forgotView: {
     alignSelf: 'center',

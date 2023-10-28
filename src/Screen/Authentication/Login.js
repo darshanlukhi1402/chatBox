@@ -22,7 +22,7 @@ import LineConstant from '../../components/LineConstant';
 import LinearButton from '../../components/LinearButton';
 
 const Login = () => {
-  const {navigate} = useNavigation();
+  const {navigate, goBack} = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header source={images.back} />
+      <Header source={images.back} onPress={() => goBack()} />
       <View style={styles.headerStyle}>
         <Text style={styles.loinTextStyle}>{strings.log_in_chatBox}</Text>
         <Text style={styles.welcomeMessage}>{strings.welcomeLine}</Text>

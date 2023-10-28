@@ -3,11 +3,11 @@ import {View, Text, StyleSheet} from 'react-native';
 import {fontSize, hp, wp} from '../utils/constant';
 import {colors} from '../utils/colors';
 
-const LineConstant = ({label}) => {
+const LineConstant = ({label, labelStyle}) => {
   return (
     <View style={styles.con}>
       <View style={styles.lineStyle}></View>
-      <Text style={styles.labelStyle}>{label}</Text>
+      <Text style={[styles.labelStyle, labelStyle]}>{label}</Text>
       <View style={styles.lineStyle}></View>
     </View>
   );
