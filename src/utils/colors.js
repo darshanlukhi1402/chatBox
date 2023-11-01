@@ -10,4 +10,6 @@ export const colors = {
   buttonFirstColor: '#3B4E96',
   buttonSecondColor: '#0B101C',
   subTitleTextColor: '#ffffff80',
+  searchBackgroundColor: '#ffffff30',
+  subMessageText: 'rgba(121, 124, 123, 0.50)'
 };

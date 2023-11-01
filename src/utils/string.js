@@ -11,6 +11,7 @@ export const strings = {
   getStartedSignUp: 'Sign up with mail',
   create_an_account: 'Create an account',
   sign_up_with_email: 'Sign up with Email',
+  home:'Home',
   welcomeLine:
     'Welcome back! Sign in using your social\naccount or email to continue us',
   signUpLine:

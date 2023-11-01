@@ -61,8 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   labelView: {
-    height: '100%',
-    width: '100%',
+    flex: 1
   },
   labelStyle: {
     marginVertical: hp(10),

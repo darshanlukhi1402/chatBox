@@ -21,6 +21,9 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [conPassword, setConPassword] = useState('');
 
+  const [imageData, setImageData] = useState('');
+  const [imgDownloadUrl, setImgDownloadUrl] = useState('');
+
   const handleSignup = async () => {
     try {
       if (name && email && password && conPassword) {
