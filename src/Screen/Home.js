@@ -15,6 +15,7 @@ import {strings} from '../utils/string';
 import {border, userData} from '../utils/dummy';
 import firestore from '@react-native-firebase/firestore';
 import StatusLabel from '../components/StatusLabel';
+import HeaderCon from '../components/HeaderCon';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -61,13 +62,11 @@ const Home = () => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}
         style={[styles.container]}>
-        <SafeAreaView style={styles.searchIconStyle}>
-          <View style={styles.imageSubView}>
-            <Image source={images.search} style={styles.searchIconStyle} />
-          </View>
-          <Text style={styles.headerTitleStyle}>{strings.home}</Text>
-          <Image source={images.my_user} style={styles.userIconStyle} />
-        </SafeAreaView>
+        <HeaderCon
+          label={strings.home}
+          leftSource={images.search}
+          rightSource={images.my_user}
+        />
         <View style={styles.statusListStyle}>
           <FlatList
             data={userData}
@@ -99,23 +98,8 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  conStatusStyles: {
-    flexDirection: 'row',
-    marginHorizontal: wp(24),
-    marginBottom: hp(30),
-    alignItems: 'center',
-  },
-  labelTextStyle: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: fontSize(18),
-    marginLeft: wp(12),
-  },
-  subTextStyle: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: fontSize(14),
-    marginLeft: wp(12),
-    color: colors.subMessageText,
-    justifyContent: 'space-between',
+  container: {
+    flex: 1,
   },
   statusListSubStyle: {
     marginTop: hp(40),
@@ -148,37 +132,7 @@ const styles = StyleSheet.create({
     borderWidth: wp(1.5),
     justifyContent: 'center',
     alignItems: 'center',
-    overflow:'hidden'
-  },
-  searchIconStyle: {
-    height: hp(22),
-    width: hp(22),
-  },
-  headerTitleStyle: {
-    color: colors.white,
-    fontSize: fontSize(18),
-    fontFamily: 'Poppins-Regular',
-  },
-  userIconStyle: {
-    height: hp(32),
-    width: hp(32),
-  },
-  searchIconStyle: {
-    marginHorizontal: wp(24),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-  },
-  imageSubView: {
-    borderRadius: 40,
-    height: hp(40),
-    width: wp(40),
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.searchBackgroundColor,
+    overflow: 'hidden',
   },
 });
 

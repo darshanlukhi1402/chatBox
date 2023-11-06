@@ -29,6 +29,8 @@ if linkage != nil
 end
 
 target 'chatBox' do
+  use_frameworks!
+  use_modular_headers!
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -53,12 +55,12 @@ target 'chatBox' do
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
 
-  pod 'FirebaseCoreExtension', :modular_headers => true
-  pod 'FirebaseInstallations', :modular_headers => true
-  pod 'FirebaseAppCheckInterop', :modular_headers => true
-  pod 'FirebaseAuthInterop', :modular_headers => true
-  pod 'GoogleDataTransport', :modular_headers => true
-  pod 'GTMSessionFetcher', :modular_headers => true
+  # pod 'FirebaseCoreExtension', :modular_headers => true
+  # pod 'FirebaseInstallations', :modular_headers => true
+  # pod 'FirebaseAppCheckInterop', :modular_headers => true
+  # pod 'FirebaseAuthInterop', :modular_headers => true
+  # pod 'GoogleDataTransport', :modular_headers => true
+  # pod 'GTMSessionFetcher', :modular_headers => true
   # pod 'nanopb', :modular_headers => true
 
   target 'chatBoxTests' do

@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: fontSize(18),
     marginLeft: wp(12),
+    color: colors.black
   },
   subTextStyle: {
     fontFamily: 'Poppins-Regular',
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     width: hp(52),
     borderWidth: 1,
     borderRadius: hp(52 / 2),
+    borderColor : colors.black
   },
 });
 

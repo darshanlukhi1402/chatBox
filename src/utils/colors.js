@@ -1,6 +1,6 @@
 export const colors = {
   white: '#FFFFFF',
-  break: '#000000',
+  black : '#000000',
   lineColor: '#CDD1D0',
   textColor: '#3D4A7A',
   loginTextColor: '#FFF',
@@ -11,5 +11,5 @@ export const colors = {
   buttonSecondColor: '#0B101C',
   subTitleTextColor: '#ffffff80',
   searchBackgroundColor: '#ffffff30',
-  subMessageText: 'rgba(121, 124, 123, 0.50)'
+  subMessageText: 'rgba(121, 124, 123, 0.50)',
 };
