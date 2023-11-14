@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../utils/colors';
 import {fontSize, hp, wp} from '../utils/constant';
@@ -27,6 +20,8 @@ const Home = () => {
   const getData = () => {
     firestore()
       .collection('users')
+      .where('created', '<=', new Date())
+      .orderBy('created', 'desc')
       .onSnapshot(querySnapshot => {
         const users = [];
 
@@ -48,7 +43,7 @@ const Home = () => {
             ...styles.userStatusBorderStyle,
             borderColor: border[index % border.length],
           }}>
-          <Image source={item?.userImage} style={styles.userImageStyle} />
+          <Image source={{uri: item.userDpUri}} style={styles.userImageStyle} />
         </View>
         <Text style={styles.statusUserName}>{item.name}</Text>
       </View>
@@ -69,7 +64,7 @@ const Home = () => {
         />
         <View style={styles.statusListStyle}>
           <FlatList
-            data={userData}
+            data={data}
             style={styles.statusListSubStyle}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -82,10 +77,14 @@ const Home = () => {
             data={data}
             showsVerticalScrollIndicator={false}
             bounces={false}
-            renderItem={({item}) => {
+            renderItem={({item, index}) => {
               return (
                 <StatusLabel
                   PrimaryLabel={item?.name}
+                  userStatusBorderStyle={{
+                    borderColor: border[index % border.length],
+                  }}
+                  source={{uri: item.userDpUri}}
                   subLabel={'How are you today?'}
                 />
               );
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     backgroundColor: 'white',
-    paddingTop: hp(41),
+    paddingTop: hp(30),
   },
   statusUserName: {
     fontFamily: 'Poppins-Regular',

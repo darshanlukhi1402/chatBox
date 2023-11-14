@@ -3,15 +3,33 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {fontSize, hp, wp} from '../utils/constant';
 import {colors} from '../utils/colors';
 
-const StatusLabel = ({PrimaryLabel, subLabel, onPress}) => {
+const StatusLabel = ({
+  source,
+  onPress,
+  subLabel,
+  PrimaryLabel,
+  userImageStyle,
+  conStatusStyles,
+  userStatusBorderStyle,
+}) => {
   return (
-    <TouchableOpacity style={styles.conStatusStyles} onPress={onPress}>
-      <Image source={{}} style={styles.userImageStyle} />
-      <View>
-        <Text style={styles.labelTextStyle}>{PrimaryLabel}</Text>
-        <Text style={styles.subTextStyle}>{subLabel}</Text>
-      </View>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        style={[styles.conStatusStyles, conStatusStyles]}
+        onPress={onPress}>
+        <View style={[styles.userStatusBorderStyle, userStatusBorderStyle]}>
+          <Image
+            source={source}
+            style={[styles.userImageStyle, userImageStyle]}
+          />
+        </View>
+        <View>
+          <Text style={styles.labelTextStyle}>{PrimaryLabel}</Text>
+          <Text style={styles.subTextStyle}>{subLabel}</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={styles.highlightStyle}></View>
+    </>
   );
 };
 
@@ -19,14 +37,14 @@ const styles = StyleSheet.create({
   conStatusStyles: {
     flexDirection: 'row',
     marginHorizontal: wp(24),
-    marginBottom: hp(30),
+    marginBottom: hp(20),
     alignItems: 'center',
   },
   labelTextStyle: {
     fontFamily: 'Poppins-Medium',
     fontSize: fontSize(18),
     marginLeft: wp(12),
-    color: colors.black
+    color: colors.black,
   },
   subTextStyle: {
     fontFamily: 'Poppins-Regular',
@@ -36,11 +54,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   userImageStyle: {
-    height: hp(52),
-    width: hp(52),
-    borderWidth: 1,
-    borderRadius: hp(52 / 2),
-    borderColor : colors.black
+    height: hp(48),
+    width: hp(48),
+  },
+  userStatusBorderStyle: {
+    padding: hp(8),
+    borderRadius: hp(80 / 2),
+    borderWidth: wp(1.5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  highlightStyle: {
+    width: wp(320),
+    borderWidth: hp(0.2),
+    alignSelf: 'center',
+    marginBottom: hp(20),
+    borderColor: colors.subMessageText,
   },
 });
 

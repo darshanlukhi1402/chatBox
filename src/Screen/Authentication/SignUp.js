@@ -1,8 +1,18 @@
-import React, {useState} from 'react';
-import {View, Text, Alert, StyleSheet, SafeAreaView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  Alert,
+  StyleSheet,
+  SafeAreaView,
+  // TouchableOpacity,
+} from 'react-native';
 
 import auth from '@react-native-firebase/auth';
+// import storage from '@react-native-firebase/storage';
+import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+// import DocumentPicker from 'react-native-document-picker';
 
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
@@ -10,7 +20,6 @@ import {strings} from '../../utils/string';
 import Header from '../../components/Header';
 import Felids from '../../components/Felids';
 import {fontSize, hp, wp} from '../../utils/constant';
-import {useNavigation} from '@react-navigation/native';
 import LinearButton from '../../components/LinearButton';
 
 const SignUp = () => {
@@ -18,11 +27,42 @@ const SignUp = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [conPassword, setConPassword] = useState('');
+  const [password, setPassword] = useState('D12345');
+  const [conPassword, setConPassword] = useState('D12345');
 
-  const [imageData, setImageData] = useState('');
-  const [imgDownloadUrl, setImgDownloadUrl] = useState('');
+  // const [imageData, setImageData] = useState('');
+  // const [imgDownloadUrl, setImgDownloadUrl] = useState('');
+
+  // useEffect(() => {}, [email, name]);
+
+  // const pickImage = async () => {
+  //   try {
+  //     const res = await DocumentPicker.pickSingle({
+  //       type: [DocumentPicker.types.images],
+  //       copyTo: 'cachesDirectory',
+  //     });
+  //     setImageData(res);
+  //     Alert.alert('Image Selected Successfully');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // const uploadImage = async () => {
+  //   if (imageData.uri < 0) return Alert.alert('Enter the All Data');
+  //   else {
+  //     try {
+  //       const response = storage().ref(`/UsersProfileIcon/${name}`);
+  //       const put = await response.putFile(imageData.fileCopyUri);
+  //       console.log(put);
+  //       const url = await response.getDownloadURL();
+  //       setImgDownloadUrl(url);
+  //       return url;
+  //     } catch (err) {
+  //       console.log('err >---->', err);
+  //     }
+  //   }
+  // };
 
   const handleSignup = async () => {
     try {
@@ -33,12 +73,16 @@ const SignUp = () => {
         );
         console.log(response);
 
+        // const imageUrl = await uploadImage();
+
         const userData = {
           name: name,
           email: email,
           password: password,
+          // userDpUri: imageUrl,
           id: response.user.uid,
           confirm_password: conPassword,
+          created: firestore.Timestamp.fromDate(new Date()),
         };
 
         await firestore()
@@ -61,6 +105,9 @@ const SignUp = () => {
         <Text style={styles.loinTextStyle}>{strings.sign_up_with_email}</Text>
         <Text style={styles.welcomeMessage}>{strings.signUpLine}</Text>
       </View>
+      {/* <TouchableOpacity style={styles.imageStyles} onPress={pickImage}>
+        <Text>jhjnjj</Text>
+      </TouchableOpacity> */}
       <Felids
         label={strings.your_name}
         onChangeText={text => {
@@ -101,6 +148,12 @@ const SignUp = () => {
 };
 
 const styles = StyleSheet.create({
+  // imageStyles: {
+  //   height: hp(100),
+  //   width: hp(100),
+  //   borderWidth: 1,
+  //   alignSelf: 'center',
+  // },
   headerStyle: {
     marginTop: hp(60),
     marginBottom: hp(30),

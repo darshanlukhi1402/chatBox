@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  Platform,
+} from 'react-native';
 import {images} from '../assets';
 import {strings} from '../utils/string';
 import {fontSize, hp, wp} from '../utils/constant';
@@ -23,6 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: Platform.OS == 'android' ? hp(10) : 0,
   },
   imageSubView: {
     borderRadius: 40,
