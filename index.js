@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry, Text, TextInput} from 'react-native';
+import {AppRegistry, LogBox, Text, TextInput} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 
@@ -20,5 +20,8 @@ if (TextInput.defaultProps) {
   TextInput.defaultProps = {};
   TextInput.defaultProps.allowFontScaling = false;
 }
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 
 AppRegistry.registerComponent(appName, () => App);

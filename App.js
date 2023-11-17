@@ -1,13 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import {LogBox, Text, TextInput} from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import MainStackNavigator from './src/navigators/navigation';
-import {LogBox} from 'react-native';
 
 const App = () => {
+  const [userExist, setUserExist] = useState('');
+
   useEffect(() => {
-    LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-    LogBox.ignoreAllLogs();
+    getData();
   }, []);
-  return <MainStackNavigator />;
+
+  const getData = async () => {
+    try {
+      await AsyncStorage.getItem('userAdded').then(res => {
+        if (res) {
+          setUserExist(res);
+        } else {
+          setUserExist(null);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return userExist !== '' ? <MainStackNavigator value={userExist} /> : <></>;
 };
 
 export default App;

@@ -1,20 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {colors} from '../utils/colors';
-import {fontSize, hp, wp} from '../utils/constant';
-import {images} from '../assets';
-import {strings} from '../utils/string';
-import {border, userData} from '../utils/dummy';
+
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import StatusLabel from '../components/StatusLabel';
+import LinearGradient from 'react-native-linear-gradient';
+
+import {images} from '../assets';
+import {colors} from '../utils/colors';
+import {strings} from '../utils/string';
 import HeaderCon from '../components/HeaderCon';
+import {border, userData} from '../utils/dummy';
+import {fontSize, hp, wp} from '../utils/constant';
+import StatusLabel from '../components/StatusLabel';
+import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [currentUserData, setCurrentUserData] = useState([]);
+
+  const {navigate} = useNavigation();
 
   useEffect(() => {
     getData();
+    getUserData();
   }, []);
 
   const getData = () => {
@@ -35,19 +43,48 @@ const Home = () => {
       });
   };
 
+  const getUserData = async () => {
+    try {
+      await firestore()
+        .collection('users')
+        .doc(`${auth().currentUser.uid}`)
+        .get()
+        .then(res => {
+          setCurrentUserData(res._data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const statusRenderItem = ({item, index}) => {
+    const currentUser = auth().currentUser.uid == item.id;
     return (
-      <View style={{marginHorizontal: wp(8.5)}}>
-        <View
-          style={{
-            ...styles.userStatusBorderStyle,
-            borderColor: border[index % border.length],
-          }}>
-          <Image source={{uri: item.userDpUri}} style={styles.userImageStyle} />
+      !currentUser && (
+        <View style={{marginHorizontal: wp(8.5)}}>
+          <View
+            style={{
+              ...styles.userStatusBorderStyle,
+              borderColor: border[index % border.length],
+            }}>
+            <Image
+              source={{uri: item.userDpUri}}
+              style={styles.userImageStyle}
+            />
+          </View>
+          <Text style={styles.statusUserName}>{item.name}</Text>
         </View>
-        <Text style={styles.statusUserName}>{item.name}</Text>
-      </View>
+      )
     );
+  };
+
+  const onUserPress = user => {
+    // 1. Navigate to the Chat Screen
+    navigate('ChatScreen', {
+      userId: user.id,
+      userName: user.name,
+      userDpUri: user.userDpUri,
+    });
   };
 
   return (
@@ -60,7 +97,7 @@ const Home = () => {
         <HeaderCon
           label={strings.home}
           leftSource={images.search}
-          rightSource={images.my_user}
+          rightSource={{uri: currentUserData.userDpUri}}
         />
         <View style={styles.statusListStyle}>
           <FlatList
@@ -78,15 +115,21 @@ const Home = () => {
             showsVerticalScrollIndicator={false}
             bounces={false}
             renderItem={({item, index}) => {
+              const currentUser = auth().currentUser.uid == item.id;
               return (
-                <StatusLabel
-                  PrimaryLabel={item?.name}
-                  userStatusBorderStyle={{
-                    borderColor: border[index % border.length],
-                  }}
-                  source={{uri: item.userDpUri}}
-                  subLabel={'How are you today?'}
-                />
+                <>
+                  {!currentUser && (
+                    <StatusLabel
+                      onPress={onUserPress}
+                      PrimaryLabel={item?.name}
+                      userStatusBorderStyle={{
+                        borderColor: border[index % border.length],
+                      }}
+                      source={{uri: item.userDpUri}}
+                      subLabel={'How are you today?'}
+                    />
+                  )}
+                </>
               );
             }}
           />

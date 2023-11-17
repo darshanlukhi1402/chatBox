@@ -3,14 +3,15 @@ import {
   View,
   Text,
   Image,
+  Alert,
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
@@ -31,11 +32,13 @@ const Login = () => {
       if (email.length > 0 && password.length > 0) {
         await auth()
           .signInWithEmailAndPassword(email, password)
-          .then(() => navigate('Home'));
+          .then(async () => {
+            await AsyncStorage.setItem('userAdded', 'user');
+            navigate('Home');
+          });
       } else Alert.alert('Enter the All Data');
     } catch (err) {
-      console.log(err.message);
-      setMessage(err.message);
+      console.log('error ----> ', err.message);
     }
   };
 

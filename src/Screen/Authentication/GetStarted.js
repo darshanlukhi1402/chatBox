@@ -17,6 +17,10 @@ import {useNavigation} from '@react-navigation/native';
 
 const GetStarted = () => {
   const {navigate} = useNavigation();
+
+  const handleApp = () => {
+    navigate('Login');
+  };
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -38,12 +42,14 @@ const GetStarted = () => {
           </View>
         </View>
         <LineConstant label={strings.or} labelStyle={styles.labelStyle} />
-        <TouchableOpacity style={styles.buttonViewStyle} onPress={() => navigate('SignUp')}>
+        <TouchableOpacity
+          style={styles.buttonViewStyle}
+          onPress={() => navigate('SignUp')}>
           <Text style={styles.buttonTextStyle}>{strings.getStartedSignUp}</Text>
         </TouchableOpacity>
         <View style={styles.loginStyle}>
           <Text style={styles.loginTextStyle}>{strings.existingAccount} </Text>
-          <TouchableOpacity onPress={() => navigate('Login')}>
+          <TouchableOpacity onPress={handleApp}>
             <Text style={[styles.loginTextStyle, styles.subText]}>
               {strings.log_in}
             </Text>
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   labelView: {
-    flex: 1
+    flex: 1,
   },
   labelStyle: {
     marginVertical: hp(10),
