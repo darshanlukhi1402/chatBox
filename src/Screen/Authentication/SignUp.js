@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 // import DocumentPicker from 'react-native-document-picker';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
@@ -101,48 +102,50 @@ const SignUp = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header source={images.back} onPress={() => goBack()} />
-      <View style={styles.headerStyle}>
-        <Text style={styles.loinTextStyle}>{strings.sign_up_with_email}</Text>
-        <Text style={styles.welcomeMessage}>{strings.signUpLine}</Text>
-      </View>
-      {/* <TouchableOpacity style={styles.imageStyles} onPress={pickImage}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.headerStyle}>
+          <Text style={styles.loinTextStyle}>{strings.sign_up_with_email}</Text>
+          <Text style={styles.welcomeMessage}>{strings.signUpLine}</Text>
+        </View>
+        {/* <TouchableOpacity style={styles.imageStyles} onPress={pickImage}>
         <Text>jhjnjj</Text>
       </TouchableOpacity> */}
-      <Felids
-        label={strings.your_name}
-        onChangeText={text => {
-          setName(text);
-        }}
-      />
-      <Felids
-        label={strings.your_email}
-        onChangeText={text => {
-          setEmail(text);
-        }}
-        autoCapitalize={false}
-      />
-      <Felids
-        label={strings.password}
-        onChangeText={text => {
-          setPassword(text);
-        }}
-        secureTextEntry
-        autoCapitalize={false}
-      />
-      <Felids
-        label={strings.confirm_password}
-        onChangeText={text => {
-          setConPassword(text);
-        }}
-        secureTextEntry
-        autoCapitalize={false}
-      />
-      <View style={styles.downStyle}>
-        <LinearButton
-          label={strings.create_an_account}
-          onPress={handleSignup}
+        <Felids
+          label={strings.your_name}
+          onChangeText={text => {
+            setName(text);
+          }}
         />
-      </View>
+        <Felids
+          label={strings.your_email}
+          onChangeText={text => {
+            setEmail(text);
+          }}
+          autoCapitalize={false}
+        />
+        <Felids
+          label={strings.password}
+          onChangeText={text => {
+            setPassword(text);
+          }}
+          secureTextEntry
+          autoCapitalize={false}
+        />
+        <Felids
+          label={strings.confirm_password}
+          onChangeText={text => {
+            setConPassword(text);
+          }}
+          secureTextEntry
+          autoCapitalize={false}
+        />
+        <View style={styles.downStyle}>
+          <LinearButton
+            label={strings.create_an_account}
+            onPress={handleSignup}
+          />
+        </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
@@ -159,9 +162,7 @@ const styles = StyleSheet.create({
     marginBottom: hp(30),
   },
   downStyle: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: hp(20),
+    marginTop: hp(180),
   },
   forgotView: {
     alignSelf: 'center',

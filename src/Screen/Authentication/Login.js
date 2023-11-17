@@ -12,6 +12,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
@@ -45,50 +46,53 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header source={images.back} onPress={() => goBack()} />
-      <View style={styles.headerStyle}>
-        <Text style={styles.loinTextStyle}>{strings.log_in_chatBox}</Text>
-        <Text style={styles.welcomeMessage}>{strings.welcomeLine}</Text>
-      </View>
-      <View style={styles.loginIconView}>
-        <Image style={styles.loginIconStyle} source={images.facebook} />
-        <Image style={styles.loginIconStyle} source={images.gPay} />
-        <Image style={styles.loginIconStyle} source={images.apple} />
-      </View>
-      <LineConstant label={strings.or} />
-      <Felids
-        label={strings.your_email}
-        onChangeText={text => {
-          setEmail(text);
-        }}
-        autoCapitalize={false}
-      />
-      <Felids
-        label={strings.password}
-        onChangeText={text => {
-          setPassword(text);
-        }}
-        secureTextEntry
-        autoCapitalize={false}
-      />
-      <View style={styles.downStyle}>
-        <LinearButton label={strings.log_in} onPress={handleLogin} />
-        <TouchableOpacity
-          style={styles.forgotView}
-          onPress={() => {
-            navigate('SignUp');
-          }}>
-          <Text style={styles.forgotStyle}>{strings.forgot_password}</Text>
-        </TouchableOpacity>
-      </View>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.headerStyle}>
+          <Text style={styles.loinTextStyle}>{strings.log_in_chatBox}</Text>
+          <Text style={styles.welcomeMessage}>{strings.welcomeLine}</Text>
+        </View>
+        <View style={styles.loginIconView}>
+          <Image style={styles.loginIconStyle} source={images.facebook} />
+          <Image style={styles.loginIconStyle} source={images.gPay} />
+          <Image style={styles.loginIconStyle} source={images.apple} />
+        </View>
+        <LineConstant label={strings.or} />
+        <Felids
+          label={strings.your_email}
+          onChangeText={text => {
+            setEmail(text);
+          }}
+          autoCapitalize={false}
+        />
+        <Felids
+          label={strings.password}
+          onChangeText={text => {
+            setPassword(text);
+          }}
+          secureTextEntry
+          autoCapitalize={false}
+        />
+        <View style={styles.downStyle}>
+          <LinearButton label={strings.log_in} onPress={handleLogin} />
+          <TouchableOpacity
+            style={styles.forgotView}
+            onPress={() => {
+              navigate('SignUp');
+            }}>
+            <Text style={styles.forgotStyle}>{strings.forgot_password}</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  headerStyle: {marginTop: hp(50)},
+  headerStyle: {
+    marginTop: hp(50),
+  },
   downStyle: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    marginTop: hp(230),
   },
   forgotView: {
     alignSelf: 'center',
