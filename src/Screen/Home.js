@@ -79,12 +79,7 @@ const Home = () => {
   };
 
   const onUserPress = user => {
-    // 1. Navigate to the Chat Screen
-    navigate('ChatScreen', {
-      userId: user.id,
-      userName: user.name,
-      userDpUri: user.userDpUri,
-    });
+    navigate('ChatScreen', user);
   };
 
   return (
@@ -120,7 +115,7 @@ const Home = () => {
                 <>
                   {!currentUser && (
                     <StatusLabel
-                      onPress={onUserPress}
+                      onPress={() => onUserPress(item)}
                       PrimaryLabel={item?.name}
                       userStatusBorderStyle={{
                         borderColor: border[index % border.length],
