@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {fontSize, hp, wp} from '../utils/constant';
-import {colors} from '../utils/colors';
+import {colors} from '../utils/themes';
 
 const LinearButton = ({label, labelView, onPress}) => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {hp, wp} from '../utils/constant';
-import {colors} from '../utils/colors';
+import {colors} from '../utils/themes';
 
 const Header = ({source, onPress}) => {
   return (

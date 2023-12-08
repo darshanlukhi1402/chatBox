@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {images} from '../../assets';
-import {colors} from '../../utils/colors';
+import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import Header from '../../components/Header';
 import Felids from '../../components/Felids';

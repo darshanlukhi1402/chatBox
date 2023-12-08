@@ -24,5 +24,12 @@ export const images = {
   settings: require('../assets/images/settings.png'),
   facebook: require('../assets/images/Facebook.png'),
   videoCall: require('../assets/images/videoCall.png'),
+  callFocus: require('../assets/images/callFocus.png'),
+  chatFocus: require('../assets/images/chatFocus.png'),
   microphone: require('../assets/images/microphone.png'),
+  chatUnFocus: require('../assets/images/chatUnFocus.png'),
+  callUnFocus: require('../assets/images/callUnFocus.png'),
+  contactsFocus: require('../assets/images/contactsFocus.png'),
+  settingsFocus: require('../assets/images/settingsFocus.png'),
+  settingsUnFocus: require('../assets/images/settingsUnFocus.png'),
 };

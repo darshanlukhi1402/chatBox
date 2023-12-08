@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {images} from '../../assets';
-import {colors} from '../../utils/colors';
+import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import Header from '../../components/Header';
 import Felids from '../../components/Felids';
@@ -35,7 +35,7 @@ const Login = () => {
           .signInWithEmailAndPassword(email, password)
           .then(async () => {
             await AsyncStorage.setItem('userAdded', 'user');
-            navigate('Home');
+            navigate('TabNavigation');
           });
       } else Alert.alert('Enter the All Data');
     } catch (err) {

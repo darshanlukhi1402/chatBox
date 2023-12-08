@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {fontSize, hp, wp} from '../utils/constant';
-import {colors} from '../utils/colors';
+import {colors} from '../utils/themes';
 
 const LineConstant = ({label, labelStyle}) => {
   return (

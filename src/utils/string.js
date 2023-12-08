@@ -1,6 +1,7 @@
 export const strings = {
   or: 'OR',
   home:'Home',
+  today : 'Today',
   log_in: 'Log in',
   password: 'Password',
   your_name: 'Your name',

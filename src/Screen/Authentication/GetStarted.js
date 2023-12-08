@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {colors} from '../../utils/colors';
+import {colors} from '../../utils/themes';
 import {fontSize, hp, wp} from '../../utils/constant';
 import {images} from '../../assets';
 import LineConstant from '../../components/LineConstant';

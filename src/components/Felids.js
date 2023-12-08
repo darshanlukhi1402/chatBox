@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {hp, wp} from '../utils/constant';
-import {colors} from '../utils/colors';
+import {colors} from '../utils/themes';
 
 const Felids = ({
   label,

@@ -5,16 +5,16 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {images} from '../assets';
-import {colors} from '../utils/colors';
-import {strings} from '../utils/string';
-import HeaderCon from '../components/HeaderCon';
-import {border, userData} from '../utils/dummy';
-import {fontSize, hp, wp} from '../utils/constant';
-import StatusLabel from '../components/StatusLabel';
+import {images} from '../../assets';
+import {colors} from '../../utils/themes';
+import {strings} from '../../utils/string';
+import {border, userData} from '../../utils/dummy';
+import {fontSize, hp, wp} from '../../utils/constant';
+import HeaderCon from '../../components/HeaderCon';
+import StatusLabel from '../../components/StatusLabel';
 import {useNavigation} from '@react-navigation/native';
 
-const Home = () => {
+const Message = () => {
   const [data, setData] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
 
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     top: hp(10),
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     paddingTop: hp(30),
   },
   statusUserName: {
@@ -173,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Message;

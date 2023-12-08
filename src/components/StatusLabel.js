@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
-import {colors} from '../utils/colors';
+import {colors} from '../utils/themes';
 import {fontSize, hp, wp} from '../utils/constant';
 
 const StatusLabel = ({

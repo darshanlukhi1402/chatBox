@@ -10,7 +10,7 @@ import {
 import {images} from '../assets';
 import {strings} from '../utils/string';
 import {fontSize, hp, wp} from '../utils/constant';
-import {colors} from '../utils/colors';
+import {colors} from '../utils/themes';
 
 const HeaderCon = ({rightSource, label, leftSource}) => {
   return (
