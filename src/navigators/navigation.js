@@ -7,6 +7,7 @@ import Login from '../Screen/Authentication/Login';
 import SignUp from '../Screen/Authentication/SignUp';
 import GetStarted from '../Screen/Authentication/GetStarted';
 import ChatScreen from '../Screen/ChatScreens/ChatScreen';
+import VideoCall from '../Screen/VideoCall/VideoCall';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const MainStackNavigator = ({value}) => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        <Stack.Screen name="VideoCall" component={VideoCall} />
       </Stack.Navigator>
     </NavigationContainer>
   );

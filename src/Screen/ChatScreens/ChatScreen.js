@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 
+import moment from 'moment';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -13,23 +14,19 @@ import {fontSize, hp, wp} from '../../utils/constant';
 import ChatTextInput from '../../components/ChatTextInput';
 
 const ChatScreen = () => {
-  const userRef = useRef(null)
+  const userRef = useRef(null);
   const user = useRoute().params;
   const {navigate, goBack} = useNavigation();
 
-  const [chatText, setChatText] = useState('');
   const [chat, setChat] = useState([]);
+  const [chatText, setChatText] = useState('');
 
   useEffect(() => {
     getMessagesData();
   }, []);
 
   const currentUserUid = auth().currentUser.uid;
-
-  const chatId =
-    currentUserUid > user.id
-      ? `${currentUserUid} - ${user.id}`
-      : `${user.id} - ${currentUserUid}`;
+  const chatId = currentUserUid > user.id ? `${currentUserUid} - ${user.id}` : `${user.id} - ${currentUserUid}`;
 
   const getMessagesData = () => {
     firestore()
@@ -71,12 +68,15 @@ const ChatScreen = () => {
     }
   };
 
+  const callPress = () => navigate('VideoCall');
+
   return (
     <View style={styles.container}>
       <ChatHeader
         userName={user.name}
         leftIcon={images.back}
         callIcon={images.calll}
+        callOnPress={callPress}
         userIcon={{uri: user.userDpUri}}
         videoCallIcon={images.videoCall}
         onlineStatus={strings.active_now}
@@ -88,23 +88,16 @@ const ChatScreen = () => {
           ref={userRef}
           showsVerticalScrollIndicator={false}
           bounces={false}
-          renderItem={({item}) => {
+          renderItem={({item, index}) => {
             return (
-              <View
-                style={[
-                  styles.chatTextStyle,
-                  currentUserUid == item?.sentBy
-                    ? styles.rightChat
-                    : styles.leftChat,
-                ]}>
-                <Text
-                  style={{
-                    color:
-                      currentUserUid == item?.sentBy
-                        ? colors.white
-                        : colors.backTintColor,
-                  }}>
-                  {item.Messages}
+              <View style={{margin: hp(12)}}>
+                <View style={[styles.chatTextStyle, currentUserUid == item?.sentBy ? styles.rightChat : styles.leftChat]}>
+                  <Text style={{color:currentUserUid == item?.sentBy? colors.white: colors.backTintColor}}>
+                    {item.Messages}
+                  </Text>
+                </View>
+                <Text style={{ alignSelf: currentUserUid == item?.sentBy ? 'flex-end' : 'flex-start', marginTop: hp(1)}}>
+                  {moment(item.createdAt.toDate()).format('hh:mm')}
                 </Text>
               </View>
             );
@@ -124,9 +117,8 @@ const ChatScreen = () => {
 
 const styles = StyleSheet.create({
   chatTextStyle: {
-    alignSelf: 'flex-end',
-    margin: hp(12),
     padding: hp(12),
+    alignSelf: 'flex-end',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
@@ -140,15 +132,15 @@ const styles = StyleSheet.create({
   },
   leftChat: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.white,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 10,
+    backgroundColor: colors.white,
   },
   rightChat: {
-    borderTopRightRadius: 0,
     alignSelf: 'flex-end',
-    backgroundColor: '#3D4A7A',
+    borderTopRightRadius: 0,
     borderTopLeftRadius: 10,
+    backgroundColor: colors.textColor,
   },
 });
 

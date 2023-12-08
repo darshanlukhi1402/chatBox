@@ -8,9 +8,11 @@ const ChatHeader = ({
   userIcon,
   callIcon,
   userName,
+  callOnPress,
   onlineStatus,
   videoCallIcon,
   leftIconOnPress,
+  videoCallOnPress,
 }) => {
   return (
     <View style={styles.containerStyle}>
@@ -22,10 +24,10 @@ const ChatHeader = ({
         <Text style={styles.userNameStyle}>{userName}</Text>
         <Text style={styles.onlineStatusStyle}>{onlineStatus}</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={callOnPress}>
         <Image source={callIcon} style={styles.callIconStyle} />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={videoCallOnPress}>
         <Image source={videoCallIcon} style={styles.videoCallIconStyle} />
       </TouchableOpacity>
     </View>
