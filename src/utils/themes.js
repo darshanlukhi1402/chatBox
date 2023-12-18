@@ -16,4 +16,5 @@ export const colors = {
   chatBackgroundColor: '#F2F7FB',
   searchBackgroundColor: '#ffffff30',
   subMessageText: 'rgba(121, 124, 123, 0.50)',
+  modalBackGroundColor: '#F2F8F7'
 };

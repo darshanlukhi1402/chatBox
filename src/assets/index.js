@@ -18,6 +18,7 @@ export const images = {
   my_user: require('../assets/images/user.png'),
   search: require('../assets/images/Search.png'),
   camera: require('../assets/images/camera.png'),
+  remove: require('../assets/images/remove.png'),
   Message: require('../assets/images/Message.png'),
   gPay: require('../assets/images/Google_Pay.png'),
   Contacts: require('../assets/images/Contacts.png'),
@@ -32,4 +33,10 @@ export const images = {
   contactsFocus: require('../assets/images/contactsFocus.png'),
   settingsFocus: require('../assets/images/settingsFocus.png'),
   settingsUnFocus: require('../assets/images/settingsUnFocus.png'),
+  doc: require('../assets/images/doc.png'),
+  media: require('../assets/images/media.png'),
+  pin: require('../assets/images/pin.png'),
+  selectedImages: require('../assets/images/selectedImages.png'),
+  selectedPdf: require('../assets/images/selectedPdf.png'),
+  selectedVideo: require('../assets/images/selectedVideo.png'),
 };

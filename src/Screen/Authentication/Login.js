@@ -25,6 +25,7 @@ import LinearButton from '../../components/LinearButton';
 
 const Login = () => {
   const {navigate, goBack} = useNavigation();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

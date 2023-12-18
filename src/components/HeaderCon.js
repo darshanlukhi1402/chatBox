@@ -12,13 +12,13 @@ import {strings} from '../utils/string';
 import {fontSize, hp, wp} from '../utils/constant';
 import {colors} from '../utils/themes';
 
-const HeaderCon = ({rightSource, label, leftSource}) => {
+const HeaderCon = ({rightSource, label, leftSource, headerTitleStyle}) => {
   return (
     <SafeAreaView style={styles.headerConStyle}>
       <View style={styles.imageSubView}>
         <Image source={leftSource} style={styles.searchIconStyle} />
       </View>
-      <Text style={styles.headerTitleStyle}>{label}</Text>
+      <Text style={[styles.headerTitleStyle,headerTitleStyle]}>{label}</Text>
       <Image source={rightSource} style={styles.userIconStyle} />
     </SafeAreaView>
   );

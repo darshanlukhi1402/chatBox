@@ -22,4 +22,5 @@ export const strings = {
   getStartedTitle: 'Connect friends easily & quickly',
   getStartedTitleMessage:
     'Our chat app is the perfect way to stay connected with friends and family.',
+    share_Content : 'Share Content'
 };

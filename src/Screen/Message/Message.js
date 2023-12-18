@@ -6,11 +6,11 @@ import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {images} from '../../assets';
+import {border} from '../../utils/dummy';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
-import {border, userData} from '../../utils/dummy';
-import {fontSize, hp, wp} from '../../utils/constant';
 import HeaderCon from '../../components/HeaderCon';
+import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
 import {useNavigation} from '@react-navigation/native';
 
@@ -32,7 +32,6 @@ const Message = () => {
       .orderBy('created', 'desc')
       .onSnapshot(querySnapshot => {
         const users = [];
-
         querySnapshot.forEach(documentSnapshot => {
           users.push({
             ...documentSnapshot.data(),
@@ -152,24 +151,24 @@ const styles = StyleSheet.create({
   listConView: {
     flex: 1,
     top: hp(10),
+    paddingTop: hp(30),
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     backgroundColor: colors.white,
-    paddingTop: hp(30),
   },
   statusUserName: {
-    fontFamily: 'Poppins-Regular',
-    color: colors.white,
     marginTop: hp(7),
     textAlign: 'center',
+    color: colors.white,
+    fontFamily: 'Poppins-Regular',
   },
   userStatusBorderStyle: {
     padding: hp(10),
-    borderRadius: hp(80 / 2),
+    overflow: 'hidden',
+    alignItems: 'center',
     borderWidth: wp(1.5),
     justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    borderRadius: hp(80 / 2),
   },
 });
 

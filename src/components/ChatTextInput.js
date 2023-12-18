@@ -19,24 +19,43 @@ const ChatTextInput = ({
   sendOnPress,
   camerOnPress,
   voiceOnPress,
+  content,
 }) => {
+  console.log('content', content?.fileCopyUri);
   return (
     <View style={styles.containerStyle}>
       <TouchableOpacity onPress={leftOnPress}>
-        <Image source={images.clip} style={styles.iconStyle}></Image>
+        <Image source={images.clip} style={styles.iconStyle} />
       </TouchableOpacity>
       <View style={styles.chatTextInputStyle}>
-        <TextInput
-          value={value}
-          onFocus={onFocus}
-          style={styles.chatStyle}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          placeholderTextColor={colors.onlineStatus}
-          autoCapitalize='none'
-        />
+        {content?.type ? (
+          <View style={{flex: 1}}>
+            <Image
+              source={
+                content?.type == 'image/jpeg'
+                  ? images.selectedImages
+                  : images.selectedVideo
+              }
+              style={styles.selectedContentStyle}
+            />
+          </View>
+        ) : (
+          <TextInput
+            value={value}
+            onFocus={onFocus}
+            style={styles.chatStyle}
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            placeholderTextColor={colors.onlineStatus}
+            autoCapitalize="none"
+          />
+        )}
         <TouchableOpacity onPress={sendOnPress}>
-          <Image source={images.send} style={styles.iconStyle} tintColor={colors.sendButtonColor} />
+          <Image
+            source={images.send}
+            style={styles.iconStyle}
+            tintColor={colors.sendButtonColor}
+          />
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={camerOnPress} style={{marginLeft: wp(16)}}>
@@ -50,6 +69,10 @@ const ChatTextInput = ({
 };
 
 const styles = StyleSheet.create({
+  selectedContentStyle: {
+    height: hp(20),
+    width: hp(20),
+  },
   containerStyle: {
     height: hp(90),
     marginHorizontal: wp(24),
