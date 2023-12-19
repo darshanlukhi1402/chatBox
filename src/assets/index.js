@@ -40,3 +40,8 @@ export const images = {
   selectedPdf: require('../assets/images/selectedPdf.png'),
   selectedVideo: require('../assets/images/selectedVideo.png'),
 };
+
+
+export const lottie = {
+  no_user : require('../assets/Lottie/no_user.json')
+}

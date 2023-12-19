@@ -36,6 +36,7 @@ const ChatScreen = () => {
   const [chatText, setChatText] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [contentData, setContentData] = useState('');
+  const [contentPdfData, setContentPdfData] = useState('');
   const [contentDataType, setContentDataType] = useState('');
   const [dow_contentData, setDowContentData] = useState('');
 
@@ -48,7 +49,7 @@ const ChatScreen = () => {
 
   useEffect(() => {
     getMessagesData();
-  }, []);
+  }, [contentDataType]);
 
   const currentUserUid = auth().currentUser.uid;
   const chatId =
@@ -65,42 +66,6 @@ const ChatScreen = () => {
       });
   };
 
-  const onSendMessagePress = async () => {
-    const content_data = await uploadContent();
-    const obj = {
-      isSeen: false,
-      sentTo: user.id,
-      Messages: chatText && chatText,
-      contentType: contentDataType,
-      content: content_data,
-      sentBy: currentUserUid,
-      createdAt: firestore.Timestamp.fromDate(new Date()),
-    };
-    try {
-      if (chat.length > 0) {
-        await firestore()
-          .collection('userChatMessages')
-          .doc(chatId)
-          .update({chat: [...chat, obj]})
-          .then(() => {
-            setChatText('');
-            setContentData('');
-          });
-      } else {
-        await firestore()
-          .collection('userChatMessages')
-          .doc(chatId)
-          .set({chat: [obj]})
-          .then(() => {
-            setChatText('');
-            setContentData('');
-          });
-      }
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
   const onChatLongPress = () => {
     console.log('11111');
   };
@@ -111,19 +76,28 @@ const ChatScreen = () => {
   };
 
   const contentOnPress = async name => {
-    if (name == 'Media' || 'Documents') {
+    if (name == 'Media') {
       try {
         const res = await DocumentPicker.pickSingle({
-          type: [
-            DocumentPicker.types.pdf,
-            DocumentPicker.types.video,
-            DocumentPicker.types.images,
-          ],
+          type: [DocumentPicker.types.video, DocumentPicker.types.images],
           copyTo: 'cachesDirectory',
         });
+        console.log('res', res);
         setContentData(res);
         setContentDataType(res?.type);
         setModalVisible(!isModalVisible);
+      } catch (error) {
+        console.log(err);
+      }
+    } else if (name == 'Documents') {
+      try {
+        const res = await DocumentPicker.pickSingle({
+          type: [DocumentPicker.types.pdf],
+          copyTo: 'cachesDirectory',
+        });
+        setContentDataType(res?.type);
+        setModalVisible(!isModalVisible);
+        setContentPdfData(res?.fileCopyUri);
       } catch (error) {
         console.log(err);
       }
@@ -135,13 +109,51 @@ const ChatScreen = () => {
     else {
       try {
         const response = storage().ref(`/UsersProfileIcon/`);
-        const put = await response.putFile(contentData.fileCopyUri);
         const url = await response.getDownloadURL();
         setDowContentData(url);
         return url;
       } catch (err) {
         console.log('err', err);
       }
+    }
+  };
+
+  const onSendMessagePress = async () => {
+    const content_data = await uploadContent();
+    const obj = {
+      isSeen: false,
+      sentTo: user.id,
+      sentBy: currentUserUid,
+      contentPdf: contentPdfData,
+      contentType: contentDataType,
+      Messages: chatText && chatText,
+      content: contentData && content_data,
+      createdAt: firestore.Timestamp.fromDate(new Date()),
+    };
+    try {
+      if (chat.length > 0) {
+        await firestore()
+          .collection('userChatMessages')
+          .doc(chatId)
+          .update({chat: [...chat, obj]})
+          .then(() => {
+            setChatText('');
+            setContentData('');
+            setContentPdfData('');
+          });
+      } else {
+        await firestore()
+          .collection('userChatMessages')
+          .doc(chatId)
+          .set({chat: [obj]})
+          .then(() => {
+            setChatText('');
+            setContentData('');
+            setContentPdfData('');
+          });
+      }
+    } catch (error) {
+      console.log('error', error);
     }
   };
 
@@ -211,36 +223,38 @@ const ChatScreen = () => {
                         : styles.contentFledStyle1
                     }
                   />
-                )}
+                )} 
                 {item?.Messages && (
-                  <View
-                    style={[
-                      styles.chatTextStyle,
-                      currentUserUid == item?.sentBy
-                        ? styles.rightChat
-                        : styles.leftChat,
-                    ]}>
+                  <>
+                    <View
+                      style={[
+                        styles.chatTextStyle,
+                        currentUserUid == item?.sentBy
+                          ? styles.rightChat
+                          : styles.leftChat,
+                      ]}>
+                      <Text
+                        style={{
+                          ...styles.regularChatStyle,
+                          color:
+                            currentUserUid == item?.sentBy
+                              ? colors.white
+                              : colors.backTintColor,
+                        }}>
+                        {item.Messages}
+                      </Text>
+                    </View>
                     <Text
-                      style={{
-                        ...styles.regularChatStyle,
-                        color:
-                          currentUserUid == item?.sentBy
-                            ? colors.white
-                            : colors.backTintColor,
-                      }}>
-                      {item.Messages}
+                      style={[
+                        styles.dateShowStyle,
+                        currentUserUid == item?.sentBy
+                          ? styles.rightDate
+                          : styles.leftDate,
+                      ]}>
+                      {moment(item.createdAt.toDate()).format('hh:mm A')}
                     </Text>
-                  </View>
+                  </>
                 )}
-                <Text
-                  style={[
-                    styles.dateShowStyle,
-                    currentUserUid == item?.sentBy
-                      ? styles.rightDate
-                      : styles.leftDate,
-                  ]}>
-                  {moment(item.createdAt.toDate()).format('hh:mm')}
-                </Text>
               </TouchableOpacity>
             );
           }}
@@ -254,7 +268,7 @@ const ChatScreen = () => {
         sendOnPress={onSendMessagePress}
         value={chatText}
         leftOnPress={shareOnPress}
-        content={contentData}
+        content={contentDataType}
       />
       <ReactNativeModal
         animationIn={'slideInUp'}
@@ -388,7 +402,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   dateShowStyle: {
-    marginTop: hp(1),
+    marginTop: hp(4),
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: fontSize(10),
   },
   modalStyle: {
     justifyContent: 'flex-end',

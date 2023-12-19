@@ -1,22 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 
+import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {images} from '../../assets';
+import {images, lottie} from '../../assets';
 import {border} from '../../utils/dummy';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import HeaderCon from '../../components/HeaderCon';
 import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
-import {useNavigation} from '@react-navigation/native';
 
 const Message = () => {
   const [data, setData] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
+  const [searchFunctionality, setSearchFunctionality] = useState(false);
 
   const {navigate} = useNavigation();
 
@@ -81,6 +91,19 @@ const Message = () => {
     navigate('ChatScreen', user);
   };
 
+  const handleSearch = text => {
+    setSearchText(text);
+    const filteredData = data.filter(item =>
+      item.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setSearchResults(filteredData);
+  };
+
+  const handleRemove = () => {
+    setSearchFunctionality(false);
+    setSearchText('');
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -88,11 +111,16 @@ const Message = () => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}
         style={[styles.container]}>
-        <HeaderCon
-          label={strings.home}
-          leftSource={images.search}
-          rightSource={{uri: currentUserData.userDpUri}}
-        />
+          <HeaderCon
+            label={strings.home}
+            searchValue={searchText}
+            leftSource={images.search}
+            onChangeSearchText={handleSearch}
+            searchStatus={searchFunctionality}
+            rightSource={{uri: currentUserData.userDpUri}}
+            searchOnPress={() => setSearchFunctionality(true)}
+            removeOnPress={handleRemove}
+          />
         <View style={styles.statusListStyle}>
           <FlatList
             data={data}
@@ -105,9 +133,25 @@ const Message = () => {
         </View>
         <View style={styles.listConView}>
           <FlatList
-            data={data}
+            data={searchText ? searchResults : data}
+            contentContainerStyle={{flexGrow: 1}}
             showsVerticalScrollIndicator={false}
             bounces={false}
+            ListEmptyComponent={() => {
+              return (
+                <View style={styles.emptyDataViewStyle}>
+                  <LottieView
+                    source={lottie.no_user}
+                    autoPlay
+                    loop
+                    style={styles.lottieStyle}
+                  />
+                  <Text style={styles.emptyDataStyle}>
+                    {strings.no_user_found}
+                  </Text>
+                </View>
+              );
+            }}
             renderItem={({item, index}) => {
               const currentUser = auth().currentUser.uid == item.id;
               return (
@@ -134,6 +178,20 @@ const Message = () => {
 };
 
 const styles = StyleSheet.create({
+  lottieStyle: {
+    height: hp(150),
+    width: hp(150),
+  },
+  emptyDataViewStyle: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyDataStyle: {
+    fontSize: fontSize(20),
+    color: colors.buttonFirstColor,
+    fontFamily: 'Poppins-Bold',
+  },
   container: {
     flex: 1,
   },

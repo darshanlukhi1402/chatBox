@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {LogBox, Text, TextInput} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -14,13 +13,9 @@ const App = () => {
 
   const getData = async () => {
     try {
-      await AsyncStorage.getItem('userAdded').then(res => {
-        if (res) {
-          setUserExist(res);
-        } else {
-          setUserExist(null);
-        }
-      });
+      await AsyncStorage.getItem('userAdded').then(res =>
+        res ? setUserExist(res) : setUserExist(null),
+      );
     } catch (error) {
       console.log(error);
     }

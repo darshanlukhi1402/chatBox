@@ -13,27 +13,28 @@ import {colors} from '../utils/themes';
 const ChatTextInput = ({
   value,
   onFocus,
+  content,
   onChangeText,
   placeholder,
   leftOnPress,
   sendOnPress,
   camerOnPress,
   voiceOnPress,
-  content,
 }) => {
-  console.log('content', content?.fileCopyUri);
   return (
     <View style={styles.containerStyle}>
       <TouchableOpacity onPress={leftOnPress}>
         <Image source={images.clip} style={styles.iconStyle} />
       </TouchableOpacity>
       <View style={styles.chatTextInputStyle}>
-        {content?.type ? (
+        {content ? (
           <View style={{flex: 1}}>
             <Image
               source={
-                content?.type == 'image/jpeg'
+                content == 'image/jpeg'
                   ? images.selectedImages
+                  : content == 'application/pdf'
+                  ? images.selectedPdf
                   : images.selectedVideo
               }
               style={styles.selectedContentStyle}
