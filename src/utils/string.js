@@ -1,9 +1,12 @@
 export const strings = {
   or: 'OR',
   home: 'Home',
+  calls:'Calls',
   today: 'Today',
   log_in: 'Log in',
+  contacts:'Contacts',
   password: 'Password',
+  settings :'Settings',
   your_name: 'Your name',
   your_email: 'Your email',
   active_now: 'Active now',

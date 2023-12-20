@@ -1,4 +1,7 @@
 {
   "name": "chatBox",
-  "displayName": "chatBox"
+  "displayName": "chatBox",
+  "plugins": [
+    "@notifee/react-native"
+  ]
 }

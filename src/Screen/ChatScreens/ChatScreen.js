@@ -79,29 +79,29 @@ const ChatScreen = () => {
     if (name == 'Media') {
       try {
         const res = await DocumentPicker.pickSingle({
-          type: [DocumentPicker.types.video, DocumentPicker.types.images],
+          type: [DocumentPicker.types.images],
           copyTo: 'cachesDirectory',
         });
-        console.log('res', res);
         setContentData(res);
         setContentDataType(res?.type);
         setModalVisible(!isModalVisible);
       } catch (error) {
         console.log(err);
       }
-    } else if (name == 'Documents') {
-      try {
-        const res = await DocumentPicker.pickSingle({
-          type: [DocumentPicker.types.pdf],
-          copyTo: 'cachesDirectory',
-        });
-        setContentDataType(res?.type);
-        setModalVisible(!isModalVisible);
-        setContentPdfData(res?.fileCopyUri);
-      } catch (error) {
-        console.log(err);
-      }
-    }
+    } 
+    // else if (name == 'Documents') {
+    //   try {
+    //     const res = await DocumentPicker.pickSingle({
+    //       type: [DocumentPicker.types.pdf],
+    //       copyTo: 'cachesDirectory',
+    //     });
+    //     setContentDataType(res?.type);
+    //     setModalVisible(!isModalVisible);
+    //     setContentPdfData(res?.fileCopyUri);
+    //   } catch (error) {
+    //     console.log(err);
+    //   }
+    // }
   };
 
   const uploadContent = async () => {
@@ -124,7 +124,7 @@ const ChatScreen = () => {
       isSeen: false,
       sentTo: user.id,
       sentBy: currentUserUid,
-      contentPdf: contentPdfData,
+      // contentPdf: contentPdfData,
       contentType: contentDataType,
       Messages: chatText && chatText,
       content: contentData && content_data,
@@ -140,9 +140,10 @@ const ChatScreen = () => {
             setChatText('');
             setContentData('');
             setContentPdfData('');
+            setContentDataType('')
           });
-      } else {
-        await firestore()
+        } else {
+          await firestore()
           .collection('userChatMessages')
           .doc(chatId)
           .set({chat: [obj]})
@@ -150,6 +151,7 @@ const ChatScreen = () => {
             setChatText('');
             setContentData('');
             setContentPdfData('');
+            setContentDataType('')
           });
       }
     } catch (error) {

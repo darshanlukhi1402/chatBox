@@ -4,7 +4,7 @@ import {fontSize, hp, wp} from '../utils/constant';
 import {colors} from '../utils/themes';
 import {images} from '../assets';
 
-const HeaderCon = ({ rightSource, label, leftSource, headerTitleStyle, searchOnPress, searchStatus, onChangeSearchText, removeOnPress, searchValue}) => {
+const HeaderCon = ({ rightSource, label, leftSource, headerTitleStyle, searchOnPress, searchStatus, onChangeSearchText, removeOnPress, searchValue, leftIcon}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const HeaderCon = ({ rightSource, label, leftSource, headerTitleStyle, searchOnP
     <>
       {!searchStatus ? (
         <SafeAreaView style={styles.headerConStyle}>
-          <TouchableOpacity style={styles.imageSubView} onPress={searchOnPress}>
+          <TouchableOpacity style={leftIcon && styles.imageSubView} onPress={searchOnPress}>
             <Image source={leftSource} style={styles.searchIconStyle} />
           </TouchableOpacity>
           <Text style={[styles.headerTitleStyle, headerTitleStyle]}>{label}</Text>

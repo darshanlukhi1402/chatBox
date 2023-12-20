@@ -13,10 +13,10 @@ import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {images, lottie} from '../../assets';
 import {border} from '../../utils/dummy';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
+import {images, lottie} from '../../assets';
 import HeaderCon from '../../components/HeaderCon';
 import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
@@ -120,6 +120,7 @@ const Message = () => {
             rightSource={{uri: currentUserData.userDpUri}}
             searchOnPress={() => setSearchFunctionality(true)}
             removeOnPress={handleRemove}
+            leftIcon
           />
         <View style={styles.statusListStyle}>
           <FlatList
