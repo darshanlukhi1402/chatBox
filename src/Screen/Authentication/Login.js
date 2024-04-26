@@ -3,14 +3,14 @@ import {
   View,
   Text,
   Image,
-  Alert,
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -22,31 +22,71 @@ import Felids from '../../components/Felids';
 import {fontSize, hp, wp} from '../../utils/constant';
 import LineConstant from '../../components/LineConstant';
 import LinearButton from '../../components/LinearButton';
+import ErrorModal from '../../components/ErrorModal';
 
 const Login = () => {
-  const {navigate, goBack} = useNavigation();
-  
+  const {navigate, goBack, dispatch} = useNavigation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState({visible: false, message: ''});
 
   const handleLogin = async () => {
     try {
-      if (email.length > 0 && password.length > 0) {
-        await auth()
-          .signInWithEmailAndPassword(email, password)
-          .then(async () => {
-            await AsyncStorage.setItem('userAdded', 'user');
-            navigate('TabNavigation');
-          });
-      } else Alert.alert('Enter the All Data');
-    } catch (err) {
-      console.log('error ----> ', err.message);
+      if (email.length === 0 || password.length === 0) {
+        Alert.alert('Enter the All Data');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setEmailError('Invalid email address');
+        return;
+      } else {
+        setEmailError('');
+      }
+
+      if (password.length < 6) {
+        setPasswordError('Password must be at least 6 characters');
+        return;
+      } else {
+        setPasswordError('');
+      }
+
+      await auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(async () => {
+          await AsyncStorage.setItem('userAdded', 'user');
+          dispatch(StackActions.replace('TabNavigation'));
+        })
+        .catch(error => {
+          setError({visible: true, message: getErrorMessage(error)});
+        });
+    } catch (err) {}
+  };
+
+  const getErrorMessage = error => {
+    switch (error.code) {
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        return 'Invalid email address or password';
+      case 'auth/invalid-login':
+        return 'Invalid login credentials. Please check your email and password.';
+      default:
+        return 'An error occurred while logging in. Please try again later.';
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Header source={images.back} onPress={() => goBack()} />
+      <ErrorModal
+        visible={error.visible}
+        message={error.message}
+        onClose={() => setError({visible: false})}
+      />
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.headerStyle}>
           <Text style={styles.loinTextStyle}>{strings.log_in_chatBox}</Text>
@@ -62,16 +102,22 @@ const Login = () => {
           label={strings.your_email}
           onChangeText={text => {
             setEmail(text);
+            setEmailError('');
           }}
           autoCapitalize={false}
+          error={emailError}
+          value={email}
         />
         <Felids
           label={strings.password}
           onChangeText={text => {
             setPassword(text);
+            setPasswordError('');
           }}
           secureTextEntry
           autoCapitalize={false}
+          error={passwordError}
+          value={password}
         />
         <View style={styles.downStyle}>
           <LinearButton label={strings.log_in} onPress={handleLogin} />
@@ -102,7 +148,7 @@ const styles = StyleSheet.create({
   },
   forgotStyle: {
     color: colors.textColor,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-Medium',
     fontSize: fontSize(11),
   },
   loginIconView: {

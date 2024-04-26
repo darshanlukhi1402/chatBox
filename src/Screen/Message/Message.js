@@ -67,7 +67,7 @@ const Message = () => {
   };
 
   const statusRenderItem = ({item, index}) => {
-    const currentUser = auth().currentUser.uid == item.id;
+    const currentUser = auth()?.currentUser?.uid == item?.id;
     return (
       !currentUser && (
         <View style={{marginHorizontal: wp(8.5)}}>

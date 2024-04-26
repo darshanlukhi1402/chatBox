@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   labelView: {
     marginHorizontal: wp(24),
     alignItems: 'center',
-    borderWidth: 1,
     borderRadius: hp(15),
   },
   labelStyle: {

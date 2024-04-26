@@ -1535,7 +1535,7 @@
 
 "@notifee/react-native@^7.8.2":
   version "7.8.2"
-  resolved "https://registry.yarnpkg.com/@notifee/react-native/-/react-native-7.8.2.tgz#72d3199ae830b4128ddaef3c1c2f11604759c9c4"
+  resolved "https://registry.npmjs.org/@notifee/react-native/-/react-native-7.8.2.tgz"
   integrity sha512-VG4IkWJIlOKqXwa3aExC3WFCVCGCC9BA55Ivg0SMRfEs+ruvYy/zlLANcrVGiPtgkUEryXDhA8SXx9+JcO8oLA==
 
 "@react-native-async-storage/async-storage@^1.19.5":
@@ -1795,7 +1795,7 @@
 
 "@react-native/normalize-color@*":
   version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native/normalize-color/-/normalize-color-2.1.0.tgz#939b87a9849e81687d3640c5efa2a486ac266f91"
+  resolved "https://registry.npmjs.org/@react-native/normalize-color/-/normalize-color-2.1.0.tgz"
   integrity sha512-Z1jQI2NpdFJCVgpY+8Dq/Bt3d+YUi1928Q+/CZm/oh66fzM0RUl54vvuXlPJKybH4pdCZey1eDTPaLHkMPNgWA==
 
 "@react-native/normalize-colors@*":
@@ -1818,7 +1818,7 @@
 
 "@react-navigation/bottom-tabs@^6.5.11":
   version "6.5.11"
-  resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-6.5.11.tgz#b6e67a3aa19e60ed9c1139fa0253586c479832d5"
+  resolved "https://registry.npmjs.org/@react-navigation/bottom-tabs/-/bottom-tabs-6.5.11.tgz"
   integrity sha512-CBN/NOdxnMvmjw+AJQI1kltOYaClTZmGec5pQ3ZNTPX86ytbIOylDIITKMfTgHZcIEFQDymx1SHeS++PIL3Szw==
   dependencies:
     "@react-navigation/elements" "^1.3.21"
@@ -2976,7 +2976,7 @@ deprecated-react-native-prop-types@4.1.0:
 
 deprecated-react-native-prop-types@^2.2.0:
   version "2.3.0"
-  resolved "https://registry.yarnpkg.com/deprecated-react-native-prop-types/-/deprecated-react-native-prop-types-2.3.0.tgz#c10c6ee75ff2b6de94bb127f142b814e6e08d9ab"
+  resolved "https://registry.npmjs.org/deprecated-react-native-prop-types/-/deprecated-react-native-prop-types-2.3.0.tgz"
   integrity sha512-pWD0voFtNYxrVqvBMYf5gq3NA2GCpfodS1yNynTPc93AYA/KEMGeWDqqeUB6R2Z9ZofVhks2aeJXiuQqKNpesA==
   dependencies:
     "@react-native/normalize-color" "*"
@@ -3031,7 +3031,7 @@ electron-to-chromium@^1.4.535:
 
 eme-encryption-scheme-polyfill@^2.0.1:
   version "2.1.1"
-  resolved "https://registry.yarnpkg.com/eme-encryption-scheme-polyfill/-/eme-encryption-scheme-polyfill-2.1.1.tgz#91c823ed584e8ec5a9f03a6a676def8f80c57a4c"
+  resolved "https://registry.npmjs.org/eme-encryption-scheme-polyfill/-/eme-encryption-scheme-polyfill-2.1.1.tgz"
   integrity sha512-njD17wcUrbqCj0ArpLu5zWXtaiupHb/2fIUQGdInf83GlI+Q6mmqaPGLdrke4savKAu15J/z1Tg/ivDgl14g0g==
 
 emittery@^0.13.1:
@@ -4786,7 +4786,7 @@ jsonfile@^4.0.0:
 
 keymirror@^0.1.1:
   version "0.1.1"
-  resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+  resolved "https://registry.npmjs.org/keymirror/-/keymirror-0.1.1.tgz"
   integrity sha512-vIkZAFWoDijgQT/Nvl2AHCMmnegN2ehgTPYuyy2hWQkQSntI0S7ESYqdLkoSe1HyEBFHHkCgSIvVdSEiWwKvCg==
 
 keyv@^4.5.3:
@@ -4897,7 +4897,7 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1, loose-envify@^1.4
 
 lottie-react-native@^6.4.1:
   version "6.4.1"
-  resolved "https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-6.4.1.tgz#0b3202a0fb914db4f236c4b0658f21b97cb997d7"
+  resolved "https://registry.npmjs.org/lottie-react-native/-/lottie-react-native-6.4.1.tgz"
   integrity sha512-DPsUPSxLc3ZffeRQ/AtKtcUl4PzmJEEPt965tNpWSE4vhDkoGFxRe0TPZ45xX8/3HbGsUl48aMdLlAu28MEDsQ==
 
 lru-cache@^5.1.1:
@@ -5819,17 +5819,27 @@ react-lifecycles-compat@^3.0.2:
 
 react-native-animatable@1.3.3:
   version "1.3.3"
-  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
+  resolved "https://registry.npmjs.org/react-native-animatable/-/react-native-animatable-1.3.3.tgz"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
   dependencies:
     prop-types "^15.7.2"
 
 react-native-animatable@^1.4.0:
   version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.4.0.tgz#05a259e1566081ce7d3f6fba1e92edc65f5c6160"
+  resolved "https://registry.npmjs.org/react-native-animatable/-/react-native-animatable-1.4.0.tgz"
   integrity sha512-DZwaDVWm2NBvBxf7I0wXKXLKb/TxDnkV53sWhCvei1pRyTX3MVFpkvdYBknNBqPrxYuAIlPxEp7gJOidIauUkw==
   dependencies:
     prop-types "^15.8.1"
+
+react-native-biometric-auth@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-biometric-auth/-/react-native-biometric-auth-0.0.0.tgz#433e5cc849f20473ead53e59c4595814c96a9910"
+  integrity sha512-+BFnhPYAM0ACMUzZB/CmUQneJuHGkxzzj47Kpb/ukKgx3ThFixp2A77tM6S5VYXVlrbwZlAqwV6DjJgoDyDwYg==
+
+react-native-biometrics@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-biometrics/-/react-native-biometrics-3.0.1.tgz#23c5a0bdbae1fcb1e08b22936223fe0fc4af846e"
+  integrity sha512-Ru80gXRa9KG04sl5AB9HyjLjVbduhqZVjA+AiOSGqr+fNqCDmCu9y5WEksnjbnniNLmq1yGcw+qcLXmR1ddLDQ==
 
 react-native-document-picker@^9.0.1:
   version "9.0.1"
@@ -5879,7 +5889,7 @@ react-native-linear-gradient@^2.8.3:
 
 react-native-modal@^13.0.1:
   version "13.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-13.0.1.tgz#691f1e646abb96fa82c1788bf18a16d585da37cd"
+  resolved "https://registry.npmjs.org/react-native-modal/-/react-native-modal-13.0.1.tgz"
   integrity sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==
   dependencies:
     prop-types "^15.6.2"
@@ -5892,6 +5902,11 @@ react-native-modalbox@^1.7.1:
   dependencies:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
+
+react-native-notification-sounds@^0.5.8:
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/react-native-notification-sounds/-/react-native-notification-sounds-0.5.8.tgz#f65f6da1a7c453a3a4f5212629cbe97731d305fb"
+  integrity sha512-pvqJPwCGMvJzeCXMGlkIfbZP3t5vVJw2+8H83SN08g9L3l528BMnlRf99MArJN0qJwusxGFvKat6srNzPayAnA==
 
 react-native-reanimated@^3.5.4:
   version "3.5.4"
@@ -5936,6 +5951,11 @@ react-native-screens@^3.27.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-splash-screen@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
+  integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
+
 react-native-status-bar-height@^2.6.0:
   version "2.6.0"
   resolved "https://registry.npmjs.org/react-native-status-bar-height/-/react-native-status-bar-height-2.6.0.tgz"
@@ -5943,7 +5963,7 @@ react-native-status-bar-height@^2.6.0:
 
 react-native-video@^5.2.1:
   version "5.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-5.2.1.tgz#a17e856759d7e17eee9cbd9df0d05ba22e88d457"
+  resolved "https://registry.npmjs.org/react-native-video/-/react-native-video-5.2.1.tgz"
   integrity sha512-aJlr9MeTuQ0LpZ4n+EC9RvhoKeiPbLtI2Rxy8u7zo/wzGevbRpWHSBj9xZ5YDBXnAVXzuqyNIkGhdw7bfdIBZw==
   dependencies:
     deprecated-react-native-prop-types "^2.2.0"
@@ -6364,7 +6384,7 @@ setprototypeof@1.2.0:
 
 shaka-player@^2.5.9:
   version "2.5.23"
-  resolved "https://registry.yarnpkg.com/shaka-player/-/shaka-player-2.5.23.tgz#db92d1c6cf2314f0180a2cec11b0e2f2560336f5"
+  resolved "https://registry.npmjs.org/shaka-player/-/shaka-player-2.5.23.tgz"
   integrity sha512-3MC9k0OXJGw8AZ4n/ZNCZS2yDxx+3as5KgH6Tx4Q5TRboTBBCu6dYPI5vp1DxKeyU12MBN1Zcbs7AKzXv2EnCg==
   dependencies:
     eme-encryption-scheme-polyfill "^2.0.1"

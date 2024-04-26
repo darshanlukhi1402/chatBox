@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
+import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import MainStackNavigator from './src/navigators/navigation';
@@ -8,6 +9,7 @@ const App = () => {
   const [userExist, setUserExist] = useState('');
 
   useEffect(() => {
+    SplashScreen.hide();
     getData();
   }, []);
 

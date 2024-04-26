@@ -9,6 +9,7 @@ const Felids = ({
   autoCapitalize,
   secureTextEntry,
   value,
+  error, // New prop for error message
 }) => {
   return (
     <View style={styles.con}>
@@ -20,6 +21,7 @@ const Felids = ({
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
       />
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -34,6 +36,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CDD1D0',
     paddingBottom: hp(5),
     fontFamily: 'Poppins-Regular',
+  },
+  errorText: {
+    fontFamily: 'Poppins-Regular',
+    color: 'red',
+    fontSize: 12,
+    marginTop: 5,
   },
   con: {
     height: hp(58),

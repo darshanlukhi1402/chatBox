@@ -17,6 +17,7 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import DocumentPicker from 'react-native-document-picker';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import notifee from '@notifee/react-native';
 
 import {images} from '../../assets';
 import {colors} from '../../utils/themes';
@@ -75,6 +76,17 @@ const ChatScreen = () => {
     setModalVisible(true);
   };
 
+  const displayNotification = async () => {
+    // Example notification configuration
+    const notification = await notifee.buildNotification({
+      title: 'New Message',
+      body: 'You have received a new message.',
+    });
+
+    // Display the notification
+    await notifee.displayNotification(notification);
+  };
+
   const contentOnPress = async name => {
     if (name == 'Media') {
       try {
@@ -86,7 +98,7 @@ const ChatScreen = () => {
         setContentDataType(res?.type);
         setModalVisible(!isModalVisible);
       } catch (error) {
-        console.log(err);
+        console.log(error);
       }
     } 
     // else if (name == 'Documents') {
@@ -119,6 +131,7 @@ const ChatScreen = () => {
   };
 
   const onSendMessagePress = async () => {
+    setChatText('');
     const content_data = await uploadContent();
     const obj = {
       isSeen: false,
@@ -154,6 +167,7 @@ const ChatScreen = () => {
             setContentDataType('')
           });
       }
+      displayNotification();
     } catch (error) {
       console.log('error', error);
     }

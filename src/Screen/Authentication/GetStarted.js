@@ -18,9 +18,6 @@ import {useNavigation} from '@react-navigation/native';
 const GetStarted = () => {
   const {navigate} = useNavigation();
 
-  const handleApp = () => {
-    navigate('Login');
-  };
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -49,7 +46,7 @@ const GetStarted = () => {
         </TouchableOpacity>
         <View style={styles.loginStyle}>
           <Text style={styles.loginTextStyle}>{strings.existingAccount} </Text>
-          <TouchableOpacity onPress={handleApp}>
+          <TouchableOpacity onPress={() => navigate('Login')}>
             <Text style={[styles.loginTextStyle, styles.subText]}>
               {strings.log_in}
             </Text>
