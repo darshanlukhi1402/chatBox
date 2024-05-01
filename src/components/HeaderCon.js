@@ -36,7 +36,7 @@ const HeaderCon = ({ rightSource, label, leftSource, headerTitleStyle, searchOnP
         </SafeAreaView>
       ) : (
         <Animated.View style={[styles.searchView, { opacity: fadeAnim }]}>
-          <TextInput placeholder="Search User Name ..." style={styles.searchUserTextInputStyle} onChangeText={onChangeSearchText} placeholderTextColor={colors.buttonFirstColor} autoCapitalize='none' autoCorrect={false} value={searchValue}/>
+          <TextInput placeholder="Search ..." style={styles.searchUserTextInputStyle} onChangeText={onChangeSearchText} placeholderTextColor={colors.buttonFirstColor} autoCapitalize='none' autoCorrect={false} value={searchValue}/>
           <TouchableOpacity onPress={() => {
             Animated.timing(fadeAnim, { toValue: 0, duration: 500, easing: Easing.linear, useNativeDriver: false})
             .start(() => { removeOnPress(); fadeAnim.setValue(1) });

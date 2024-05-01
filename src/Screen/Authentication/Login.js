@@ -29,20 +29,19 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState({visible: false, message: ''});
 
   const handleLogin = async () => {
     try {
-      if (email.length === 0 || password.length === 0) {
-        Alert.alert('Enter the All Data');
-        return;
-      }
+      setLoading(true);
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         setEmailError('Invalid email address');
+        setLoading(false);
         return;
       } else {
         setEmailError('');
@@ -50,13 +49,14 @@ const Login = () => {
 
       if (password.length < 6) {
         setPasswordError('Password must be at least 6 characters');
+        setLoading(false);
         return;
       } else {
         setPasswordError('');
       }
 
       await auth()
-        .signInWithEmailAndPassword(email, password)
+        .signInWithEmailAndPassword(email.toLowerCase(), password)
         .then(async () => {
           await AsyncStorage.setItem('userAdded', 'user');
           dispatch(StackActions.replace('TabNavigation'));
@@ -64,6 +64,7 @@ const Login = () => {
         .catch(error => {
           setError({visible: true, message: getErrorMessage(error)});
         });
+      setLoading(false);
     } catch (err) {}
   };
 
@@ -106,7 +107,7 @@ const Login = () => {
           }}
           autoCapitalize={false}
           error={emailError}
-          value={email}
+          value={email.toLowerCase()}
         />
         <Felids
           label={strings.password}
@@ -120,7 +121,11 @@ const Login = () => {
           value={password}
         />
         <View style={styles.downStyle}>
-          <LinearButton label={strings.log_in} onPress={handleLogin} />
+          <LinearButton
+            label={strings.log_in}
+            onPress={handleLogin}
+            loading={loading}
+          />
           <TouchableOpacity
             style={styles.forgotView}
             onPress={() => {

@@ -8,6 +8,7 @@ export const strings = {
   password: 'Password',
   settings :'Settings',
   your_name: 'Your name',
+  my_Contact:'My Contact',
   your_email: 'Your email',
   active_now: 'Active now',
   share_Content: 'Share Content',

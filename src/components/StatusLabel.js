@@ -8,8 +8,12 @@ const StatusLabel = ({
   source,
   onPress,
   subLabel,
+  downBorder,
   PrimaryLabel,
+  subTextStyle,
   userImageStyle,
+  labelTextStyle,
+  highlightStyle,
   conStatusStyles,
   userStatusBorderStyle,
 }) => {
@@ -25,11 +29,15 @@ const StatusLabel = ({
           />
         </View>
         <View>
-          <Text style={styles.labelTextStyle}>{PrimaryLabel}</Text>
-          <Text style={styles.subTextStyle}>{subLabel}</Text>
+          <Text style={[styles.labelTextStyle, labelTextStyle]}>
+            {PrimaryLabel}
+          </Text>
+          <Text style={[styles.subTextStyle, subTextStyle]}>{subLabel}</Text>
         </View>
       </TouchableOpacity>
-      <View style={styles.highlightStyle}></View>
+      {downBorder && (
+        <View style={[styles.highlightStyle, highlightStyle]}></View>
+      )}
     </>
   );
 };

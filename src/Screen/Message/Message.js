@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, Image, FlatList, StyleSheet} from 'react-native';
 
 import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
@@ -111,17 +105,17 @@ const Message = () => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}
         style={[styles.container]}>
-          <HeaderCon
-            label={strings.home}
-            searchValue={searchText}
-            leftSource={images.search}
-            onChangeSearchText={handleSearch}
-            searchStatus={searchFunctionality}
-            rightSource={{uri: currentUserData.userDpUri}}
-            searchOnPress={() => setSearchFunctionality(true)}
-            removeOnPress={handleRemove}
-            leftIcon
-          />
+        <HeaderCon
+          leftIcon
+          label={strings.home}
+          searchValue={searchText}
+          leftSource={images.search}
+          removeOnPress={handleRemove}
+          onChangeSearchText={handleSearch}
+          searchStatus={searchFunctionality}
+          rightSource={{uri: currentUserData.userDpUri}}
+          searchOnPress={() => setSearchFunctionality(true)}
+        />
         <View style={styles.statusListStyle}>
           <FlatList
             data={data}
@@ -159,6 +153,7 @@ const Message = () => {
                 <>
                   {!currentUser && (
                     <StatusLabel
+                      downBorder
                       onPress={() => onUserPress(item)}
                       PrimaryLabel={item?.name}
                       userStatusBorderStyle={{

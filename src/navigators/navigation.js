@@ -13,7 +13,6 @@ import GetStarted from '../Screen/Authentication/GetStarted';
 const Stack = createNativeStackNavigator();
 
 const MainStackNavigator = ({value}) => {
-  console.log('value', value)
   return (
     <NavigationContainer>
       <Stack.Navigator

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -28,72 +28,59 @@ const SignUp = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('D12345');
-  const [conPassword, setConPassword] = useState('D12345');
+  const [password, setPassword] = useState('');
+  const [conPassword, setConPassword] = useState('');
 
-  // const [imageData, setImageData] = useState('');
-  // const [imgDownloadUrl, setImgDownloadUrl] = useState('');
-
-  // useEffect(() => {}, [email, name]);
-
-  // const pickImage = async () => {
-  //   try {
-  //     const res = await DocumentPicker.pickSingle({
-  //       type: [DocumentPicker.types.images],
-  //       copyTo: 'cachesDirectory',
-  //     });
-  //     setImageData(res);
-  //     Alert.alert('Image Selected Successfully');
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const uploadImage = async () => {
-  //   if (imageData.uri < 0) return Alert.alert('Enter the All Data');
-  //   else {
-  //     try {
-  //       const response = storage().ref(`/UsersProfileIcon/${name}`);
-  //       const put = await response.putFile(imageData.fileCopyUri);
-  //       console.log(put);
-  //       const url = await response.getDownloadURL();
-  //       setImgDownloadUrl(url);
-  //       return url;
-  //     } catch (err) {
-  //       console.log('err >---->', err);
-  //     }
-  //   }
-  // };
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [conPasswordError, setConPasswordError] = useState('');
 
   const handleSignup = async () => {
     try {
-      if (name && email && password && conPassword) {
-        const response = await auth().createUserWithEmailAndPassword(
-          email,
-          password,
-        );
-        console.log(response);
+      if (!name) {
+        setNameError('Please enter a name');
+        return;
+      }
 
-        // const imageUrl = await uploadImage();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setEmailError('Invalid email address');
+        return;
+      }
 
-        const userData = {
-          name: name,
-          email: email,
-          password: password,
-          // userDpUri: imageUrl,
-          id: response.user.uid,
-          confirm_password: conPassword,
-          created: firestore.Timestamp.fromDate(new Date()),
-        };
+      if (password.length < 6) {
+        setPasswordError('Password must be at least 6 characters');
+        return;
+      }
 
-        await firestore()
-          .collection('users')
-          .doc(response.user.uid)
-          .set(userData);
+      if (password !== conPassword) {
+        setConPasswordError('Passwords do not match');
+        return;
+      }
 
-        Alert.alert('Account Is Created ...');
-        navigate('Login');
-      } else Alert.alert('Enter the All Data');
+      const response = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+
+      const userData = {
+        name: name,
+        email: email.toLowerCase(),
+        password: password,
+        // userDpUri: imageUrl,
+        id: response.user.uid,
+        confirm_password: conPassword,
+        created: firestore.Timestamp.fromDate(new Date()),
+      };
+
+      await firestore()
+        .collection('users')
+        .doc(response.user.uid)
+        .set(userData);
+
+      Alert.alert('Success', 'Account created successfully');
+      navigate('Login');
     } catch (err) {
       console.log(err.message);
     }
@@ -114,30 +101,42 @@ const SignUp = () => {
           label={strings.your_name}
           onChangeText={text => {
             setName(text);
+            setNameError('');
           }}
+          error={nameError}
+          value={name}
         />
         <Felids
           label={strings.your_email}
           onChangeText={text => {
             setEmail(text);
+            setEmailError('');
           }}
           autoCapitalize={false}
+          error={emailError}
+          value={email.toLowerCase()}
         />
         <Felids
           label={strings.password}
           onChangeText={text => {
             setPassword(text);
+            setPasswordError('');
           }}
           secureTextEntry
           autoCapitalize={false}
+          error={passwordError}
+          value={password}
         />
         <Felids
           label={strings.confirm_password}
           onChangeText={text => {
             setConPassword(text);
+            setConPasswordError('');
           }}
           secureTextEntry
           autoCapitalize={false}
+          error={conPasswordError}
+          value={conPassword}
         />
         <View style={styles.downStyle}>
           <LinearButton
