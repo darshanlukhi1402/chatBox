@@ -28,13 +28,17 @@ export const settingData = [
     icon: images.notifications,
   },
   {
+    label: 'Storage and data',
+    sabLabel: 'Network usage, storage usage',
+    icon: images.storage,
+  },
+  {
     label: 'Help',
     sabLabel: 'Messages, group and others',
     icon: images.help,
   },
   {
-    label: 'Storage and data',
-    sabLabel: 'Network usage, storage usage',
-    icon: images.storage,
+    label: 'Invite a friend',
+    icon: images.friend,
   },
 ];

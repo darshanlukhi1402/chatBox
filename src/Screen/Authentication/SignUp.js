@@ -114,7 +114,7 @@ const SignUp = () => {
           }}
           autoCapitalize={false}
           error={emailError}
-          value={email.toLowerCase()}
+          value={email}
         />
         <Felids
           label={strings.password}

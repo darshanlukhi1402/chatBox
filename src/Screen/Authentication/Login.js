@@ -107,7 +107,7 @@ const Login = () => {
           }}
           autoCapitalize={false}
           error={emailError}
-          value={email.toLowerCase()}
+          value={email}
         />
         <Felids
           label={strings.password}

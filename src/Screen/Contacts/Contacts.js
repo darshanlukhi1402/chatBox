@@ -103,6 +103,7 @@ const Contacts = () => {
           <FlatList
             data={filteredContacts}
             bounces={false}
+            style={{marginBottom: hp(30)}}
             showsVerticalScrollIndicator={false}
             renderItem={({item, index}) => {
               return (

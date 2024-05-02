@@ -4,8 +4,10 @@ import {View, TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
 import {images} from '../assets';
 import {colors} from '../utils/themes';
 import {fontSize, hp, wp} from '../utils/constant';
+import {useNavigation} from '@react-navigation/native';
 
 const BioBox = ({currentUserData}) => {
+  const {navigate} = useNavigation();
   return (
     <View style={styles.profileCon}>
       <View style={styles.profileImageView}>
@@ -18,7 +20,10 @@ const BioBox = ({currentUserData}) => {
         <Text style={styles.userLabel}>{currentUserData?.name}</Text>
         <Text style={styles.userNotesStyle}>Never give up 💪</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigate('QRCodeScanners');
+        }}>
         <Image source={images.qrCode} style={styles.qrIcon} />
       </TouchableOpacity>
     </View>

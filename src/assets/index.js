@@ -21,6 +21,7 @@ export const images = {
   files: require('../assets/images/files.png'),
   media: require('../assets/images/media.png'),
   my_user: require('../assets/images/user.png'),
+  friend: require('../assets/images/friend.png'),
   search: require('../assets/images/Search.png'),
   camera: require('../assets/images/camera.png'),
   remove: require('../assets/images/remove.png'),

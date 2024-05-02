@@ -58,17 +58,19 @@ const Settings = () => {
             data={settingData}
             renderItem={({item}) => {
               return (
-                <TouchableOpacity style={styles.settingFetStyle}>
+                <View style={styles.settingFetStyle}>
                   <Image source={item?.icon} style={styles.settingsFetIcons} />
-                  <View style={styles.settingsFetLabels}>
+                  <TouchableOpacity style={styles.settingsFetLabels}>
                     <Text style={styles.settingsLabelTextStyle}>
                       {item.label}
                     </Text>
-                    <Text style={styles.settingSubLabelStyle}>
-                      {item.sabLabel}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+                    {item.sabLabel && (
+                      <Text style={styles.settingSubLabelStyle}>
+                        {item.sabLabel}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                </View>
               );
             }}
           />
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
   settingsFetLabels: {
     flex: 1,
     marginLeft: wp(14),
+    justifyContent: 'center',
   },
   settingsFetIcons: {
     width: hp(44),
