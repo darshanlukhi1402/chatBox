@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, StyleSheet, PermissionsAndroid} from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  PermissionsAndroid,
+  Text,
+} from 'react-native';
 
 import Contact from 'react-native-contacts';
 import auth from '@react-native-firebase/auth';
@@ -93,6 +99,7 @@ const Contacts = () => {
           searchOnPress={() => setSearchFunctionality(true)}
         />
         <View style={styles.listConView}>
+          <Text style={styles.contactLabelStyle}>{strings.my_Contact}</Text>
           <FlatList
             data={filteredContacts}
             bounces={false}
@@ -100,12 +107,12 @@ const Contacts = () => {
             renderItem={({item, index}) => {
               return (
                 <StatusLabel
-                  conStatusStyles={{marginBottom: hp(30)}}
                   PrimaryLabel={item?.displayName}
                   subTextStyle={styles.subTextStyles}
                   labelTextStyle={styles.labelStyles}
                   subLabel={item.phoneNumbers[0].number}
                   userImageStyle={styles.userImageStyles}
+                  conStatusStyles={{marginBottom: hp(30)}}
                   highlightStyle={styles.downBorderStyle}
                   userStatusBorderStyle={{
                     borderColor: border[index % border.length],
@@ -122,6 +129,13 @@ const Contacts = () => {
 };
 
 const styles = StyleSheet.create({
+  contactLabelStyle: {
+    marginHorizontal: wp(12),
+    fontFamily: 'Poppins-SemiBold',
+    color: colors.black,
+    fontSize: fontSize(16),
+    marginBottom: hp(20),
+  },
   subTextStyles: {
     fontSize: fontSize(12),
     color: colors.constantOne,
@@ -145,7 +159,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: fontSize(16),
   },
-  conListStyle: {padding: 10},
+  conListStyle: {
+    padding: 10,
+  },
   container: {
     flex: 1,
   },
@@ -158,7 +174,8 @@ const styles = StyleSheet.create({
   },
   listConView: {
     flex: 1,
-    top: hp(10),
+    // top: hp(20),
+    top: hp(40),
     paddingTop: hp(30),
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,

@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   searchUserTextInputStyle: {
     flex: 1,
     fontFamily: 'Poppins-SemiBold',
-    color: colors.buttonFirstColor
+    color: colors.buttonFirstColor,
   },
   removeIconStyle: {
     height: hp(22),
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: Platform.OS == 'android' ? hp(20) : 0,
+    marginTop: Platform.OS == 'android' ? hp(30) : 0,
   },
   imageSubView: {
     borderRadius: 40,
-    height: hp(40),
-    width: wp(40),
+    height: hp(36),
+    width: hp(36),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.searchBackgroundColor,
@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   userIconStyle: {
-    height: hp(32),
-    width: hp(32),
+    height: hp(36),
+    width: hp(36),
   },
   searchIconStyle: {
-    height: hp(22),
-    width: hp(22),
+    height: hp(18),
+    width: hp(18),
   },
 });
 

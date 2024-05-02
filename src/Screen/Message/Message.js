@@ -14,6 +14,7 @@ import {images, lottie} from '../../assets';
 import HeaderCon from '../../components/HeaderCon';
 import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
+import {getUserData} from '../../utils/Global';
 
 const Message = () => {
   const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ const Message = () => {
 
   useEffect(() => {
     getData();
-    getUserData();
+    fetchUserData();
   }, []);
 
   const getData = () => {
@@ -46,18 +47,10 @@ const Message = () => {
       });
   };
 
-  const getUserData = async () => {
-    try {
-      await firestore()
-        .collection('users')
-        .doc(`${auth().currentUser.uid}`)
-        .get()
-        .then(res => {
-          setCurrentUserData(res._data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+  const fetchUserData = async () => {
+    const userId = auth().currentUser.uid;
+    const userData = await getUserData(userId);
+    setCurrentUserData(userData);
   };
 
   const statusRenderItem = ({item, index}) => {
