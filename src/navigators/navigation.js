@@ -10,6 +10,7 @@ import VideoCall from '../Screen/VideoCall/VideoCall';
 import ChatScreen from '../Screen/ChatScreens/ChatScreen';
 import GetStarted from '../Screen/Authentication/GetStarted';
 import QRCodeScanners from '../Screen/QRCodeScanner/QRCodeScanners';
+import UserProfileDetails from '../components/UserProfileDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const MainStackNavigator = ({value}) => {
         <Stack.Screen name="GetStarted" component={GetStarted} />
         <Stack.Screen name="TabNavigation" component={TabNavigation} />
         <Stack.Screen name="QRCodeScanners" component={QRCodeScanners} />
+        <Stack.Screen name="UserProfileDetails" component={UserProfileDetails} />
         {/* <Stack.Screen name="Message" component={Message} />
         <Stack.Screen name="VideoCall" component={VideoCall} /> */}
       </Stack.Navigator>

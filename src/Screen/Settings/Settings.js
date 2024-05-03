@@ -37,14 +37,17 @@ const Settings = () => {
     setCurrentUserData(userData);
   };
 
-  const updateOnlineStatus = () => {
+  const updateOnlineStatus = async () => {
     const userId = auth().currentUser.uid;
     const userRef = firestore().collection('users').doc(userId);
-    userRef.update({online: false});
+    await userRef.update({
+      online: false,
+      lastOnlineTime: firestore.Timestamp.fromDate(new Date()),
+    });
   };
 
   const logOutPress = async () => {
-    updateOnlineStatus();
+    await updateOnlineStatus();
     await auth().signOut();
     AsyncStorage.clear();
     dispatch(StackActions.replace('GetStarted'));
@@ -133,10 +136,10 @@ const styles = StyleSheet.create({
   logoutButtonStyle: {
     flex: 1,
     marginLeft: wp(14),
-    alignItems:'center',
+    alignItems: 'center',
     flexDirection: 'row',
     marginBottom: hp(50),
-    justifyContent:'flex-start'
+    justifyContent: 'flex-start',
   },
   logoutTextStyle: {
     marginLeft: wp(14),
@@ -148,9 +151,9 @@ const styles = StyleSheet.create({
     flex: 1,
     top: hp(40),
     paddingTop: hp(30),
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
     paddingHorizontal: wp(24),
+    borderTopEndRadius: wp(40),
+    borderTopStartRadius: wp(40),
     backgroundColor: colors.white,
   },
   highlightStyle: {

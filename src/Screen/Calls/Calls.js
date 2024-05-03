@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     flex: 1,
     top: hp(10),
     paddingTop: hp(30),
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+    borderTopEndRadius: wp(40),
+    borderTopStartRadius: wp(40),
     backgroundColor: colors.white,
   },
 });

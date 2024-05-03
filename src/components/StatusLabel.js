@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {colors} from '../utils/themes';
 import {fontSize, hp, wp} from '../utils/constant';
 import {images} from '../assets';
+import moment from 'moment';
 
 const StatusLabel = ({
   source,
@@ -12,38 +13,45 @@ const StatusLabel = ({
   downBorder,
   PrimaryLabel,
   statusOnOff,
+  lastOffTime,
   statusSource,
   subTextStyle,
   userImageStyle,
   labelTextStyle,
   highlightStyle,
   conStatusStyles,
+  userProfilePress,
   userStatusBorderStyle,
 }) => {
   return (
     <>
-      <TouchableOpacity
-        style={[styles.conStatusStyles, conStatusStyles]}
-        onPress={onPress}>
-        <View style={[styles.userStatusBorderStyle, userStatusBorderStyle]}>
+      <View style={[styles.conStatusStyles, conStatusStyles]}>
+        <TouchableOpacity
+          style={[styles.userStatusBorderStyle, userStatusBorderStyle]}
+          onPress={userProfilePress}>
           <Image
             source={source}
             style={[styles.userImageStyle, userImageStyle]}
           />
-        </View>
+        </TouchableOpacity>
         {statusOnOff && (
           <Image
             source={statusSource ? images.onlineStatus : images.offlineStatus}
             style={styles.statusStyle}
           />
         )}
-        <View>
+        <TouchableOpacity style={{flex: 1}} onPress={onPress}>
           <Text style={[styles.labelTextStyle, labelTextStyle]}>
             {PrimaryLabel}
           </Text>
           <Text style={[styles.subTextStyle, subTextStyle]}>{subLabel}</Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        {statusOnOff && !statusSource && lastOffTime && (
+          <Text style={styles.lastTimeStyle}>
+            {moment(lastOffTime.toDate()).fromNow()}
+          </Text>
+        )}
+      </View>
       {downBorder && (
         <View style={[styles.highlightStyle, highlightStyle]}></View>
       )}
@@ -52,11 +60,18 @@ const StatusLabel = ({
 };
 
 const styles = StyleSheet.create({
+  lastTimeStyle: {
+    marginTop: hp(10),
+    fontSize: fontSize(10),
+    alignSelf: 'flex-start',
+    color: colors.subMessageText,
+    fontFamily: 'Poppins-Regular',
+  },
   statusStyle: {
     top: hp(24),
-    width: hp(10),
+    width: hp(8),
     right: wp(14),
-    height: hp(10),
+    height: hp(8),
   },
   conStatusStyles: {
     flexDirection: 'row',

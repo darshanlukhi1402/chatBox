@@ -11,6 +11,23 @@ export const getUserData = async userId => {
   }
 };
 
+export const getMessagesData = (chatId) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection('userChatMessages')
+      .doc(chatId)
+      .onSnapshot(documentSnapshot => {
+        if (documentSnapshot.exists) {
+          resolve(documentSnapshot.data().chat);
+        } else {
+          reject(new Error('Document does not exist'));
+        }
+      }, error => {
+        reject(error);
+      });
+  });
+};
+
 export const settingData = [
   {
     label: 'Account',

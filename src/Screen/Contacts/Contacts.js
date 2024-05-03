@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     // top: hp(20),
     top: hp(40),
     paddingTop: hp(30),
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+    borderTopEndRadius: wp(40),
+    borderTopStartRadius: wp(40),
     backgroundColor: colors.white,
   },
   searchInput: {

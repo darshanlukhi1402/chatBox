@@ -34,7 +34,7 @@ const Message = () => {
       AppState.removeEventListener('change', handleAppStateChange);
     };
   }, []);
-  
+
   const getData = () => {
     firestore()
       .collection('users')
@@ -68,7 +68,10 @@ const Message = () => {
     const userId = auth().currentUser.uid;
     const userRef = firestore().collection('users').doc(userId);
     if (nextAppState === 'background' || nextAppState === 'inactive') {
-      userRef.update({online: false});
+      userRef.update({
+        online: false,
+        lastOnlineTime: firestore.Timestamp.fromDate(new Date()),
+      });
     } else if (nextAppState === 'active') {
       userRef.update({online: true});
     }
@@ -111,6 +114,10 @@ const Message = () => {
     setSearchFunctionality(false);
     setSearchText('');
   };
+
+  const userProfilePress = (item) => {
+    navigate('UserProfileDetails',item)
+  }
 
   return (
     <View style={styles.container}>
@@ -162,21 +169,23 @@ const Message = () => {
               );
             }}
             renderItem={({item, index}) => {
-              const currentUser = auth().currentUser.uid == item.id;
+              const currentUser = auth()?.currentUser?.uid == item?.id;
               return (
                 <>
                   {!currentUser && (
                     <StatusLabel
                       downBorder
-                      onPress={() => onUserPress(item)}
+                      statusOnOff
                       PrimaryLabel={item?.name}
+                      statusSource={item?.online}
+                      source={{uri: item.userDpUri}}
+                      subLabel={'How are you today?'}
+                      onPress={() => onUserPress(item)}
+                      lastOffTime={item?.lastOnlineTime}
+                      userProfilePress={() => userProfilePress(item)}
                       userStatusBorderStyle={{
                         borderColor: border[index % border.length],
                       }}
-                      source={{uri: item.userDpUri}}
-                      subLabel={'How are you today?'}
-                      statusSource={item?.online}
-                      statusOnOff
                     />
                   )}
                 </>
@@ -222,8 +231,8 @@ const styles = StyleSheet.create({
     flex: 1,
     top: hp(10),
     paddingTop: hp(30),
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+    borderTopEndRadius: wp(40),
+    borderTopStartRadius: wp(40),
     backgroundColor: colors.white,
   },
   statusUserName: {
