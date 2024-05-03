@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 import {colors} from '../utils/themes';
 import {fontSize, hp, wp} from '../utils/constant';
+import {images} from '../assets';
 
 const StatusLabel = ({
   source,
@@ -10,6 +11,8 @@ const StatusLabel = ({
   subLabel,
   downBorder,
   PrimaryLabel,
+  statusOnOff,
+  statusSource,
   subTextStyle,
   userImageStyle,
   labelTextStyle,
@@ -28,6 +31,12 @@ const StatusLabel = ({
             style={[styles.userImageStyle, userImageStyle]}
           />
         </View>
+        {statusOnOff && (
+          <Image
+            source={statusSource ? images.onlineStatus : images.offlineStatus}
+            style={styles.statusStyle}
+          />
+        )}
         <View>
           <Text style={[styles.labelTextStyle, labelTextStyle]}>
             {PrimaryLabel}
@@ -43,6 +52,12 @@ const StatusLabel = ({
 };
 
 const styles = StyleSheet.create({
+  statusStyle: {
+    top: hp(24),
+    width: hp(10),
+    right: wp(14),
+    height: hp(10),
+  },
   conStatusStyles: {
     flexDirection: 'row',
     marginHorizontal: wp(24),

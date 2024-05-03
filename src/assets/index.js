@@ -21,6 +21,7 @@ export const images = {
   files: require('../assets/images/files.png'),
   media: require('../assets/images/media.png'),
   my_user: require('../assets/images/user.png'),
+  logout: require('../assets/images/logout.png'),
   friend: require('../assets/images/friend.png'),
   search: require('../assets/images/Search.png'),
   camera: require('../assets/images/camera.png'),
@@ -40,15 +41,16 @@ export const images = {
   chatUnFocus: require('../assets/images/chatUnFocus.png'),
   callUnFocus: require('../assets/images/callUnFocus.png'),
   selectedPdf: require('../assets/images/selectedPdf.png'),
+  onlineStatus: require('../assets/images/onlineStatus.png'),
   notifications: require('../assets/images/notifications.png'),
   contactsFocus: require('../assets/images/contactsFocus.png'),
   settingsFocus: require('../assets/images/settingsFocus.png'),
   selectedVideo: require('../assets/images/selectedVideo.png'),
+  offlineStatus: require('../assets/images/offlineStatus.png'),
   selectedImages: require('../assets/images/selectedImages.png'),
   settingsUnFocus: require('../assets/images/settingsUnFocus.png'),
 };
 
-
 export const lottie = {
-  no_user : require('../assets/Lottie/no_user.json')
-}
+  no_user: require('../assets/Lottie/no_user.json'),
+};

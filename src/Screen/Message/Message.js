@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, FlatList, StyleSheet} from 'react-native';
+import {View, Text, Image, FlatList, StyleSheet, AppState} from 'react-native';
 
 import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
@@ -11,10 +11,10 @@ import {border} from '../../utils/dummy';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import {images, lottie} from '../../assets';
+import {getUserData} from '../../utils/Global';
 import HeaderCon from '../../components/HeaderCon';
 import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
-import {getUserData} from '../../utils/Global';
 
 const Message = () => {
   const [data, setData] = useState([]);
@@ -28,8 +28,13 @@ const Message = () => {
   useEffect(() => {
     getData();
     fetchUserData();
+    updateUserStatus(true);
+    AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
   }, []);
-
+  
   const getData = () => {
     firestore()
       .collection('users')
@@ -51,6 +56,22 @@ const Message = () => {
     const userId = auth().currentUser.uid;
     const userData = await getUserData(userId);
     setCurrentUserData(userData);
+  };
+
+  const updateUserStatus = online => {
+    const userId = auth().currentUser.uid;
+    const userRef = firestore().collection('users').doc(userId);
+    userRef.update({online});
+  };
+
+  const handleAppStateChange = nextAppState => {
+    const userId = auth().currentUser.uid;
+    const userRef = firestore().collection('users').doc(userId);
+    if (nextAppState === 'background' || nextAppState === 'inactive') {
+      userRef.update({online: false});
+    } else if (nextAppState === 'active') {
+      userRef.update({online: true});
+    }
   };
 
   const statusRenderItem = ({item, index}) => {
@@ -154,6 +175,8 @@ const Message = () => {
                       }}
                       source={{uri: item.userDpUri}}
                       subLabel={'How are you today?'}
+                      statusSource={item?.online}
+                      statusOnOff
                     />
                   )}
                 </>

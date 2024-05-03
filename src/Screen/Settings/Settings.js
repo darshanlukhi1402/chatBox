@@ -5,10 +5,12 @@ import {
   Image,
   FlatList,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,6 +24,7 @@ import {fontSize, hp, wp} from '../../utils/constant';
 import {getUserData, settingData} from '../../utils/Global';
 
 const Settings = () => {
+  const {dispatch} = useNavigation();
   const [currentUserData, setCurrentUserData] = useState([]);
 
   useEffect(() => {
@@ -34,6 +37,19 @@ const Settings = () => {
     setCurrentUserData(userData);
   };
 
+  const updateOnlineStatus = () => {
+    const userId = auth().currentUser.uid;
+    const userRef = firestore().collection('users').doc(userId);
+    userRef.update({online: false});
+  };
+
+  const logOutPress = async () => {
+    updateOnlineStatus();
+    await auth().signOut();
+    AsyncStorage.clear();
+    dispatch(StackActions.replace('GetStarted'));
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -43,37 +59,39 @@ const Settings = () => {
         style={[styles.container]}>
         <HeaderCon label={strings.settings} />
         <View style={styles.listConView}>
-          {/* <TouchableOpacity
-            onPress={async () => {
-              await auth().signOut();
-              AsyncStorage.clear();
-              dispatch(StackActions.replace('GetStarted'));
-            }}>
-            <Text>Logout</Text>
-          </TouchableOpacity> */}
-          {/* <View style={{flexDirection: 'row', borderWidth: 1}}> */}
           <BioBox {...{currentUserData}} />
           <View style={[styles.highlightStyle]}></View>
-          <FlatList
-            data={settingData}
-            renderItem={({item}) => {
-              return (
-                <View style={styles.settingFetStyle}>
-                  <Image source={item?.icon} style={styles.settingsFetIcons} />
-                  <TouchableOpacity style={styles.settingsFetLabels}>
-                    <Text style={styles.settingsLabelTextStyle}>
-                      {item.label}
-                    </Text>
-                    {item.sabLabel && (
-                      <Text style={styles.settingSubLabelStyle}>
-                        {item.sabLabel}
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <FlatList
+              data={settingData}
+              renderItem={({item}) => {
+                return (
+                  <View style={styles.settingFetStyle}>
+                    <Image
+                      source={item?.icon}
+                      style={styles.settingsFetIcons}
+                    />
+                    <TouchableOpacity style={styles.settingsFetLabels}>
+                      <Text style={styles.settingsLabelTextStyle}>
+                        {item.label}
                       </Text>
-                    )}
-                  </TouchableOpacity>
-                </View>
-              );
-            }}
-          />
+                      {item.sabLabel && (
+                        <Text style={styles.settingSubLabelStyle}>
+                          {item.sabLabel}
+                        </Text>
+                      )}
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            />
+            <TouchableOpacity
+              onPress={async () => logOutPress()}
+              style={styles.logoutButtonStyle}>
+              <Image source={images.logout} style={styles.logoutIconStyle} />
+              <Text style={styles.logoutTextStyle}>{strings?.Logout}</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </LinearGradient>
     </View>
@@ -84,14 +102,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  settingsFetLabels: {
-    flex: 1,
-    marginLeft: wp(14),
-    justifyContent: 'center',
+  logoutIconStyle: {
+    width: hp(20),
+    height: hp(20),
   },
   settingsFetIcons: {
     width: hp(44),
     height: hp(44),
+  },
+  settingsFetLabels: {
+    flex: 1,
+    marginLeft: wp(14),
+    justifyContent: 'center',
   },
   settingFetStyle: {
     flexDirection: 'row',
@@ -108,6 +130,20 @@ const styles = StyleSheet.create({
     fontSize: fontSize(12),
     fontFamily: 'Poppins-Light',
   },
+  logoutButtonStyle: {
+    flex: 1,
+    marginLeft: wp(14),
+    alignItems:'center',
+    flexDirection: 'row',
+    marginBottom: hp(50),
+    justifyContent:'flex-start'
+  },
+  logoutTextStyle: {
+    marginLeft: wp(14),
+    color: colors.red,
+    fontSize: fontSize(16),
+    fontFamily: 'Poppins-Medium',
+  },
   listConView: {
     flex: 1,
     top: hp(40),
@@ -120,7 +156,7 @@ const styles = StyleSheet.create({
   highlightStyle: {
     width: '100%',
     alignSelf: 'center',
-    marginBottom: hp(40),
+    marginBottom: hp(26),
     borderWidth: hp(0.2),
     marginVertical: hp(20),
     borderColor: colors.subMessageText,

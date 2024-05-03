@@ -3,6 +3,7 @@ export const strings = {
   home: 'Home',
   calls:'Calls',
   today: 'Today',
+  Logout:'Logout',
   log_in: 'Log in',
   contacts:'Contacts',
   password: 'Password',
