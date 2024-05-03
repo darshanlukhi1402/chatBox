@@ -115,9 +115,45 @@ const Message = () => {
     setSearchText('');
   };
 
-  const userProfilePress = (item) => {
-    navigate('UserProfileDetails',item)
-  }
+  const userProfilePress = item => {
+    navigate('UserProfileDetails', item);
+  };
+
+  const RenderItemComponent = ({item, index}) => {
+    const currentUser = auth()?.currentUser?.uid === item?.id;
+    return (
+      <>
+        {!currentUser && (
+          <StatusLabel
+            downBorder
+            statusOnOff
+            PrimaryLabel={item?.name}
+            statusSource={item?.online}
+            source={{uri: item.userDpUri}}
+            subLabel={'How are you today?'}
+            onPress={() => onUserPress(item)}
+            lastOffTime={item?.lastOnlineTime}
+            userProfilePress={() => userProfilePress(item)}
+            userStatusBorderStyle={{
+              borderColor: border[index % border.length],
+            }}
+          />
+        )}
+      </>
+    );
+  };
+
+  const EmptyListComponent = () => (
+    <View style={styles.emptyDataViewStyle}>
+      <LottieView
+        source={lottie.no_user}
+        autoPlay
+        loop
+        style={styles.lottieStyle}
+      />
+      <Text style={styles.emptyDataStyle}>{strings.no_user_found}</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -139,58 +175,22 @@ const Message = () => {
         />
         <View style={styles.statusListStyle}>
           <FlatList
-            data={data}
-            style={styles.statusListSubStyle}
             horizontal
-            showsHorizontalScrollIndicator={false}
+            data={data}
             bounces={false}
             renderItem={statusRenderItem}
+            style={styles.statusListSubStyle}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
         <View style={styles.listConView}>
           <FlatList
-            data={searchText ? searchResults : data}
-            contentContainerStyle={{flexGrow: 1}}
-            showsVerticalScrollIndicator={false}
             bounces={false}
-            ListEmptyComponent={() => {
-              return (
-                <View style={styles.emptyDataViewStyle}>
-                  <LottieView
-                    source={lottie.no_user}
-                    autoPlay
-                    loop
-                    style={styles.lottieStyle}
-                  />
-                  <Text style={styles.emptyDataStyle}>
-                    {strings.no_user_found}
-                  </Text>
-                </View>
-              );
-            }}
-            renderItem={({item, index}) => {
-              const currentUser = auth()?.currentUser?.uid == item?.id;
-              return (
-                <>
-                  {!currentUser && (
-                    <StatusLabel
-                      downBorder
-                      statusOnOff
-                      PrimaryLabel={item?.name}
-                      statusSource={item?.online}
-                      source={{uri: item.userDpUri}}
-                      subLabel={'How are you today?'}
-                      onPress={() => onUserPress(item)}
-                      lastOffTime={item?.lastOnlineTime}
-                      userProfilePress={() => userProfilePress(item)}
-                      userStatusBorderStyle={{
-                        borderColor: border[index % border.length],
-                      }}
-                    />
-                  )}
-                </>
-              );
-            }}
+            renderItem={RenderItemComponent}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flexGrow: 1}}
+            ListEmptyComponent={EmptyListComponent}
+            data={searchText ? searchResults : data}
           />
         </View>
       </LinearGradient>
@@ -199,9 +199,12 @@ const Message = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   lottieStyle: {
-    height: hp(150),
     width: hp(150),
+    height: hp(150),
   },
   emptyDataViewStyle: {
     flex: 1,
@@ -210,11 +213,8 @@ const styles = StyleSheet.create({
   },
   emptyDataStyle: {
     fontSize: fontSize(20),
-    color: colors.buttonFirstColor,
     fontFamily: 'Poppins-Bold',
-  },
-  container: {
-    flex: 1,
+    color: colors.buttonFirstColor,
   },
   statusListSubStyle: {
     marginTop: hp(40),
@@ -224,8 +224,8 @@ const styles = StyleSheet.create({
     height: hp(150),
   },
   userImageStyle: {
-    height: hp(52),
     width: hp(52),
+    height: hp(52),
   },
   listConView: {
     flex: 1,

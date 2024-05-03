@@ -59,3 +59,10 @@ export const settingData = [
     icon: images.friend,
   },
 ];
+
+export const dummyData = [
+  {name: 'Camera', icon: images.camera},
+  {name: 'Documents', sub: 'Share your files', icon: images.doc},
+  {name: 'Media', sub: 'Share photos and videos', icon: images.media},
+  {name: 'Location', sub: 'Share your location', icon: images.pin},
+];

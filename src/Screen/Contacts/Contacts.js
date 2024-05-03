@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {
   View,
+  Text,
   FlatList,
   StyleSheet,
   PermissionsAndroid,
-  Text,
 } from 'react-native';
 
 import Contact from 'react-native-contacts';
@@ -130,22 +130,11 @@ const Contacts = () => {
 };
 
 const styles = StyleSheet.create({
-  contactLabelStyle: {
-    marginHorizontal: wp(12),
-    fontFamily: 'Poppins-SemiBold',
-    color: colors.black,
-    fontSize: fontSize(16),
-    marginBottom: hp(20),
+  container: {
+    flex: 1,
   },
-  subTextStyles: {
-    fontSize: fontSize(12),
-    color: colors.constantOne,
-  },
-  labelStyles: {
-    fontSize: fontSize(16),
-  },
-  downBorderStyle: {
-    marginBottom: hp(16),
+  conListStyle: {
+    padding: 10,
   },
   userImageStyles: {
     height: hp(36),
@@ -155,27 +144,30 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 4,
   },
-  conTextStyle: {
-    color: '#000E08',
-    fontFamily: 'Poppins-Medium',
+  labelStyles: {
     fontSize: fontSize(16),
   },
-  conListStyle: {
-    padding: 10,
+  downBorderStyle: {
+    marginBottom: hp(16),
   },
-  container: {
-    flex: 1,
+  subTextStyles: {
+    fontSize: fontSize(12),
+    color: colors.constantOne,
+  },
+  conTextStyle: {
+    color: '#000E08',
+    fontSize: fontSize(16),
+    fontFamily: 'Poppins-Medium',
   },
   myConStyle: {
     color: '#000E08',
-    fontFamily: 'Poppins-Medium',
-    fontSize: fontSize(16),
-    marginBottom: hp(20),
     paddingLeft: wp(20),
+    marginBottom: hp(20),
+    fontSize: fontSize(16),
+    fontFamily: 'Poppins-Medium',
   },
   listConView: {
     flex: 1,
-    // top: hp(20),
     top: hp(40),
     paddingTop: hp(30),
     borderTopEndRadius: wp(40),
@@ -184,13 +176,20 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     height: 40,
-    borderColor: colors.constantOne,
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 10,
     marginBottom: 10,
     marginHorizontal: 10,
+    paddingHorizontal: 10,
     color: colors.constantOne,
+    borderColor: colors.constantOne,
+  },
+  contactLabelStyle: {
+    color: colors.black,
+    marginBottom: hp(20),
+    fontSize: fontSize(16),
+    marginHorizontal: wp(12),
+    fontFamily: 'Poppins-SemiBold',
   },
 });
 

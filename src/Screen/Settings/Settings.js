@@ -53,6 +53,20 @@ const Settings = () => {
     dispatch(StackActions.replace('GetStarted'));
   };
 
+  const renderSettingItem = ({item}) => {
+    return (
+      <View style={styles.settingFetStyle}>
+        <Image source={item?.icon} style={styles.settingsFetIcons} />
+        <TouchableOpacity style={styles.settingsFetLabels}>
+          <Text style={styles.settingsLabelTextStyle}>{item.label}</Text>
+          {item.sabLabel && (
+            <Text style={styles.settingSubLabelStyle}>{item.sabLabel}</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -65,31 +79,9 @@ const Settings = () => {
           <BioBox {...{currentUserData}} />
           <View style={[styles.highlightStyle]}></View>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <FlatList
-              data={settingData}
-              renderItem={({item}) => {
-                return (
-                  <View style={styles.settingFetStyle}>
-                    <Image
-                      source={item?.icon}
-                      style={styles.settingsFetIcons}
-                    />
-                    <TouchableOpacity style={styles.settingsFetLabels}>
-                      <Text style={styles.settingsLabelTextStyle}>
-                        {item.label}
-                      </Text>
-                      {item.sabLabel && (
-                        <Text style={styles.settingSubLabelStyle}>
-                          {item.sabLabel}
-                        </Text>
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                );
-              }}
-            />
+            <FlatList data={settingData} renderItem={renderSettingItem} />
             <TouchableOpacity
-              onPress={async () => logOutPress()}
+              onPress={logOutPress}
               style={styles.logoutButtonStyle}>
               <Image source={images.logout} style={styles.logoutIconStyle} />
               <Text style={styles.logoutTextStyle}>{strings?.Logout}</Text>

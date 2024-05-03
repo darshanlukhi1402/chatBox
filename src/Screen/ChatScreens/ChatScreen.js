@@ -2,26 +2,27 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
+  Alert,
+  Image,
   FlatList,
   StyleSheet,
-  Image,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 
 import moment from 'moment';
 import Video from 'react-native-video';
+import notifee from '@notifee/react-native';
 import auth from '@react-native-firebase/auth';
 import ReactNativeModal from 'react-native-modal';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import DocumentPicker from 'react-native-document-picker';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import notifee from '@notifee/react-native';
 
 import {images} from '../../assets';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
+import {dummyData} from '../../utils/Global';
 import ChatHeader from '../../components/ChatHeader';
 import {fontSize, hp, wp} from '../../utils/constant';
 import ChatTextInput from '../../components/ChatTextInput';
@@ -35,18 +36,11 @@ const ChatScreen = () => {
 
   const [chat, setChat] = useState([]);
   const [chatText, setChatText] = useState('');
-  const [isModalVisible, setModalVisible] = useState(false);
   const [contentData, setContentData] = useState('');
   const [contentPdfData, setContentPdfData] = useState('');
-  const [contentDataType, setContentDataType] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
   const [dow_contentData, setDowContentData] = useState('');
-
-  const dummyData = [
-    {name: 'Camera', icon: images.camera},
-    {name: 'Documents', sub: 'Share your files', icon: images.doc},
-    {name: 'Media', sub: 'Share photos and videos', icon: images.media},
-    {name: 'Location', sub: 'Share your location', icon: images.pin},
-  ];
+  const [contentDataType, setContentDataType] = useState('');
 
   useEffect(() => {
     getMessagesData();
@@ -70,6 +64,7 @@ const ChatScreen = () => {
   const onChatLongPress = () => {
     console.log('11111');
   };
+
   const callPress = () => {};
 
   const shareOnPress = () => {
@@ -77,13 +72,10 @@ const ChatScreen = () => {
   };
 
   const displayNotification = async () => {
-    // Example notification configuration
     const notification = await notifee.buildNotification({
       title: 'New Message',
       body: 'You have received a new message.',
     });
-
-    // Display the notification
     await notifee.displayNotification(notification);
   };
 
@@ -100,7 +92,7 @@ const ChatScreen = () => {
       } catch (error) {
         console.log(error);
       }
-    } 
+    }
     // else if (name == 'Documents') {
     //   try {
     //     const res = await DocumentPicker.pickSingle({
@@ -153,10 +145,10 @@ const ChatScreen = () => {
             setChatText('');
             setContentData('');
             setContentPdfData('');
-            setContentDataType('')
+            setContentDataType('');
           });
-        } else {
-          await firestore()
+      } else {
+        await firestore()
           .collection('userChatMessages')
           .doc(chatId)
           .set({chat: [obj]})
@@ -164,13 +156,110 @@ const ChatScreen = () => {
             setChatText('');
             setContentData('');
             setContentPdfData('');
-            setContentDataType('')
+            setContentDataType('');
           });
       }
       displayNotification();
     } catch (error) {
       console.log('error', error);
     }
+  };
+
+  const renderChatItem = ({item, index}) => {
+    const currentDate = new Date();
+    const chatDate = new Date(item?.createdAt?.toDate());
+
+    const formattedChatDate = moment(chatDate).format('ddd MMM DD YYYY');
+    const formattedCurrentDate = moment(currentDate).format('ddd MMM DD YYYY');
+
+    const isNewDate = lastDisplayedDateRef.current !== chatDate.toDateString();
+    if (isNewDate) {
+      lastDisplayedDateRef.current = chatDate.toDateString();
+    }
+
+    return (
+      <TouchableOpacity
+        disabled
+        style={{margin: hp(12)}}
+        onLongPress={() => onChatLongPress()}>
+        {isNewDate && (
+          <Text style={styles.currentDateStyle}>
+            {formattedChatDate == formattedCurrentDate
+              ? strings.today
+              : moment(item.createdAt.toDate()).format('MMM D, YYYY')}
+          </Text>
+        )}
+        {item?.content && item?.contentType == 'image/jpeg' && (
+          <Image
+            source={{uri: item?.content}}
+            resizeMode="contain"
+            style={
+              currentUserUid == item?.sentBy
+                ? styles.contentFledStyle
+                : styles.contentFledStyle1
+            }
+          />
+        )}
+        {item?.content && item?.contentType == 'video/mp4' && (
+          <Video
+            source={{uri: item?.content}}
+            resizeMode="contain"
+            style={
+              currentUserUid == item?.sentBy
+                ? styles.contentFledStyle
+                : styles.contentFledStyle1
+            }
+          />
+        )}
+        {item?.Messages && (
+          <>
+            <View
+              style={[
+                styles.chatTextStyle,
+                currentUserUid == item?.sentBy
+                  ? styles.rightChat
+                  : styles.leftChat,
+              ]}>
+              <Text
+                style={{
+                  ...styles.regularChatStyle,
+                  color:
+                    currentUserUid == item?.sentBy
+                      ? colors.white
+                      : colors.backTintColor,
+                }}>
+                {item.Messages}
+              </Text>
+            </View>
+            <Text
+              style={[
+                styles.dateShowStyle,
+                currentUserUid == item?.sentBy
+                  ? styles.rightDate
+                  : styles.leftDate,
+              ]}>
+              {moment(item.createdAt.toDate()).format('hh:mm A')}
+            </Text>
+          </>
+        )}
+      </TouchableOpacity>
+    );
+  };
+
+  const renderDocItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={styles.contentStyle}
+        onPress={() => contentOnPress(item.name)}>
+        <View style={styles.modalIconStyle}>
+          <Image source={item?.icon} style={styles.removeIconStyle} />
+        </View>
+        <View style={{marginLeft: wp(12)}}>
+          <Text style={styles.titleStringStyle}>{item?.name}</Text>
+          {item.sub && <Text style={styles.subStringStyle}>{item.sub}</Text>}
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -189,112 +278,28 @@ const ChatScreen = () => {
         <FlatList
           data={chat}
           ref={userRef}
-          showsVerticalScrollIndicator={false}
           bounces={false}
-          renderItem={({item, index}) => {
-            const currentDate = new Date();
-            const chatDate = new Date(item?.createdAt?.toDate());
-
-            const formattedChatDate =
-              moment(chatDate).format('ddd MMM DD YYYY');
-            const formattedCurrentDate =
-              moment(currentDate).format('ddd MMM DD YYYY');
-
-            const isNewDate =
-              lastDisplayedDateRef.current !== chatDate.toDateString();
-            if (isNewDate) {
-              lastDisplayedDateRef.current = chatDate.toDateString();
-            }
-
-            return (
-              <TouchableOpacity
-                style={{margin: hp(12)}}
-                disabled
-                onLongPress={() => onChatLongPress()}>
-                {isNewDate && (
-                  <Text style={styles.currentDateStyle}>
-                    {formattedChatDate == formattedCurrentDate
-                      ? strings.today
-                      : moment(item.createdAt.toDate()).format('MMM D, YYYY')}
-                  </Text>
-                )}
-                {item?.content && item?.contentType == 'image/jpeg' && (
-                  <Image
-                    source={{uri: item?.content}}
-                    resizeMode="contain"
-                    style={
-                      currentUserUid == item?.sentBy
-                        ? styles.contentFledStyle
-                        : styles.contentFledStyle1
-                    }
-                  />
-                )}
-                {item?.content && item?.contentType == 'video/mp4' && (
-                  <Video
-                    source={{uri: item?.content}}
-                    resizeMode="contain"
-                    style={
-                      currentUserUid == item?.sentBy
-                        ? styles.contentFledStyle
-                        : styles.contentFledStyle1
-                    }
-                  />
-                )} 
-                {item?.Messages && (
-                  <>
-                    <View
-                      style={[
-                        styles.chatTextStyle,
-                        currentUserUid == item?.sentBy
-                          ? styles.rightChat
-                          : styles.leftChat,
-                      ]}>
-                      <Text
-                        style={{
-                          ...styles.regularChatStyle,
-                          color:
-                            currentUserUid == item?.sentBy
-                              ? colors.white
-                              : colors.backTintColor,
-                        }}>
-                        {item.Messages}
-                      </Text>
-                    </View>
-                    <Text
-                      style={[
-                        styles.dateShowStyle,
-                        currentUserUid == item?.sentBy
-                          ? styles.rightDate
-                          : styles.leftDate,
-                      ]}>
-                      {moment(item.createdAt.toDate()).format('hh:mm A')}
-                    </Text>
-                  </>
-                )}
-              </TouchableOpacity>
-            );
-          }}
+          showsVerticalScrollIndicator={false}
+          renderItem={renderChatItem}
           onLayout={() => userRef?.current?.scrollToEnd()}
           onContentSizeChange={() => userRef.current.scrollToEnd()}
         />
       </View>
       <ChatTextInput
-        placeholder={strings.write_your_message}
-        onChangeText={text => setChatText(text)}
-        sendOnPress={onSendMessagePress}
         value={chatText}
-        leftOnPress={shareOnPress}
         content={contentDataType}
+        leftOnPress={shareOnPress}
+        sendOnPress={onSendMessagePress}
+        onChangeText={text => setChatText(text)}
+        placeholder={strings.write_your_message}
       />
       <ReactNativeModal
-        animationIn={'slideInUp'}
-        animationInTiming={500}
-        isVisible={isModalVisible}
         backdropOpacity={0.8}
+        animationInTiming={500}
+        animationIn={'slideInUp'}
         style={styles.modalStyle}
-        onBackdropPress={() => {
-          setModalVisible(!isModalVisible);
-        }}>
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(!isModalVisible)}>
         <View style={styles.modelViewStyle}>
           <View style={styles.modelHeaderView}>
             <TouchableOpacity onPress={() => setModalVisible(!isModalVisible)}>
@@ -304,26 +309,7 @@ const ChatScreen = () => {
               {strings.share_Content}
             </Text>
           </View>
-          <FlatList
-            data={dummyData}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  style={styles.contentStyle}
-                  onPress={() => contentOnPress(item.name)}>
-                  <View style={styles.modalIconStyle}>
-                    <Image source={item?.icon} style={styles.removeIconStyle} />
-                  </View>
-                  <View style={{marginLeft: wp(12)}}>
-                    <Text style={styles.titleStringStyle}>{item?.name}</Text>
-                    {item.sub && (
-                      <Text style={styles.subStringStyle}>{item.sub}</Text>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
+          <FlatList data={dummyData} renderItem={renderDocItem} />
         </View>
       </ReactNativeModal>
     </View>
@@ -333,54 +319,54 @@ const ChatScreen = () => {
 const styles = StyleSheet.create({
   contentStyle: {
     flexDirection: 'row',
-    marginVertical: hp(18),
     alignItems: 'center',
+    marginVertical: hp(18),
   },
   titleStringStyle: {
-    fontFamily: 'Poppins-Bold',
     color: colors.black,
     fontSize: fontSize(13),
+    fontFamily: 'Poppins-Bold',
   },
   subStringStyle: {
-    fontFamily: 'Poppins-Regular',
     fontSize: fontSize(11),
+    fontFamily: 'Poppins-Regular',
   },
   modalIconStyle: {
-    height: hp(44),
     width: wp(44),
-    backgroundColor: colors.modalBackGroundColor,
+    height: hp(44),
     alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: wp(100),
+    justifyContent: 'center',
+    backgroundColor: colors.modalBackGroundColor,
   },
   modelViewStyle: {
-    backgroundColor: colors.white,
     paddingTop: hp(28),
     paddingLeft: wp(24),
     borderTopRightRadius: hp(30),
     borderTopLeftRadius: hp(30),
+    backgroundColor: colors.white,
   },
   modelHeaderView: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   removeIconStyle: {
-    height: hp(24),
     width: hp(24),
+    height: hp(24),
   },
   shareContentStyle: {
     flex: 1,
-    fontFamily: 'Poppins-Medium',
-    fontSize: fontSize(16),
     alignSelf: 'center',
     textAlign: 'center',
     marginRight: wp(44),
     color: colors.black,
+    fontSize: fontSize(16),
+    fontFamily: 'Poppins-Medium',
   },
   currentDateStyle: {
     alignSelf: 'center',
-    fontFamily: 'Poppins-Bold',
     marginVertical: hp(10),
+    fontFamily: 'Poppins-Bold',
   },
   chatTextStyle: {
     padding: hp(12),
@@ -419,21 +405,21 @@ const styles = StyleSheet.create({
   },
   dateShowStyle: {
     marginTop: hp(4),
-    fontFamily: 'Poppins-SemiBold',
     fontSize: fontSize(10),
+    fontFamily: 'Poppins-SemiBold',
   },
   modalStyle: {
     justifyContent: 'flex-end',
     margin: 0,
   },
   contentFledStyle: {
-    height: hp(160),
     width: hp(160),
+    height: hp(160),
     alignSelf: 'flex-end',
   },
   contentFledStyle1: {
-    height: hp(160),
     width: hp(160),
+    height: hp(160),
     alignSelf: 'flex-start',
   },
 });
