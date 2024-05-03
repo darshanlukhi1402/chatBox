@@ -6,7 +6,6 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
@@ -19,10 +18,10 @@ import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import Header from '../../components/Header';
 import Felids from '../../components/Felids';
+import ErrorModal from '../../components/ErrorModal';
 import {fontSize, hp, wp} from '../../utils/constant';
 import LineConstant from '../../components/LineConstant';
 import LinearButton from '../../components/LinearButton';
-import ErrorModal from '../../components/ErrorModal';
 
 const Login = () => {
   const {navigate, goBack, dispatch} = useNavigation();
@@ -146,6 +145,10 @@ const styles = StyleSheet.create({
   downStyle: {
     marginTop: hp(230),
   },
+  container: {
+    flex: 1,
+    backgroundColor: colors.backGroundColor,
+  },
   forgotView: {
     alignSelf: 'center',
     marginTop: hp(16),
@@ -169,22 +172,18 @@ const styles = StyleSheet.create({
     width: wp(46),
   },
   welcomeMessage: {
-    fontFamily: 'Poppins-Regular',
-    alignSelf: 'center',
-    textAlign: 'center',
-    fontSize: fontSize(12),
-    color: '#797C7B',
     marginTop: hp(19),
+    color: '#797C7B',
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize: fontSize(12),
+    fontFamily: 'Poppins-Regular',
   },
   loinTextStyle: {
-    fontFamily: 'Poppins-Bold',
     alignSelf: 'center',
     fontSize: fontSize(17),
     color: colors.textColor,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.backGroundColor,
+    fontFamily: 'Poppins-Bold',
   },
 });
 

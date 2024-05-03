@@ -1,8 +1,9 @@
 import React, {Component, useEffect, useRef} from 'react';
 import { Text, StyleSheet, SafeAreaView, Image, Platform, TouchableOpacity, View, TextInput, Animated, Easing} from 'react-native';
-import {fontSize, hp, wp} from '../utils/constant';
-import {colors} from '../utils/themes';
+
 import {images} from '../assets';
+import {colors} from '../utils/themes';
+import {fontSize, hp, wp} from '../utils/constant';
 
 const HeaderCon = ({ rightSource, label, leftSource, headerTitleStyle, searchOnPress, searchStatus, onChangeSearchText, removeOnPress, searchValue, leftIcon}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -50,14 +51,13 @@ const HeaderCon = ({ rightSource, label, leftSource, headerTitleStyle, searchOnP
 };
 
 const styles = StyleSheet.create({
-  searchView: {
-    backgroundColor: colors.white,
-    marginHorizontal: wp(24),
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: wp(10),
-    borderRadius: wp(10),
-    marginTop: Platform.OS == 'android' ? hp(20) : 0,
+  userIconStyle: {
+    height: hp(36),
+    width: hp(36),
+  },
+  searchIconStyle: {
+    height: hp(18),
+    width: hp(18),
   },
   searchUserTextInputStyle: {
     flex: 1,
@@ -68,33 +68,34 @@ const styles = StyleSheet.create({
     height: hp(22),
     width: hp(22),
   },
-  headerConStyle: {
-    marginHorizontal: wp(24),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: Platform.OS == 'android' ? hp(30) : 0,
-  },
-  imageSubView: {
-    borderRadius: 40,
-    height: hp(36),
-    width: hp(36),
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.searchBackgroundColor,
-  },
   headerTitleStyle: {
     color: colors.white,
     fontSize: fontSize(18),
     fontFamily: 'Poppins-Regular',
   },
-  userIconStyle: {
-    height: hp(36),
-    width: hp(36),
+  headerConStyle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginHorizontal: wp(24),
+    justifyContent: 'space-between',
+    marginTop: Platform.OS == 'android' ? hp(30) : 0,
   },
-  searchIconStyle: {
-    height: hp(18),
-    width: hp(18),
+  imageSubView: {
+    width: hp(36),
+    height: hp(36),
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.searchBackgroundColor,
+  },
+  searchView: {
+    borderRadius: wp(10),
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginHorizontal: wp(24),
+    paddingHorizontal: wp(10),
+    backgroundColor: colors.white,
+    marginTop: Platform.OS == 'android' ? hp(20) : 0,
   },
 });
 

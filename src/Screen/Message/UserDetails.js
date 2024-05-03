@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+
 import {colors} from '../../utils/themes';
 import {fontSize, hp, wp} from '../../utils/constant';
 
@@ -15,17 +16,17 @@ const UserDetails = ({value, label}) => {
 export default UserDetails;
 
 const styles = StyleSheet.create({
+  conStyle: {
+    marginVertical: hp(10),
+  },
   valueStyle: {
+    marginLeft: wp(6),
+    color: colors.black,
     fontSize: fontSize(18),
     fontFamily: 'Poppins-Medium',
-    color: colors.black,
-    marginLeft: wp(6),
   },
   labelStyle: {
     fontSize: fontSize(14),
     fontFamily: 'Poppins-Regular',
-  },
-  conStyle: {
-    marginVertical: hp(10),
   },
 });

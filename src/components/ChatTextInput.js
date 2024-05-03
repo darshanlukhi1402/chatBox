@@ -6,9 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {fontSize, hp, wp} from '../utils/constant';
+
 import {images} from '../assets';
 import {colors} from '../utils/themes';
+import {fontSize, hp, wp} from '../utils/constant';
 
 const ChatTextInput = ({
   value,
@@ -70,38 +71,41 @@ const ChatTextInput = ({
 };
 
 const styles = StyleSheet.create({
-  selectedContentStyle: {
+  iconStyle: {
     height: hp(20),
+    width: wp(20),
+  },
+  selectedContentStyle: {
     width: hp(20),
+    height: hp(20),
   },
   containerStyle: {
     height: hp(90),
-    marginHorizontal: wp(24),
     flexDirection: 'row',
     alignItems: 'center',
+    marginHorizontal: wp(24),
   },
   chatStyle: {
-    fontFamily: 'Poppins-Light',
-    fontSize: fontSize(12),
     flex: 1,
     marginLeft: wp(2),
+    fontSize: fontSize(12),
+    fontFamily: 'Poppins-Light',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2c3e50',
   },
   chatTextInputStyle: {
     flex: 1,
-    backgroundColor: colors.chatTextInput,
     height: hp(40),
-    marginLeft: wp(11),
     borderRadius: 10,
+    marginLeft: wp(11),
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: wp(8),
-  },
-  iconStyle: {height: hp(20), width: wp(20)},
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2c3e50',
+    backgroundColor: colors.chatTextInput,
   },
 });
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {fontSize, hp, wp} from '../utils/constant';
+
 import {colors} from '../utils/themes';
+import {fontSize, hp, wp} from '../utils/constant';
 
 const LineConstant = ({label, labelStyle}) => {
   return (
@@ -16,15 +17,15 @@ const LineConstant = ({label, labelStyle}) => {
 const styles = StyleSheet.create({
   labelStyle: {
     fontSize: fontSize(12),
-    fontFamily: 'Poppins-ExtraBold',
-    color: colors.constantOne,
     marginHorizontal: wp(15),
+    color: colors.constantOne,
+    fontFamily: 'Poppins-ExtraBold',
   },
   con: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'center',
     marginTop: hp(36),
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   lineStyle: {
     width: wp(132),

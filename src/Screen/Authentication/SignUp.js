@@ -156,6 +156,10 @@ const styles = StyleSheet.create({
   //   borderWidth: 1,
   //   alignSelf: 'center',
   // },
+  container: {
+    flex: 1,
+    backgroundColor: colors.backGroundColor,
+  },
   headerStyle: {
     marginTop: hp(60),
     marginBottom: hp(30),
@@ -168,15 +172,15 @@ const styles = StyleSheet.create({
     marginTop: hp(16),
   },
   forgotStyle: {
+    fontSize: fontSize(11),
     color: colors.textColor,
     fontFamily: 'Poppins-Regular',
-    fontSize: fontSize(11),
   },
   loginIconView: {
     width: wp(184),
     height: hp(48),
-    alignSelf: 'center',
     marginTop: hp(36),
+    alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -185,22 +189,18 @@ const styles = StyleSheet.create({
     width: wp(46),
   },
   welcomeMessage: {
-    fontFamily: 'Poppins-Regular',
-    alignSelf: 'center',
-    textAlign: 'center',
-    fontSize: fontSize(12),
     color: '#797C7B',
     marginTop: hp(19),
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize: fontSize(12),
+    fontFamily: 'Poppins-Regular',
   },
   loinTextStyle: {
-    fontFamily: 'Poppins-Bold',
     alignSelf: 'center',
     fontSize: fontSize(17),
     color: colors.textColor,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.backGroundColor,
+    fontFamily: 'Poppins-Bold',
   },
 });
 

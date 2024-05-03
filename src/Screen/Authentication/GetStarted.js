@@ -1,19 +1,14 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
 import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
-import {colors} from '../../utils/themes';
-import {fontSize, hp, wp} from '../../utils/constant';
-import {images} from '../../assets';
-import LineConstant from '../../components/LineConstant';
-import {strings} from '../../utils/string';
+import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+
+import {images} from '../../assets';
+import {colors} from '../../utils/themes';
+import {strings} from '../../utils/string';
+import {fontSize, hp, wp} from '../../utils/constant';
+import LineConstant from '../../components/LineConstant';
 
 const GetStarted = () => {
   const {navigate} = useNavigation();
@@ -66,78 +61,78 @@ const styles = StyleSheet.create({
   labelView: {
     flex: 1,
   },
-  labelStyle: {
-    marginVertical: hp(10),
+  subText: {
     fontFamily: 'Poppins-Bold',
-    color: colors.loginTextColor,
-    fontSize: fontSize(14),
   },
-  titleText: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: fontSize(57),
-    color: colors.loginTextColor,
-    marginTop: hp(80),
-    marginLeft: wp(26),
-  },
-  detailText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: fontSize(16),
-    color: colors.subTitleTextColor,
-    marginTop: hp(10),
-    marginHorizontal: wp(26),
-  },
-  imageMainView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: hp(44),
-    justifyContent: 'space-around',
-    marginHorizontal: wp(98),
-  },
-  imageSubView: {
-    backgroundColor: '#ffffff30',
-    borderRadius: 40,
-    height: hp(40),
-    width: wp(40),
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
+  labelStyle: {
+    color: colors.white,
   },
   image: {
     width: wp(30),
     height: hp(30),
   },
   labelStyle: {
-    color: colors.white,
+    fontSize: fontSize(14),
+    marginVertical: hp(10),
+    fontFamily: 'Poppins-Bold',
+    color: colors.loginTextColor,
+  },
+  titleText: {
+    marginTop: hp(80),
+    marginLeft: wp(26),
+    fontSize: fontSize(57),
+    fontFamily: 'Poppins-Medium',
+    color: colors.loginTextColor,
+  },
+  detailText: {
+    marginTop: hp(10),
+    fontSize: fontSize(16),
+    marginHorizontal: wp(26),
+    fontFamily: 'Poppins-Regular',
+    color: colors.subTitleTextColor,
+  },
+  imageMainView: {
+    marginTop: hp(44),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: wp(98),
+    justifyContent: 'space-around',
+  },
+  imageSubView: {
+    width: wp(40),
+    height: hp(40),
+    borderRadius: 40,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ffffff30',
   },
   buttonViewStyle: {
-    marginHorizontal: wp(22),
-    backgroundColor: '#ffffff5e',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 40,
     marginTop: hp(30),
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: wp(22),
+    backgroundColor: '#ffffff5e',
   },
   buttonTextStyle: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: fontSize(16),
     color: colors.white,
-    paddingHorizontal: wp(89),
+    fontSize: fontSize(16),
     paddingVertical: hp(16),
+    paddingHorizontal: wp(89),
+    fontFamily: 'Poppins-Medium',
   },
   loginStyle: {
     marginTop: hp(30),
-    justifyContent: 'center',
     alignSelf: 'center',
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   loginTextStyle: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: fontSize(14),
     color: colors.white,
-  },
-  subText: {
-    fontFamily: 'Poppins-Bold',
+    fontSize: fontSize(14),
+    fontFamily: 'Poppins-Regular',
   },
 });

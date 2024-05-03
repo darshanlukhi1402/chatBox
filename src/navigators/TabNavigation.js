@@ -65,17 +65,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   labelStyle: {
-    fontFamily: 'Poppins-SemiBold',
     fontSize: fontSize(12),
+    fontFamily: 'Poppins-SemiBold',
   },
   tabImageIconStyle: {
-    height: hp(22),
     width: hp(22),
+    height: hp(22),
     tintColor: colors.subMessageText,
   },
   focusTabImageIconStyle: {
-    height: hp(22),
     width: hp(22),
+    height: hp(22),
     tintColor: colors.textColor,
   },
   tabBarStyle: {

@@ -9,8 +9,8 @@ import SignUp from '../Screen/Authentication/SignUp';
 import VideoCall from '../Screen/VideoCall/VideoCall';
 import ChatScreen from '../Screen/ChatScreens/ChatScreen';
 import GetStarted from '../Screen/Authentication/GetStarted';
-import QRCodeScanners from '../Screen/QRCodeScanner/QRCodeScanners';
 import UserProfileDetails from '../components/UserProfileDetails';
+import QRCodeScanners from '../Screen/QRCodeScanner/QRCodeScanners';
 
 const Stack = createNativeStackNavigator();
 

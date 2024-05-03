@@ -317,6 +317,40 @@ const ChatScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  rightDate: {
+    alignSelf: 'flex-end',
+  },
+  leftDate: {
+    alignSelf: 'flex-start',
+  },
+  regularChatStyle: {
+    fontFamily: 'Poppins-Regular',
+  },
+  removeIconStyle: {
+    width: hp(24),
+    height: hp(24),
+  },
+  modelHeaderView: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  modalStyle: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+  chatConView: {
+    flex: 1,
+    backgroundColor: colors.chatBackgroundColor,
+  },
+  dateShowStyle: {
+    marginTop: hp(4),
+    fontSize: fontSize(10),
+    fontFamily: 'Poppins-SemiBold',
+  },
   contentStyle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -330,6 +364,16 @@ const styles = StyleSheet.create({
   subStringStyle: {
     fontSize: fontSize(11),
     fontFamily: 'Poppins-Regular',
+  },
+  contentFledStyle: {
+    width: hp(160),
+    height: hp(160),
+    alignSelf: 'flex-end',
+  },
+  contentFledStyle1: {
+    width: hp(160),
+    height: hp(160),
+    alignSelf: 'flex-start',
   },
   modalIconStyle: {
     width: wp(44),
@@ -345,14 +389,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: hp(30),
     borderTopLeftRadius: hp(30),
     backgroundColor: colors.white,
-  },
-  modelHeaderView: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  removeIconStyle: {
-    width: hp(24),
-    height: hp(24),
   },
   shareContentStyle: {
     flex: 1,
@@ -374,14 +410,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  chatConView: {
-    flex: 1,
-    backgroundColor: colors.chatBackgroundColor,
-  },
   leftChat: {
     alignSelf: 'flex-start',
     borderTopLeftRadius: 0,
@@ -393,34 +421,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderTopLeftRadius: 10,
     backgroundColor: colors.textColor,
-  },
-  regularChatStyle: {
-    fontFamily: 'Poppins-Regular',
-  },
-  leftDate: {
-    alignSelf: 'flex-start',
-  },
-  rightDate: {
-    alignSelf: 'flex-end',
-  },
-  dateShowStyle: {
-    marginTop: hp(4),
-    fontSize: fontSize(10),
-    fontFamily: 'Poppins-SemiBold',
-  },
-  modalStyle: {
-    justifyContent: 'flex-end',
-    margin: 0,
-  },
-  contentFledStyle: {
-    width: hp(160),
-    height: hp(160),
-    alignSelf: 'flex-end',
-  },
-  contentFledStyle1: {
-    width: hp(160),
-    height: hp(160),
-    alignSelf: 'flex-start',
   },
 });
 

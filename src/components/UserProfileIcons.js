@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
     width: hp(20),
   },
   conStyle: {
-    height: hp(44),
     width: hp(44),
-    backgroundColor: '#454B65',
-    justifyContent: 'center',
+    height: hp(44),
     alignItems: 'center',
     borderRadius: wp(24),
+    justifyContent: 'center',
+    backgroundColor: '#454B65',
   },
 });

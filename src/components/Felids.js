@@ -1,15 +1,16 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
-import {hp, wp} from '../utils/constant';
+
 import {colors} from '../utils/themes';
+import {hp, wp} from '../utils/constant';
 
 const Felids = ({
+  value,
   label,
+  error,
   onChangeText,
   autoCapitalize,
   secureTextEntry,
-  value,
-  error, // New prop for error message
 }) => {
   return (
     <View style={styles.con}>
@@ -33,26 +34,26 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     borderBottomWidth: 1,
-    borderBottomColor: '#CDD1D0',
     paddingBottom: hp(5),
+    borderBottomColor: '#CDD1D0',
     fontFamily: 'Poppins-Regular',
   },
   errorText: {
-    fontFamily: 'Poppins-Regular',
     color: 'red',
     fontSize: 12,
     marginTop: 5,
+    fontFamily: 'Poppins-Regular',
   },
   con: {
     height: hp(58),
+    marginTop: hp(30),
     marginHorizontal: wp(20),
     justifyContent: 'space-between',
-    marginTop: hp(30),
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

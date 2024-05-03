@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+
 import ReactNativeModal from 'react-native-modal';
-import LinearButton from './LinearButton';
+
 import {wp} from '../utils/constant';
-import { colors } from '../utils/themes';
+import {colors} from '../utils/themes';
+import LinearButton from './LinearButton';
 
 const ErrorModal = ({visible, message, onClose}) => {
   return (
@@ -31,20 +33,20 @@ const ErrorModal = ({visible, message, onClose}) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   errorMessage: {
     fontSize: 16,
     marginBottom: 10,
+    color: colors.black,
     fontFamily: 'Poppins-Regular',
-    color: colors.black
   },
   closeButton: {
     fontSize: 16,

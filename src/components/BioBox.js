@@ -20,10 +20,7 @@ const BioBox = ({currentUserData}) => {
         <Text style={styles.userLabel}>{currentUserData?.name}</Text>
         <Text style={styles.userNotesStyle}>Never give up 💪</Text>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigate('QRCodeScanners');
-        }}>
+      <TouchableOpacity onPress={() => navigate('QRCodeScanners')}>
         <Image source={images.qrCode} style={styles.qrIcon} />
       </TouchableOpacity>
     </View>
@@ -33,6 +30,18 @@ const BioBox = ({currentUserData}) => {
 export default BioBox;
 
 const styles = StyleSheet.create({
+  qrIcon: {
+    width: hp(22),
+    height: hp(22),
+  },
+  profileIcon: {
+    width: hp(40),
+    height: hp(40),
+  },
+  userBioView: {
+    flex: 1,
+    marginLeft: wp(14),
+  },
   profileCon: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -46,14 +55,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: colors.grey,
   },
-  profileIcon: {
-    width: hp(40),
-    height: hp(40),
-  },
-  userBioView: {
-    flex: 1,
-    marginLeft: wp(14),
-  },
   userLabel: {
     color: colors.black,
     fontSize: fontSize(18),
@@ -65,9 +66,5 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontSize: fontSize(12),
     fontFamily: 'Poppins-Regular',
-  },
-  qrIcon: {
-    width: hp(22),
-    height: hp(22),
   },
 });

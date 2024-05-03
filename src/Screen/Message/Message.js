@@ -202,9 +202,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  statusListStyle: {
+    height: hp(150),
+  },
+  userImageStyle: {
+    width: hp(52),
+    height: hp(52),
+  },
   lottieStyle: {
     width: hp(150),
     height: hp(150),
+  },
+  statusListSubStyle: {
+    marginTop: hp(40),
+    marginHorizontal: wp(12),
   },
   emptyDataViewStyle: {
     flex: 1,
@@ -215,17 +226,6 @@ const styles = StyleSheet.create({
     fontSize: fontSize(20),
     fontFamily: 'Poppins-Bold',
     color: colors.buttonFirstColor,
-  },
-  statusListSubStyle: {
-    marginTop: hp(40),
-    marginHorizontal: wp(12),
-  },
-  statusListStyle: {
-    height: hp(150),
-  },
-  userImageStyle: {
-    width: hp(52),
-    height: hp(52),
   },
   listConView: {
     flex: 1,
