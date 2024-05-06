@@ -5,6 +5,7 @@ export const colors = {
   black: '#000000',
   lineColor: '#CDD1D0',
   textColor: '#3D4A7A',
+  empty_data: '#162052',
   loginTextColor: '#FFF',
   constantOne: '#797C7B',
   backGroundColor: '#fff',

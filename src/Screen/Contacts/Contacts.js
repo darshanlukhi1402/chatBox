@@ -4,27 +4,30 @@ import {
   Text,
   FlatList,
   StyleSheet,
+  ActivityIndicator,
   PermissionsAndroid,
 } from 'react-native';
 
 import Contact from 'react-native-contacts';
+import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 
-import {images} from '../../assets';
 import {border} from '../../utils/dummy';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
+import {images, lottie} from '../../assets';
 import HeaderCon from '../../components/HeaderCon';
 import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
 
 const Contacts = () => {
+  const isFocused = useIsFocused();
   const {navigate} = useNavigation();
 
-  const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(false);
   const [contactList, setContactList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUserData, setCurrentUserData] = useState([]);
@@ -50,6 +53,7 @@ const Contacts = () => {
   };
 
   const getPermission = () => {
+    setLoading(true);
     PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
       title: 'Contacts',
       message: 'This app would like to view your contacts.',
@@ -62,6 +66,9 @@ const Contacts = () => {
           })
           .catch(e => {
             console.log(e);
+          })
+          .finally(() => {
+            setLoading(false);
           });
       }
     });
@@ -79,6 +86,35 @@ const Contacts = () => {
   const filteredContacts = contactList.filter(contact =>
     contact.displayName.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
+  const EmptyListComponent = () => (
+    <View style={styles.emptyDataViewStyle}>
+      <LottieView
+        source={lottie.no_contacts}
+        autoPlay
+        loop
+        style={styles.lottieStyle}
+      />
+      <Text style={styles.emptyDataStyle}>{strings.no_contact_found}</Text>
+    </View>
+  );
+
+  const renderContactItem = ({item, index}) => {
+    return (
+      <StatusLabel
+        PrimaryLabel={item?.displayName}
+        subTextStyle={styles.subTextStyles}
+        labelTextStyle={styles.labelStyles}
+        subLabel={item.phoneNumbers[0].number}
+        userImageStyle={styles.userImageStyles}
+        conStatusStyles={{marginBottom: hp(30)}}
+        highlightStyle={styles.downBorderStyle}
+        userStatusBorderStyle={{
+          borderColor: border[index % border.length],
+        }}
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -100,29 +136,22 @@ const Contacts = () => {
         />
         <View style={styles.listConView}>
           <Text style={styles.contactLabelStyle}>{strings.my_Contact}</Text>
-          <FlatList
-            data={filteredContacts}
-            bounces={false}
-            style={{marginBottom: hp(30)}}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item, index}) => {
-              return (
-                <StatusLabel
-                  PrimaryLabel={item?.displayName}
-                  subTextStyle={styles.subTextStyles}
-                  labelTextStyle={styles.labelStyles}
-                  subLabel={item.phoneNumbers[0].number}
-                  userImageStyle={styles.userImageStyles}
-                  conStatusStyles={{marginBottom: hp(30)}}
-                  highlightStyle={styles.downBorderStyle}
-                  userStatusBorderStyle={{
-                    borderColor: border[index % border.length],
-                  }}
-                />
-              );
-            }}
-            keyExtractor={item => item.recordID}
-          />
+          {loading ? (
+            <View style={styles.emptyDataViewStyle}>
+              <ActivityIndicator size="large" color={colors.textColor} />
+            </View>
+          ) : (
+            <FlatList
+              bounces={false}
+              data={filteredContacts}
+              renderItem={renderContactItem}
+              style={{marginBottom: hp(30)}}
+              keyExtractor={item => item.recordID}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{flexGrow: 1}}
+              ListEmptyComponent={EmptyListComponent}
+            />
+          )}
         </View>
       </LinearGradient>
     </View>
@@ -133,12 +162,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  loader: {
+    flex: 1,
+  },
   conListStyle: {
     padding: 10,
   },
   userImageStyles: {
     height: hp(36),
     width: hp(36),
+  },
+  lottieStyle: {
+    width: hp(150),
+    height: hp(150),
   },
   numberTextStyle: {
     color: '#000',
@@ -154,10 +190,20 @@ const styles = StyleSheet.create({
     fontSize: fontSize(12),
     color: colors.constantOne,
   },
+  emptyDataStyle: {
+    fontSize: fontSize(20),
+    fontFamily: 'Poppins-Bold',
+    color: colors?.empty_data,
+  },
   conTextStyle: {
     color: '#000E08',
     fontSize: fontSize(16),
     fontFamily: 'Poppins-Medium',
+  },
+  emptyDataViewStyle: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   myConStyle: {
     color: '#000E08',

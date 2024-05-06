@@ -38,6 +38,7 @@ export const images = {
   Contacts: require('../assets/images/Contacts.png'),
   settings: require('../assets/images/settings.png'),
   facebook: require('../assets/images/Facebook.png'),
+  plus_icon: require('../assets/images/plus_icon.png'),
   videoCall: require('../assets/images/videoCall.png'),
   callFocus: require('../assets/images/callFocus.png'),
   chatFocus: require('../assets/images/chatFocus.png'),
@@ -57,4 +58,5 @@ export const images = {
 
 export const lottie = {
   no_user: require('../assets/Lottie/no_user.json'),
+  no_contacts: require('../assets/Lottie/no_contacts.json')
 };

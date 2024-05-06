@@ -11,17 +11,20 @@ import {images} from '../assets';
 import {colors} from '../utils/themes';
 import {fontSize, hp, wp} from '../utils/constant';
 
-const ChatTextInput = ({
-  value,
-  onFocus,
-  content,
-  onChangeText,
-  placeholder,
-  leftOnPress,
-  sendOnPress,
-  camerOnPress,
-  voiceOnPress,
-}) => {
+const ChatTextInput = (
+  {
+    value,
+    onFocus,
+    content,
+    onChangeText,
+    placeholder,
+    leftOnPress,
+    sendOnPress,
+    camerOnPress,
+    voiceOnPress,
+  },
+  textInputRef,
+) => {
   return (
     <View style={styles.containerStyle}>
       <TouchableOpacity onPress={leftOnPress}>
@@ -45,11 +48,12 @@ const ChatTextInput = ({
           <TextInput
             value={value}
             onFocus={onFocus}
+            ref={textInputRef}
+            autoCapitalize="none"
             style={styles.chatStyle}
             placeholder={placeholder}
             onChangeText={onChangeText}
             placeholderTextColor={colors.onlineStatus}
-            autoCapitalize="none"
           />
         )}
         <TouchableOpacity onPress={sendOnPress}>

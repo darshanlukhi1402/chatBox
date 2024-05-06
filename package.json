@@ -37,6 +37,8 @@
     "react-native-document-picker": "^9.0.1",
     "react-native-formik": "^1.7.8",
     "react-native-gesture-handler": "^2.13.4",
+    "react-native-image-picker": "^7.1.2",
+    "react-native-insta-story": "^1.1.9",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-modal": "^13.0.1",
@@ -49,6 +51,7 @@
     "react-native-screens": "^3.27.0",
     "react-native-splash-screen": "^3.3.0",
     "react-native-status-bar-height": "^2.6.0",
+    "react-native-story-view": "^3.1.0",
     "react-native-video": "^5.2.1",
     "yarn": "^1.22.19"
   },

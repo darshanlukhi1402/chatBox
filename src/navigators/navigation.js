@@ -11,6 +11,8 @@ import ChatScreen from '../Screen/ChatScreens/ChatScreen';
 import GetStarted from '../Screen/Authentication/GetStarted';
 import UserProfileDetails from '../components/UserProfileDetails';
 import QRCodeScanners from '../Screen/QRCodeScanner/QRCodeScanners';
+import AddStatusScreen from '../Screen/Message/AddStatus/AddStatusScreen';
+import { colors } from '../utils/themes';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +20,7 @@ const MainStackNavigator = ({value}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{headerShown: false, statusBarHidden: true}}
+        screenOptions={{headerShown: false, statusBarColor: colors.empty_data}}
         initialRouteName={!value ? 'GetStarted' : 'TabNavigation'}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -26,6 +28,7 @@ const MainStackNavigator = ({value}) => {
         <Stack.Screen name="GetStarted" component={GetStarted} />
         <Stack.Screen name="TabNavigation" component={TabNavigation} />
         <Stack.Screen name="QRCodeScanners" component={QRCodeScanners} />
+        <Stack.Screen name="AddStatusScreen" component={AddStatusScreen} />
         <Stack.Screen name="UserProfileDetails" component={UserProfileDetails} />
         {/* <Stack.Screen name="Message" component={Message} />
         <Stack.Screen name="VideoCall" component={VideoCall} /> */}

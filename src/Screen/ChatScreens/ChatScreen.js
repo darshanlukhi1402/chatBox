@@ -7,6 +7,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 
 import moment from 'moment';
@@ -29,6 +30,7 @@ import ChatTextInput from '../../components/ChatTextInput';
 
 const ChatScreen = () => {
   const userRef = useRef(null);
+  const chatInputRef = useRef(null);
   const lastDisplayedDateRef = useRef(null);
 
   const user = useRoute().params;
@@ -124,6 +126,7 @@ const ChatScreen = () => {
 
   const onSendMessagePress = async () => {
     setChatText('');
+    Keyboard.dismiss();
     const content_data = await uploadContent();
     const obj = {
       isSeen: false,
@@ -159,6 +162,7 @@ const ChatScreen = () => {
             setContentDataType('');
           });
       }
+      chatInputRef.current.blur();
       displayNotification();
     } catch (error) {
       console.log('error', error);
@@ -271,16 +275,16 @@ const ChatScreen = () => {
         callOnPress={callPress}
         userIcon={{uri: user.userDpUri}}
         videoCallIcon={images.videoCall}
-        onlineStatus={strings.active_now}
         leftIconOnPress={() => goBack()}
+        onlineStatus={strings.active_now}
       />
       <View style={styles.chatConView}>
         <FlatList
           data={chat}
           ref={userRef}
           bounces={false}
-          showsVerticalScrollIndicator={false}
           renderItem={renderChatItem}
+          showsVerticalScrollIndicator={false}
           onLayout={() => userRef?.current?.scrollToEnd()}
           onContentSizeChange={() => userRef.current.scrollToEnd()}
         />
@@ -289,6 +293,7 @@ const ChatScreen = () => {
         value={chatText}
         content={contentDataType}
         leftOnPress={shareOnPress}
+        textInputRef={chatInputRef}
         sendOnPress={onSendMessagePress}
         onChangeText={text => setChatText(text)}
         placeholder={strings.write_your_message}
@@ -335,8 +340,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   modalStyle: {
-    justifyContent: 'flex-end',
     margin: 0,
+    justifyContent: 'flex-end',
   },
   container: {
     flex: 1,

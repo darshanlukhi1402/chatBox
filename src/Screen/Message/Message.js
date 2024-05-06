@@ -1,8 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, FlatList, StyleSheet, AppState} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  AppState,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 
 import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
+import InstaStory from 'react-native-insta-story';
 import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
@@ -12,16 +22,34 @@ import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import {images, lottie} from '../../assets';
 import {getUserData} from '../../utils/Global';
+import PlusIcon from '../../components/PlusIcon';
 import HeaderCon from '../../components/HeaderCon';
 import {fontSize, hp, wp} from '../../utils/constant';
 import StatusLabel from '../../components/StatusLabel';
 
 const Message = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
   const [searchFunctionality, setSearchFunctionality] = useState(false);
+  // const [storyData, setStoryData] = useState([]);
+
+  // const transformData = originalData => {
+  //   return originalData.map((item, index) => {
+  //     return {
+  //       user_id: index + 1,
+  //       user_image: item?.userDpUri,
+  //       user_name: item?.name,
+  //       stories: Array.from({length: 16}, (_, storyIndex) => ({
+  //         story_id: index + 1,
+  //         story_image: `https://picsum.photos/500/800?random=${Math.random()}`,
+  //         swipeText: 'Custom swipe text for this story',
+  //       })),
+  //     };
+  //   });
+  // };
 
   const {navigate} = useNavigation();
 
@@ -31,25 +59,34 @@ const Message = () => {
     updateUserStatus(true);
     AppState.addEventListener('change', handleAppStateChange);
     return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
+      // AppState.removeEventListener('change', handleAppStateChange);
     };
   }, []);
 
   const getData = () => {
-    firestore()
-      .collection('users')
-      .where('created', '<=', new Date())
-      .orderBy('created', 'desc')
-      .onSnapshot(querySnapshot => {
-        const users = [];
-        querySnapshot.forEach(documentSnapshot => {
-          users.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
+    setLoading(true);
+    try {
+      firestore()
+        .collection('users')
+        .where('created', '<=', new Date())
+        .orderBy('created', 'desc')
+        .onSnapshot(async querySnapshot => {
+          const users = [];
+          querySnapshot.forEach(documentSnapshot => {
+            users.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+            });
           });
+          setData(users);
+          setLoading(false);
+          // const transformedData = await transformData(users);
+          // setStoryData(transformedData);
         });
-        setData(users);
-      });
+    } catch (error) {
+      setLoading(false);
+      console.log('error', error);
+    }
   };
 
   const fetchUserData = async () => {
@@ -82,7 +119,7 @@ const Message = () => {
     return (
       !currentUser && (
         <View style={{marginHorizontal: wp(8.5)}}>
-          <View
+          <TouchableOpacity
             style={{
               ...styles.userStatusBorderStyle,
               borderColor: border[index % border.length],
@@ -91,7 +128,7 @@ const Message = () => {
               source={{uri: item.userDpUri}}
               style={styles.userImageStyle}
             />
-          </View>
+          </TouchableOpacity>
           <Text style={styles.statusUserName}>{item.name}</Text>
         </View>
       )
@@ -155,6 +192,27 @@ const Message = () => {
     </View>
   );
 
+  const renderListHeaderComponent = () => {
+    return (
+      <View style={{marginHorizontal: wp(8.5)}}>
+        <TouchableOpacity
+          style={{
+            ...styles.userStatusBorderStyle,
+            borderColor: colors.white,
+            borderWidth: hp(1),
+            flexDirection: 'row',
+          }}>
+          <Image
+            source={{uri: currentUserData.userDpUri}}
+            style={styles.userImageStyle}
+          />
+        </TouchableOpacity>
+        <PlusIcon plusIconPress={() => navigate('AddStatusScreen')} />
+        <Text style={styles.statusUserName}>{strings?.my_status}</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -174,24 +232,36 @@ const Message = () => {
           searchOnPress={() => setSearchFunctionality(true)}
         />
         <View style={styles.statusListStyle}>
-          <FlatList
-            horizontal
-            data={data}
-            bounces={false}
-            renderItem={statusRenderItem}
-            style={styles.statusListSubStyle}
-            showsHorizontalScrollIndicator={false}
-          />
+          {loading ? (
+            <View style={{flex: 1}}>
+              <ActivityIndicator size="large" color={colors.primary} />
+            </View>
+          ) : (
+            <FlatList
+              horizontal
+              data={data}
+              renderItem={statusRenderItem}
+              showsHorizontalScrollIndicator={false}
+              ListHeaderComponent={renderListHeaderComponent}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )}
         </View>
         <View style={styles.listConView}>
-          <FlatList
-            bounces={false}
-            renderItem={RenderItemComponent}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{flexGrow: 1}}
-            ListEmptyComponent={EmptyListComponent}
-            data={searchText ? searchResults : data}
-          />
+          {loading ? (
+            <View style={styles.emptyDataViewStyle}>
+              <ActivityIndicator size="large" color={colors.textColor} />
+            </View>
+          ) : (
+            <FlatList
+              bounces={false}
+              renderItem={RenderItemComponent}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{flexGrow: 1}}
+              ListEmptyComponent={EmptyListComponent}
+              data={searchText ? searchResults : data}
+            />
+          )}
         </View>
       </LinearGradient>
     </View>
@@ -202,9 +272,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  statusListStyle: {
-    height: hp(150),
-  },
   userImageStyle: {
     width: hp(52),
     height: hp(52),
@@ -214,7 +281,6 @@ const styles = StyleSheet.create({
     height: hp(150),
   },
   statusListSubStyle: {
-    marginTop: hp(40),
     marginHorizontal: wp(12),
   },
   emptyDataViewStyle: {
@@ -225,7 +291,13 @@ const styles = StyleSheet.create({
   emptyDataStyle: {
     fontSize: fontSize(20),
     fontFamily: 'Poppins-Bold',
-    color: colors.buttonFirstColor,
+    color: colors?.empty_data,
+  },
+  statusListStyle: {
+    height: hp(140),
+    paddingTop: hp(40),
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   listConView: {
     flex: 1,
