@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Image, View, Button, Alert } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import React, {useState, useEffect} from 'react';
+import {Image, View, Button, Alert} from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const AddStatusScreen = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -40,10 +40,8 @@ const AddStatusScreen = () => {
       console.log('Media picker error: ', response.error);
     } else {
       if (response.assets?.length > 0) {
-        // Check if assets array is not empty
-        const mediaType = response.assets[0].type; // Get the type of the first asset
+        const mediaType = response.assets[0].type;
         if (mediaType === 'image' || mediaType === 'video') {
-          // If the first asset is an image or video
           setSelectedMedia(response.assets[0].uri);
         }
       } else {
@@ -53,20 +51,20 @@ const AddStatusScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       {selectedMedia && (
         <>
           {selectedMedia.includes('.mp4') ? (
             <Video
-              source={{ uri: selectedMedia }}
-              style={{ width: '100%', height: '100%' }}
+              source={{uri: selectedMedia}}
+              style={{width: '100%', height: '100%'}}
               resizeMode="contain"
               controls
             />
           ) : (
             <Image
-              source={{ uri: selectedMedia }}
-              style={{ width: '100%', height: '100%' }}
+              source={{uri: selectedMedia}}
+              style={{width: '100%', height: '100%'}}
               resizeMode="contain"
             />
           )}

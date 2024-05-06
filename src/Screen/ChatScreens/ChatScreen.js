@@ -13,6 +13,7 @@ import {
 import moment from 'moment';
 import Video from 'react-native-video';
 import notifee from '@notifee/react-native';
+import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
 import ReactNativeModal from 'react-native-modal';
 import storage from '@react-native-firebase/storage';
@@ -20,9 +21,9 @@ import firestore from '@react-native-firebase/firestore';
 import DocumentPicker from 'react-native-document-picker';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
-import {images} from '../../assets';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
+import {images, lottie} from '../../assets';
 import {dummyData} from '../../utils/Global';
 import ChatHeader from '../../components/ChatHeader';
 import {fontSize, hp, wp} from '../../utils/constant';
@@ -266,6 +267,18 @@ const ChatScreen = () => {
     );
   };
 
+  const EmptyListComponent = () => (
+    <View style={styles.emptyDataViewStyle}>
+      <LottieView
+        source={lottie.no_chat}
+        autoPlay
+        loop
+        style={styles.lottieStyle}
+      />
+      <Text style={styles.emptyDataStyle}>{strings.no_chat_found}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <ChatHeader
@@ -276,7 +289,11 @@ const ChatScreen = () => {
         userIcon={{uri: user.userDpUri}}
         videoCallIcon={images.videoCall}
         leftIconOnPress={() => goBack()}
-        onlineStatus={strings.active_now}
+        onlineStatus={
+          user?.online == true
+            ? strings.active_now
+            : moment(user?.lastOnlineTime.toDate()).fromNow()
+        }
       />
       <View style={styles.chatConView}>
         <FlatList
@@ -285,6 +302,8 @@ const ChatScreen = () => {
           bounces={false}
           renderItem={renderChatItem}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{flexGrow: 1}}
+          ListEmptyComponent={EmptyListComponent}
           onLayout={() => userRef?.current?.scrollToEnd()}
           onContentSizeChange={() => userRef.current.scrollToEnd()}
         />
@@ -335,6 +354,10 @@ const styles = StyleSheet.create({
     width: hp(24),
     height: hp(24),
   },
+  lottieStyle: {
+    width: hp(320),
+    height: hp(320),
+  },
   modelHeaderView: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -355,6 +378,17 @@ const styles = StyleSheet.create({
     marginTop: hp(4),
     fontSize: fontSize(10),
     fontFamily: 'Poppins-SemiBold',
+  },
+  emptyDataViewStyle: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyDataStyle: {
+    bottom: hp(20),
+    fontSize: fontSize(18),
+    fontFamily: 'Poppins-Bold',
+    color: colors?.empty_data,
   },
   contentStyle: {
     flexDirection: 'row',

@@ -15,6 +15,7 @@ export const strings = {
   active_now: 'Active now',
   share_Content: 'Share Content',
   no_user_found: 'No User Found ....',
+  no_chat_found: 'No Chat Found ....',
   no_contact_found: 'No Contact Found ....',
   log_in_chatBox: 'Log in to Chatbox',
   forgot_password: 'Forgot Password?',

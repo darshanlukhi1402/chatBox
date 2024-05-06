@@ -58,5 +58,6 @@ export const images = {
 
 export const lottie = {
   no_user: require('../assets/Lottie/no_user.json'),
-  no_contacts: require('../assets/Lottie/no_contacts.json')
+  no_chat: require('../assets/Lottie/no_chat.json'),
+  no_contacts: require('../assets/Lottie/no_contacts.json'),
 };
