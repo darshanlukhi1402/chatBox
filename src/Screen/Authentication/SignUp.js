@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     marginBottom: hp(30),
   },
   downStyle: {
-    marginTop: hp(180),
+    marginTop: hp(160),
   },
   forgotView: {
     alignSelf: 'center',

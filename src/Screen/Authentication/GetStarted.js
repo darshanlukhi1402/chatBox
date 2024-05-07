@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   loginStyle: {
-    marginTop: hp(30),
+    marginTop: hp(20),
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',

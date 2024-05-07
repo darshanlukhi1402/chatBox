@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
 import SplashScreen from 'react-native-splash-screen';
+import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import MainStackNavigator from './src/navigators/navigation';
+import { DisplayNotification } from './src/utils/Global';
 
 const App = () => {
   const [userExist, setUserExist] = useState('');
@@ -11,6 +13,16 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide();
     getData();
+
+    const unsubscribeForeground = messaging().onMessage(async remoteMessage => {
+      DisplayNotification(remoteMessage);
+    });
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      DisplayNotification(remoteMessage);
+    });
+    return () => {
+      unsubscribeForeground();
+    };
   }, []);
 
   const getData = async () => {
@@ -48,7 +60,7 @@ export default App;
 //       body: 'Main body content of the notification',
 //       android: {
 //         channelId,
-//         smallIcon: 'ic_notification', 
+//         smallIcon: 'ic_notification',
 //         pressAction: {
 //           id: 'default',
 //         },

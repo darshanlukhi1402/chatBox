@@ -24,7 +24,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {colors} from '../../utils/themes';
 import {strings} from '../../utils/string';
 import {images, lottie} from '../../assets';
-import {dummyData} from '../../utils/Global';
+import {dummyData, getUserData, server_key} from '../../utils/Global';
 import ChatHeader from '../../components/ChatHeader';
 import {fontSize, hp, wp} from '../../utils/constant';
 import ChatTextInput from '../../components/ChatTextInput';
@@ -41,12 +41,14 @@ const ChatScreen = () => {
   const [chatText, setChatText] = useState('');
   const [contentData, setContentData] = useState('');
   const [contentPdfData, setContentPdfData] = useState('');
+  const [currentUserData, setCurrentUserData] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
   const [dow_contentData, setDowContentData] = useState('');
   const [contentDataType, setContentDataType] = useState('');
 
   useEffect(() => {
     getMessagesData();
+    getUserData(auth().currentUser.uid).then(res => setCurrentUserData(res));
   }, [contentDataType]);
 
   const currentUserUid = auth().currentUser.uid;
@@ -163,11 +165,40 @@ const ChatScreen = () => {
             setContentDataType('');
           });
       }
+      sendNotification();
       chatInputRef.current.blur();
       displayNotification();
     } catch (error) {
       console.log('error', error);
     }
+  };
+
+  const sendNotification = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', `key=${server_key}`);
+    var raw = JSON.stringify({
+      content_available: true,
+      notification: {
+        body: chatText,
+        title: currentUserData?.name,
+      },
+      data: {
+        body: chatText,
+        title: currentUserData?.name,
+      },
+      to: user?.fcm_token,
+    });
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+    fetch('https://fcm.googleapis.com/fcm/send', requestOptions)
+      .then(response => response.text())
+      .then(result => console.log('Notification response:', result))
+      .catch(error => console.log(error));
   };
 
   const renderChatItem = ({item, index}) => {

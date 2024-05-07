@@ -1,4 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
+import notifee, {AndroidImportance} from '@notifee/react-native';
+
 import {images} from '../assets';
 
 export const getUserData = async userId => {
@@ -11,20 +13,23 @@ export const getUserData = async userId => {
   }
 };
 
-export const getMessagesData = (chatId) => {
+export const getMessagesData = chatId => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection('userChatMessages')
       .doc(chatId)
-      .onSnapshot(documentSnapshot => {
-        if (documentSnapshot.exists) {
-          resolve(documentSnapshot.data().chat);
-        } else {
-          reject(new Error('Document does not exist'));
-        }
-      }, error => {
-        reject(error);
-      });
+      .onSnapshot(
+        documentSnapshot => {
+          if (documentSnapshot.exists) {
+            resolve(documentSnapshot.data().chat);
+          } else {
+            reject(new Error('Document does not exist'));
+          }
+        },
+        error => {
+          reject(error);
+        },
+      );
   });
 };
 
@@ -66,3 +71,21 @@ export const dummyData = [
   {name: 'Media', sub: 'Share photos and videos', icon: images.media},
   {name: 'Location', sub: 'Share your location', icon: images.pin},
 ];
+
+export const DisplayNotification = async remoteMessage => {
+  const channelId = await notifee.createChannel({
+    id: 'important',
+    name: 'Important Notifications',
+    importance: AndroidImportance.HIGH,
+  });
+  await notifee.displayNotification({
+    title: 'title',
+    body: 'body',
+    android: {
+      channelId,
+      importance: AndroidImportance.HIGH,
+    },
+  });
+};
+
+export const server_key = 'AAAAGQzVeDU:APA91bFaGarR5HiCqumm_YtGkWuegtmIra4SvUFd31crvoY9gf_3tpP8RiS8SJ0YliB3OlpV-d-7xCn7obZwbaRn88x7tsp3we4_CrRbOkdzAbEVijcihDYSqF4oRgjYrXt3wdxrs5A_'

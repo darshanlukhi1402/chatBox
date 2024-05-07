@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import messaging from '@react-native-firebase/messaging';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -58,6 +60,12 @@ const Login = () => {
         .signInWithEmailAndPassword(email.toLowerCase(), password)
         .then(async () => {
           await AsyncStorage.setItem('userAdded', 'user');
+          const token = await messaging().getToken();
+          await firestore()
+            .collection('users')
+            .doc(`${auth().currentUser.uid}`)
+            .update({fcm_token: token});
+
           dispatch(StackActions.replace('TabNavigation'));
         })
         .catch(error => {
@@ -143,7 +151,7 @@ const styles = StyleSheet.create({
     marginTop: hp(50),
   },
   downStyle: {
-    marginTop: hp(230),
+    marginTop: hp(210),
   },
   container: {
     flex: 1,
