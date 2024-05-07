@@ -27,7 +27,7 @@ const UserProfileDetails = () => {
         style={[styles.container]}>
         <View style={{}}>
           <TouchableOpacity style={styles.backButtonStyle} onPress={goBack}>
-            <Image source={images.back} style={styles.leftIconStyle} />
+            <Image source={images?.back} style={styles.leftIconStyle} />
           </TouchableOpacity>
           <View style={styles.bioProfileStyle}>
             <View style={styles.userProfileView}>
@@ -41,12 +41,12 @@ const UserProfileDetails = () => {
           </View>
           <View style={styles.conUserFet}>
             <UserProfileIcons
-              source={images.groupP}
+              source={images?.groupP}
               onPress={() => userChatPress(route)}
             />
-            <UserProfileIcons source={images.videosP} />
-            <UserProfileIcons source={images.callP} />
-            <UserProfileIcons source={images.more} />
+            <UserProfileIcons source={images?.videosP} />
+            <UserProfileIcons source={images?.callP} />
+            <UserProfileIcons source={images?.more} />
           </View>
         </View>
         <View style={styles.listConView}>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   profileIconStyle: {
     width: hp(70),
     height: hp(70),
+    borderRadius: hp(40)
   },
   bioProfileStyle: {
     alignSelf: 'center',

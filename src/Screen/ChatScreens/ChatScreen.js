@@ -301,10 +301,10 @@ const ChatScreen = () => {
   return (
     <View style={styles.container}>
       <ChatHeader
-        leftIcon={images.back}
-        callIcon={images.calll}
+        leftIcon={images?.back}
+        callIcon={images?.calll}
         callOnPress={callPress}
-        userIcon={{uri: user.userDpUri}}
+        userIcon={{uri: user?.userDpUri}}
         videoCallIcon={images.videoCall}
         leftIconOnPress={() => goBack()}
         userName={`${user.firstName} ${user.lastName}`}
@@ -357,7 +357,7 @@ const ChatScreen = () => {
         <View style={styles.modelViewStyle}>
           <View style={styles.modelHeaderView}>
             <TouchableOpacity onPress={() => setModalVisible(!isModalVisible)}>
-              <Image source={images.remove} style={styles.removeIconStyle} />
+              <Image source={images?.remove} style={styles.removeIconStyle} />
             </TouchableOpacity>
             <Text style={styles.shareContentStyle}>
               {strings.share_Content}

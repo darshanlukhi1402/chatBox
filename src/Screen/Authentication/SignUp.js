@@ -108,7 +108,7 @@ const SignUp = () => {
       Alert.alert('Success', 'Account created successfully');
       navigate('Login');
       setLoading(false);
-      // emptyState();
+      emptyState();
     } catch (err) {
       setLoading(false);
 
@@ -164,7 +164,7 @@ const SignUp = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header source={images.back} onPress={() => goBack()} />
+      <Header source={images?.back} onPress={() => goBack()} />
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.headerStyle}>
           <Text style={styles.loinTextStyle}>{strings.sign_up_with_email}</Text>

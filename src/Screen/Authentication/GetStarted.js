@@ -24,13 +24,13 @@ const GetStarted = () => {
         <Text style={styles.detailText}>{strings.getStartedTitleMessage}</Text>
         <View style={styles.imageMainView}>
           <View style={styles.imageSubView}>
-            <Image source={images.facebook} style={styles.image} />
+            <Image source={images?.facebook} style={styles.image} />
           </View>
           <View style={styles.imageSubView}>
-            <Image source={images.gPay} style={styles.image} />
+            <Image source={images?.gPay} style={styles.image} />
           </View>
           <View style={styles.imageSubView}>
-            <Image source={images.apple} style={styles.image} />
+            <Image source={images?.apple} style={styles.image} />
           </View>
         </View>
         <LineConstant label={strings.or} labelStyle={styles.labelStyle} />

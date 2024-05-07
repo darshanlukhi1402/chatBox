@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   userImageStyle: {
     width: hp(48),
     height: hp(48),
+    borderRadius: hp(40)
   },
   statusStyle: {
     top: hp(18),

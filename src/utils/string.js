@@ -17,7 +17,6 @@ export const strings = {
   active_now: 'Active now',
   phone_number: 'Phone Number',
   share_Content: 'Share Content',
-  no_user_found: 'No User Found ....',
   log_in_chatBox: 'Log in to Chatbox',
   forgot_password: 'Forgot Password?',
   confirm_password: 'Confirm Password',
@@ -28,6 +27,7 @@ export const strings = {
   sign_up_with_email: 'Sign up with Email',
   no_contact_found: 'No Contact Found ....',
   no_chat_found: 'No chats yet? Start by\nreaching out to a friend!',
+  no_user_found: 'No chats found 🙂‍↔️\nStart a conversation to see them here.',
   welcomeLine:
     'Welcome back! Sign in using your social\naccount or email to continue us',
   signUpLine:

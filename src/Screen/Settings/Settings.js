@@ -24,7 +24,7 @@ import {fontSize, hp, wp} from '../../utils/constant';
 import {getUserData, settingData} from '../../utils/Global';
 
 const Settings = () => {
-  const {dispatch} = useNavigation();
+  const {dispatch, navigate} = useNavigation();
   const [currentUserData, setCurrentUserData] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,9 @@ const Settings = () => {
     return (
       <View style={styles.settingFetStyle}>
         <Image source={item?.icon} style={styles.settingsFetIcons} />
-        <TouchableOpacity style={styles.settingsFetLabels}>
+        <TouchableOpacity
+          style={styles.settingsFetLabels}
+          onPress={() => navigate('Account')}>
           <Text style={styles.settingsLabelTextStyle}>{item.label}</Text>
           {item.sabLabel && (
             <Text style={styles.settingSubLabelStyle}>{item.sabLabel}</Text>
@@ -84,7 +86,7 @@ const Settings = () => {
             <TouchableOpacity
               onPress={logOutPress}
               style={styles.logoutButtonStyle}>
-              <Image source={images.logout} style={styles.logoutIconStyle} />
+              <Image source={images?.logout} style={styles.logoutIconStyle} />
               <Text style={styles.logoutTextStyle}>{strings?.Logout}</Text>
             </TouchableOpacity>
           </ScrollView>

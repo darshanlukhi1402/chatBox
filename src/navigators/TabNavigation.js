@@ -18,6 +18,7 @@ const TabNavigation = () => {
     <View style={styles.container}>
       <Tab.Navigator
         screenOptions={({route}) => ({
+          // unmountOnBlur: true,
           tabBarIcon: ({focused}) => {
             let iconName, iconStyle;
             if (route.name === 'Message') {

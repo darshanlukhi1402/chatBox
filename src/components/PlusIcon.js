@@ -8,7 +8,7 @@ import {colors} from '../utils/themes';
 const PlusIcon = ({plusIconPress}) => {
   return (
     <TouchableOpacity style={styles.plusCon} onPress={plusIconPress}>
-      <Image source={images.plus_icon} style={styles.plusIconStyle} />
+      <Image source={images?.plus_icon} style={styles.plusIconStyle} />
     </TouchableOpacity>
   );
 };

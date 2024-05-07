@@ -217,12 +217,12 @@ const Message = () => {
           leftIcon
           label={strings.home}
           searchValue={searchText}
-          leftSource={images.search}
+          leftSource={images?.search}
           removeOnPress={handleRemove}
           onChangeSearchText={handleSearch}
           searchStatus={searchFunctionality}
           rightOnPress={() => navigate('Settings')}
-          rightSource={{uri: currentUserData.userDpUri}}
+          rightSource={{uri: currentUserData?.userDpUri}}
           searchOnPress={() => setSearchFunctionality(true)}
         />
         <View style={styles.statusListStyle}>
@@ -272,6 +272,7 @@ const styles = StyleSheet.create({
   userImageStyle: {
     width: hp(52),
     height: hp(52),
+    borderRadius: hp(40)
   },
   lottieStyle: {
     width: hp(150),
@@ -286,9 +287,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   emptyDataStyle: {
-    fontSize: fontSize(20),
-    fontFamily: 'Poppins-Bold',
+    textAlign: 'center',
+    fontSize: fontSize(14),
     color: colors?.empty_data,
+    fontFamily: 'Poppins-Medium',
   },
   statusListStyle: {
     height: hp(140),

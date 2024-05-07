@@ -25,6 +25,7 @@ const HeaderCon = ({
   rightOnPress,
   searchOnPress,
   removeOnPress,
+  headerConStyle,
   headerTitleStyle,
   onChangeSearchText,
 }) => {
@@ -50,7 +51,7 @@ const HeaderCon = ({
   return (
     <>
       {!searchStatus ? (
-        <SafeAreaView style={styles.headerConStyle}>
+        <SafeAreaView style={[styles.headerConStyle, headerConStyle]}>
           <TouchableOpacity
             style={leftIcon && styles.imageSubView}
             onPress={searchOnPress}>
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
   userIconStyle: {
     height: hp(36),
     width: hp(36),
+    borderRadius: hp(20)
   },
   searchIconStyle: {
     height: hp(18),

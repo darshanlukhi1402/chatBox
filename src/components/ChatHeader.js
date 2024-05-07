@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     width: wp(38),
     height: hp(38),
     marginLeft: wp(12),
+    borderRadius: hp(40)
   },
   userDetailsStyle: {
     flex: 1,

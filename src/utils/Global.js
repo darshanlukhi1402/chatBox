@@ -5,8 +5,24 @@ import {images} from '../assets';
 
 export const getUserData = async userId => {
   try {
-    const userDoc = await firestore().collection('users').doc(userId).get();
-    return userDoc.data();
+    return new Promise((resolve, reject) => {
+      const unsubscribe = firestore()
+        .collection('users')
+        .doc(userId)
+        .onSnapshot(
+          snapshot => {
+            if (snapshot.exists) {
+              resolve(snapshot.data());
+            } else {
+              reject(new Error('Document does not exist'));
+            }
+          },
+          error => {
+            reject(error);
+          }
+        );
+      return unsubscribe;
+    });
   } catch (error) {
     console.error('Error fetching user data:', error);
     return null;

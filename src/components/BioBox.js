@@ -11,17 +11,17 @@ const BioBox = ({currentUserData}) => {
   return (
     <View style={styles.profileCon}>
       <Image
-        source={{uri: currentUserData.userDpUri}}
+        source={{uri: currentUserData?.userDpUri}}
         style={styles.profileIcon}
       />
       <View style={styles.userBioView}>
         <Text style={styles.userLabel}>
           {`${currentUserData?.firstName} ${currentUserData?.lastName}`}
         </Text>
-        <Text style={styles.userNotesStyle}>Never give up 💪</Text>
+        <Text style={styles.userNotesStyle}>{currentUserData?.about}</Text>
       </View>
       <TouchableOpacity onPress={() => navigate('QRCodeScanners')}>
-        <Image source={images.qrCode} style={styles.qrIcon} />
+        <Image source={images?.qrCode} style={styles.qrIcon} />
       </TouchableOpacity>
     </View>
   );
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   profileIcon: {
     width: hp(60),
     height: hp(60),
+    borderRadius: hp(40)
   },
   userBioView: {
     flex: 1,

@@ -28,7 +28,7 @@ const ChatTextInput = (
   return (
     <View style={styles.containerStyle}>
       <TouchableOpacity onPress={leftOnPress}>
-        <Image source={images.clip} style={styles.iconStyle} />
+        <Image source={images?.clip} style={styles.iconStyle} />
       </TouchableOpacity>
       <View style={styles.chatTextInputStyle}>
         {content ? (
@@ -65,10 +65,10 @@ const ChatTextInput = (
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={camerOnPress} style={{marginLeft: wp(16)}}>
-        <Image source={images.camera} style={styles.iconStyle} />
+        <Image source={images?.camera} style={styles.iconStyle} />
       </TouchableOpacity>
       <TouchableOpacity onPress={voiceOnPress} style={{marginLeft: wp(12)}}>
-        <Image source={images.microphone} style={styles.iconStyle} />
+        <Image source={images?.microphone} style={styles.iconStyle} />
       </TouchableOpacity>
     </View>
   );

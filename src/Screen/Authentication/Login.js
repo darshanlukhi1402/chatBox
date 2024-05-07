@@ -89,7 +89,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header source={images.back} onPress={() => goBack()} />
+      <Header source={images?.back} onPress={() => goBack()} />
       <ErrorModal
         visible={error.visible}
         message={error.message}

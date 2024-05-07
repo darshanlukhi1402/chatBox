@@ -102,6 +102,7 @@ const Contacts = () => {
   const renderContactItem = ({item, index}) => {
     return (
       <StatusLabel
+        source={images?.defaultUser}
         PrimaryLabel={item?.displayName}
         subTextStyle={styles.subTextStyles}
         labelTextStyle={styles.labelStyles}
@@ -127,11 +128,11 @@ const Contacts = () => {
           leftIcon
           label={strings.contacts}
           searchValue={searchQuery}
-          leftSource={images.search}
+          leftSource={images?.search}
           removeOnPress={handleRemove}
           onChangeSearchText={handleSearch}
           searchStatus={searchFunctionality}
-          rightSource={{uri: currentUserData.userDpUri}}
+          rightSource={{uri: currentUserData?.userDpUri}}
           searchOnPress={() => setSearchFunctionality(true)}
         />
         <View style={styles.listConView}>

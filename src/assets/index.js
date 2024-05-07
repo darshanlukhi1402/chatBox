@@ -1,6 +1,7 @@
 export const images = {
   doc: require('../assets/images/doc.png'),
   pin: require('../assets/images/pin.png'),
+  pen: require('../assets/images/pen.png'),
   back: require('../assets/images/back.png'),
   man1: require('../assets/images/man1.png'),
   man2: require('../assets/images/man2.png'),
@@ -11,6 +12,7 @@ export const images = {
   chat: require('../assets/images/chat.png'),
   help: require('../assets/images/help.png'),
   more: require('../assets/images/more.png'),
+  about: require('../assets/images/about.png'),
   callP: require('../assets/images/callP.png'),
   apple: require('../assets/images/Apple.png'),
   Calls: require('../assets/images/Calls.png'),
@@ -55,6 +57,7 @@ export const images = {
   offlineStatus: require('../assets/images/offlineStatus.png'),
   selectedImages: require('../assets/images/selectedImages.png'),
   settingsUnFocus: require('../assets/images/settingsUnFocus.png'),
+  userProfileEditIcon: require('../assets/images/userProfileEditIcon.png'),
 };
 
 export const lottie = {
