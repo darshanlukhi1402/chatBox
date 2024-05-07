@@ -298,28 +298,16 @@ const ChatScreen = () => {
     );
   };
 
-  const EmptyListComponent = () => (
-    <View style={styles.emptyDataViewStyle}>
-      <LottieView
-        source={lottie.no_chat}
-        autoPlay
-        loop
-        style={styles.lottieStyle}
-      />
-      <Text style={styles.emptyDataStyle}>{strings.no_chat_found}</Text>
-    </View>
-  );
-
   return (
     <View style={styles.container}>
       <ChatHeader
-        userName={user.name}
         leftIcon={images.back}
         callIcon={images.calll}
         callOnPress={callPress}
         userIcon={{uri: user.userDpUri}}
         videoCallIcon={images.videoCall}
         leftIconOnPress={() => goBack()}
+        userName={`${user.firstName} ${user.lastName}`}
         onlineStatus={
           user?.online == true
             ? strings.active_now
@@ -327,17 +315,28 @@ const ChatScreen = () => {
         }
       />
       <View style={styles.chatConView}>
-        <FlatList
-          data={chat}
-          ref={userRef}
-          bounces={false}
-          renderItem={renderChatItem}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{flexGrow: 1}}
-          ListEmptyComponent={EmptyListComponent}
-          onLayout={() => userRef?.current?.scrollToEnd()}
-          onContentSizeChange={() => userRef.current.scrollToEnd()}
-        />
+        {chat.length == 0 ? (
+          <View style={styles.emptyDataViewStyle}>
+            <LottieView
+              loop
+              autoPlay
+              source={lottie.no_chat}
+              style={styles.lottieStyle}
+            />
+            <Text style={styles.emptyDataStyle}>{strings.no_chat_found}</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={chat}
+            ref={userRef}
+            bounces={false}
+            renderItem={renderChatItem}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flexGrow: 1}}
+            onLayout={() => userRef?.current?.scrollToEnd()}
+            onContentSizeChange={() => userRef.current.scrollToEnd()}
+          />
+        )}
       </View>
       <ChatTextInput
         value={chatText}
@@ -386,8 +385,9 @@ const styles = StyleSheet.create({
     height: hp(24),
   },
   lottieStyle: {
-    width: hp(320),
-    height: hp(320),
+    width: hp(220),
+    height: hp(220),
+    marginBottom: hp(20),
   },
   modelHeaderView: {
     alignItems: 'center',
@@ -416,10 +416,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   emptyDataStyle: {
-    bottom: hp(20),
-    fontSize: fontSize(18),
-    fontFamily: 'Poppins-Bold',
+    textAlign: 'center',
+    fontSize: fontSize(14),
     color: colors?.empty_data,
+    fontFamily: 'Poppins-Medium',
   },
   contentStyle: {
     flexDirection: 'row',

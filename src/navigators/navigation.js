@@ -13,6 +13,7 @@ import UserProfileDetails from '../components/UserProfileDetails';
 import QRCodeScanners from '../Screen/QRCodeScanner/QRCodeScanners';
 import AddStatusScreen from '../Screen/Message/AddStatus/AddStatusScreen';
 import { colors } from '../utils/themes';
+import Account from '../Screen/Settings/Account/Account';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ const MainStackNavigator = ({value}) => {
         initialRouteName={!value ? 'GetStarted' : 'TabNavigation'}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="GetStarted" component={GetStarted} />
         <Stack.Screen name="TabNavigation" component={TabNavigation} />

@@ -1,7 +1,7 @@
 export const images = {
   doc: require('../assets/images/doc.png'),
   pin: require('../assets/images/pin.png'),
-  back: require('../assets/images/Back.png'),
+  back: require('../assets/images/back.png'),
   man1: require('../assets/images/man1.png'),
   man2: require('../assets/images/man2.png'),
   man3: require('../assets/images/man3.png'),

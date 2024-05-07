@@ -10,12 +10,10 @@ const BioBox = ({currentUserData}) => {
   const {navigate} = useNavigation();
   return (
     <View style={styles.profileCon}>
-      <View style={styles.profileImageView}>
-        <Image
-          source={{uri: currentUserData.userDpUri}}
-          style={styles.profileIcon}
-        />
-      </View>
+      <Image
+        source={{uri: currentUserData.userDpUri}}
+        style={styles.profileIcon}
+      />
       <View style={styles.userBioView}>
         <Text style={styles.userLabel}>
           {`${currentUserData?.firstName} ${currentUserData?.lastName}`}
@@ -37,8 +35,8 @@ const styles = StyleSheet.create({
     height: hp(22),
   },
   profileIcon: {
-    width: hp(40),
-    height: hp(40),
+    width: hp(60),
+    height: hp(60),
   },
   userBioView: {
     flex: 1,
@@ -47,15 +45,6 @@ const styles = StyleSheet.create({
   profileCon: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  profileImageView: {
-    width: hp(60),
-    height: hp(60),
-    borderWidth: 0.5,
-    alignItems: 'center',
-    borderRadius: hp(30),
-    justifyContent: 'center',
-    borderColor: colors.grey,
   },
   userLabel: {
     color: colors.black,

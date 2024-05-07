@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
   lottieStyle: {
     width: hp(150),
     height: hp(150),
+    tintColor: colors.textColor,
   },
   numberTextStyle: {
     color: '#000',

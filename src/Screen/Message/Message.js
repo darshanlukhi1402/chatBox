@@ -157,8 +157,8 @@ const Message = () => {
   };
 
   const RenderItemComponent = ({item, index}) => {
-    const currentUser = auth()?.currentUser?.uid === item?.id;
     const isLastItem = index === data.length - 1;
+    const currentUser = auth()?.currentUser?.uid === item?.id;
     return (
       <>
         {!currentUser && (
@@ -173,9 +173,6 @@ const Message = () => {
             lastOffTime={item?.lastOnlineTime}
             userProfilePress={() => userProfilePress(item)}
             PrimaryLabel={`${item?.firstName} ${item?.lastName}`}
-            userStatusBorderStyle={{
-              borderColor: border[index % border.length],
-            }}
           />
         )}
       </>
@@ -197,13 +194,7 @@ const Message = () => {
   const renderListHeaderComponent = () => {
     return (
       <View style={{marginHorizontal: wp(8.5)}}>
-        <TouchableOpacity
-          style={{
-            ...styles.userStatusBorderStyle,
-            borderColor: colors.white,
-            borderWidth: hp(1),
-            flexDirection: 'row',
-          }}>
+        <TouchableOpacity style={styles.userStatusBorderStyle}>
           <Image
             source={{uri: currentUserData.userDpUri}}
             style={styles.userImageStyle}
@@ -230,6 +221,7 @@ const Message = () => {
           removeOnPress={handleRemove}
           onChangeSearchText={handleSearch}
           searchStatus={searchFunctionality}
+          rightOnPress={() => navigate('Settings')}
           rightSource={{uri: currentUserData.userDpUri}}
           searchOnPress={() => setSearchFunctionality(true)}
         />
@@ -319,10 +311,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   userStatusBorderStyle: {
-    padding: hp(10),
+    padding: hp(2),
     overflow: 'hidden',
+    borderWidth: wp(1),
     alignItems: 'center',
-    borderWidth: wp(1.5),
     justifyContent: 'center',
     borderRadius: hp(80 / 2),
   },

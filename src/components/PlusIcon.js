@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     height: hp(10),
   },
   plusCon: {
-    top: hp(55),
-    left: hp(55),
+    top: hp(42),
+    left: hp(42),
     width: hp(16),
     height: hp(16),
     alignItems: 'center',

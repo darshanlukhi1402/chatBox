@@ -29,7 +29,7 @@ const Login = () => {
   const {navigate, goBack, dispatch} = useNavigation();
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('D12345');
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');

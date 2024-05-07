@@ -37,12 +37,12 @@ const ChatHeader = ({
 
 const styles = StyleSheet.create({
   leftIconStyle: {
-    width: wp(22),
-    height: hp(22),
+    width: wp(18),
+    height: hp(18),
   },
   userDpIconStyle: {
-    width: wp(24),
-    height: hp(24),
+    width: wp(38),
+    height: hp(38),
     marginLeft: wp(12),
   },
   userDetailsStyle: {

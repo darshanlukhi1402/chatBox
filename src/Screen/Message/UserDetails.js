@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   valueStyle: {
     marginLeft: wp(6),
     color: colors.black,
-    fontSize: fontSize(18),
+    fontSize: fontSize(16),
     fontFamily: 'Poppins-Medium',
   },
   labelStyle: {

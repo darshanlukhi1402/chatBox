@@ -42,7 +42,7 @@ const StatusLabel = ({
             style={styles.statusStyle}
           />
         )}
-        <TouchableOpacity style={{flex: 1}} onPress={onPress}>
+        <TouchableOpacity style={{flex: 1, justifyContent:'center',}} onPress={onPress}>
           <Text style={[styles.labelTextStyle, labelTextStyle]}>
             {PrimaryLabel}
           </Text>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     height: hp(48),
   },
   statusStyle: {
-    top: hp(22),
+    top: hp(18),
     width: hp(8),
     right: wp(14),
     height: hp(8),
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   labelTextStyle: {
     marginLeft: wp(12),
     color: colors.black,
-    fontSize: fontSize(18),
+    fontSize: fontSize(16),
     fontFamily: 'Poppins-Medium',
   },
   lastTimeStyle: {
@@ -90,18 +90,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: hp(20),
     marginHorizontal: wp(24),
+    // backgroundColor:'green'
   },
   subTextStyle: {
     marginLeft: wp(12),
-    fontSize: fontSize(14),
+    fontSize: fontSize(12),
     fontFamily: 'Poppins-Regular',
     color: colors.subMessageText,
     justifyContent: 'space-between',
   },
   userStatusBorderStyle: {
-    paddingTop: hp(8),
-    paddingHorizontal: hp(4),
     overflow: 'hidden',
+    paddingHorizontal: hp(4),
     // alignItems: 'center',
     // borderWidth: wp(1.5),
     // justifyContent: 'center',

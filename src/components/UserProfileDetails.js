@@ -36,8 +36,8 @@ const UserProfileDetails = () => {
                 style={styles.profileIconStyle}
               />
             </View>
-            <Text style={styles.userNameStyle}>{route?.name}</Text>
-            <Text style={styles.userBioNameStyle}>@{route?.name}</Text>
+            <Text style={styles.userNameStyle}>{`${route?.firstName} ${route?.lastName}`}</Text>
+            <Text style={styles.userBioNameStyle}>@{route?.email}</Text>
           </View>
           <View style={styles.conUserFet}>
             <UserProfileIcons
@@ -50,13 +50,16 @@ const UserProfileDetails = () => {
           </View>
         </View>
         <View style={styles.listConView}>
-          <UserDetails value={route.name} label={'Display Name'} />
+          <UserDetails
+            value={`${route.firstName} ${route.lastName}`}
+            label={'Display Name'}
+          />
           <UserDetails value={route.email} label={'Email Address'} />
           <UserDetails
             value={'33 street west subidbazar,sylhet'}
             label={'Address'}
           />
-          <UserDetails value={'(320) 555-0104'} label={'Phone  Number'} />
+          <UserDetails value={`(+91) ${route.phoneNumber}`} label={'Phone  Number'} />
         </View>
       </LinearGradient>
     </View>
@@ -69,8 +72,8 @@ const styles = StyleSheet.create({
   },
   userNameStyle: {
     color: colors.white,
-    marginVertical: hp(4),
-    fontSize: fontSize(20),
+    marginVertical: hp(2),
+    fontSize: fontSize(16),
     fontFamily: 'Poppins-Bold',
   },
   userBioNameStyle: {
@@ -95,10 +98,10 @@ const styles = StyleSheet.create({
   listConView: {
     flex: 1,
     paddingTop: hp(30),
+    paddingLeft: wp(24),
     borderTopEndRadius: wp(40),
     borderTopStartRadius: wp(40),
     backgroundColor: colors.white,
-    paddingLeft: wp(24),
   },
   leftIconStyle: {
     width: wp(22),
@@ -116,11 +119,9 @@ const styles = StyleSheet.create({
   userProfileView: {
     width: hp(86),
     height: hp(86),
-    borderWidth: 1,
     alignItems: 'center',
     borderRadius: wp(50),
     justifyContent: 'center',
-    borderColor: colors.white,
   },
 });
 
