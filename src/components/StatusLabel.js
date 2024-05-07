@@ -12,9 +12,10 @@ const StatusLabel = ({
   onPress,
   subLabel,
   downBorder,
-  PrimaryLabel,
+  isLastItem,
   statusOnOff,
   lastOffTime,
+  PrimaryLabel,
   statusSource,
   subTextStyle,
   userImageStyle,
@@ -53,7 +54,7 @@ const StatusLabel = ({
           </Text>
         )}
       </View>
-      {downBorder && (
+      {downBorder && !isLastItem && (
         <View style={[styles.highlightStyle, highlightStyle]}></View>
       )}
     </>
@@ -62,11 +63,11 @@ const StatusLabel = ({
 
 const styles = StyleSheet.create({
   userImageStyle: {
-    height: hp(48),
     width: hp(48),
+    height: hp(48),
   },
   statusStyle: {
-    top: hp(24),
+    top: hp(22),
     width: hp(8),
     right: wp(14),
     height: hp(8),
@@ -98,12 +99,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   userStatusBorderStyle: {
-    padding: hp(8),
+    paddingTop: hp(8),
+    paddingHorizontal: hp(4),
     overflow: 'hidden',
-    alignItems: 'center',
-    borderWidth: wp(1.5),
-    justifyContent: 'center',
-    borderRadius: hp(80 / 2),
+    // alignItems: 'center',
+    // borderWidth: wp(1.5),
+    // justifyContent: 'center',
+    // borderRadius: hp(80 / 2),
   },
   highlightStyle: {
     width: wp(320),

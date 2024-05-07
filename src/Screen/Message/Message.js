@@ -129,7 +129,7 @@ const Message = () => {
               style={styles.userImageStyle}
             />
           </TouchableOpacity>
-          <Text style={styles.statusUserName}>{item.name}</Text>
+          <Text style={styles.statusUserName}>{item?.firstName}</Text>
         </View>
       )
     );
@@ -158,19 +158,21 @@ const Message = () => {
 
   const RenderItemComponent = ({item, index}) => {
     const currentUser = auth()?.currentUser?.uid === item?.id;
+    const isLastItem = index === data.length - 1;
     return (
       <>
         {!currentUser && (
           <StatusLabel
             downBorder
             statusOnOff
-            PrimaryLabel={item?.name}
+            isLastItem={isLastItem}
             statusSource={item?.online}
             source={{uri: item.userDpUri}}
             subLabel={'How are you today?'}
             onPress={() => onUserPress(item)}
             lastOffTime={item?.lastOnlineTime}
             userProfilePress={() => userProfilePress(item)}
+            PrimaryLabel={`${item?.firstName} ${item?.lastName}`}
             userStatusBorderStyle={{
               borderColor: border[index % border.length],
             }}
@@ -256,7 +258,7 @@ const Message = () => {
             <FlatList
               bounces={false}
               renderItem={RenderItemComponent}
-              showsVerticalScrollIndicator={false}
+              style={styles.chatConBorderStyle}
               contentContainerStyle={{flexGrow: 1}}
               ListEmptyComponent={EmptyListComponent}
               data={searchText ? searchResults : data}
@@ -271,6 +273,9 @@ const Message = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  chatConBorderStyle: {
+    marginBottom: hp(20),
   },
   userImageStyle: {
     width: hp(52),

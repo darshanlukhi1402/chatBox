@@ -46,6 +46,7 @@ export const images = {
   chatUnFocus: require('../assets/images/chatUnFocus.png'),
   callUnFocus: require('../assets/images/callUnFocus.png'),
   selectedPdf: require('../assets/images/selectedPdf.png'),
+  defaultUser: require('../assets/images/defaultUser.png'),
   onlineStatus: require('../assets/images/onlineStatus.png'),
   notifications: require('../assets/images/notifications.png'),
   contactsFocus: require('../assets/images/contactsFocus.png'),

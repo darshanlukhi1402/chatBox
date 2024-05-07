@@ -5,6 +5,7 @@ import {
   Alert,
   StyleSheet,
   SafeAreaView,
+  ActivityIndicator,
   // TouchableOpacity,
 } from 'react-native';
 
@@ -22,54 +23,79 @@ import Header from '../../components/Header';
 import Felids from '../../components/Felids';
 import {fontSize, hp, wp} from '../../utils/constant';
 import LinearButton from '../../components/LinearButton';
+import {defaultUserUrl} from '../../utils/Global';
 
 const SignUp = () => {
   const {navigate, goBack} = useNavigation();
 
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [conPassword, setConPassword] = useState('');
 
-  const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
+  const [phoneNumberError, setPhoneNumberError] = useState('');
   const [conPasswordError, setConPasswordError] = useState('');
 
   const handleSignup = async () => {
+    setLoading(true);
     try {
-      if (!name) {
-        setNameError('Please enter a name');
+      if (!firstName) {
+        setFirstNameError('Please enter your first name');
+        setLoading(false);
+        return;
+      }
+
+      if (!lastName) {
+        setLastNameError('Please enter your last name');
+        setLoading(false);
         return;
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         setEmailError('Invalid email address');
+        setLoading(false);
+        return;
+      }
+
+      const phoneRegex = /^[0-9]+$/;
+      if (!phoneRegex.test(phoneNumber)) {
+        setPhoneNumberError('Please enter a valid phone number');
+        setLoading(false);
         return;
       }
 
       if (password.length < 6) {
         setPasswordError('Password must be at least 6 characters');
+        setLoading(false);
         return;
       }
 
       if (password !== conPassword) {
         setConPasswordError('Passwords do not match');
+        setLoading(false);
         return;
       }
-
       const response = await auth().createUserWithEmailAndPassword(
         email,
         password,
       );
 
       const userData = {
-        name: name,
-        email: email.toLowerCase(),
+        lastName: lastName,
         password: password,
-        // userDpUri: imageUrl,
+        firstName: firstName,
         id: response.user.uid,
+        phoneNumber: phoneNumber,
+        email: email.toLowerCase(),
+        userDpUri: defaultUserUrl,
         confirm_password: conPassword,
         created: firestore.Timestamp.fromDate(new Date()),
       };
@@ -81,9 +107,59 @@ const SignUp = () => {
 
       Alert.alert('Success', 'Account created successfully');
       navigate('Login');
+      setLoading(false);
+      // emptyState();
     } catch (err) {
-      console.log(err.message);
+      setLoading(false);
+
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+
+      if (err.code) {
+        switch (err.code) {
+          case 'auth/email-already-in-use':
+            errorMessage =
+              'This email address is already in use. Please use a different email.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage =
+              'Invalid email address. Please provide a valid email.';
+            break;
+          case 'auth/weak-password':
+            errorMessage =
+              'Weak password. Password must be at least 6 characters long.';
+            break;
+          case 'auth/user-not-found':
+            errorMessage =
+              'User not found. Please check your email and try again.';
+            break;
+          case 'auth/wrong-password':
+            errorMessage =
+              'Incorrect password. Please check your password and try again.';
+            break;
+          default:
+            errorMessage = 'An error occurred. Please try again later.';
+            break;
+        }
+      }
+
+      Alert.alert('Error', errorMessage);
     }
+  };
+
+  const validPhoneNumber = text => {
+    if (/^\d+$/.test(text) || text === '') {
+      setPhoneNumber(text);
+      setPhoneNumberError('');
+    }
+  };
+
+  const emptyState = () => {
+    setEmail('');
+    setLastName('');
+    setPassword('');
+    setFirstName('');
+    setPhoneNumber('');
+    setConPassword('');
   };
 
   return (
@@ -98,23 +174,41 @@ const SignUp = () => {
         <Text>jhjnjj</Text>
       </TouchableOpacity> */}
         <Felids
-          label={strings.your_name}
+          value={firstName}
+          error={firstNameError}
+          label={strings.first_name}
           onChangeText={text => {
-            setName(text);
-            setNameError('');
+            setFirstName(text);
+            setFirstNameError('');
           }}
-          error={nameError}
-          value={name}
         />
         <Felids
+          value={lastName}
+          error={lastNameError}
+          label={strings.last_name}
+          onChangeText={text => {
+            setLastName(text);
+            setLastNameError('');
+          }}
+        />
+        <Felids
+          value={email}
+          error={emailError}
+          autoCapitalize={false}
           label={strings.your_email}
+          keyboardType={'email-address'}
           onChangeText={text => {
             setEmail(text);
             setEmailError('');
           }}
-          autoCapitalize={false}
-          error={emailError}
-          value={email}
+        />
+        <Felids
+          maxLength={10}
+          value={phoneNumber}
+          error={phoneNumberError}
+          keyboardType={'number-pad'}
+          label={strings.phone_number}
+          onChangeText={text => validPhoneNumber(text)}
         />
         <Felids
           label={strings.password}
@@ -140,8 +234,9 @@ const SignUp = () => {
         />
         <View style={styles.downStyle}>
           <LinearButton
-            label={strings.create_an_account}
+            loading={loading}
             onPress={handleSignup}
+            label={strings.create_an_account}
           />
         </View>
       </KeyboardAwareScrollView>
@@ -165,7 +260,8 @@ const styles = StyleSheet.create({
     marginBottom: hp(30),
   },
   downStyle: {
-    marginTop: hp(160),
+    marginTop: hp(60),
+    marginBottom: hp(20),
   },
   forgotView: {
     alignSelf: 'center',

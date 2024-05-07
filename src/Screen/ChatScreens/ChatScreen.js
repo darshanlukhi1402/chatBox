@@ -181,11 +181,11 @@ const ChatScreen = () => {
       content_available: true,
       notification: {
         body: chatText,
-        title: currentUserData?.name,
+        title: `${currentUserData?.firstName} ${currentUserData.lastName}`,
       },
       data: {
         body: chatText,
-        title: currentUserData?.name,
+        title: `${currentUserData?.firstName} ${currentUserData.lastName}`,
       },
       to: user?.fcm_token,
     });

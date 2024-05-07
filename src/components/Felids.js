@@ -8,6 +8,8 @@ const Felids = ({
   value,
   label,
   error,
+  maxLength,
+  keyboardType,
   onChangeText,
   autoCapitalize,
   secureTextEntry,
@@ -17,8 +19,10 @@ const Felids = ({
       <Text style={styles.labelStyle}>{label}</Text>
       <TextInput
         value={value}
-        style={styles.textInputStyle}
+        maxLength={maxLength}
         onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        style={styles.textInputStyle}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
       />

@@ -41,6 +41,7 @@ const Settings = () => {
     const userId = auth().currentUser.uid;
     const userRef = firestore().collection('users').doc(userId);
     await userRef.update({
+      fcm_token: '',
       online: false,
       lastOnlineTime: firestore.Timestamp.fromDate(new Date()),
     });

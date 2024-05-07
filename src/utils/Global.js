@@ -79,8 +79,8 @@ export const DisplayNotification = async remoteMessage => {
     importance: AndroidImportance.HIGH,
   });
   await notifee.displayNotification({
-    title: 'title',
-    body: 'body',
+    title: remoteMessage?.data?.title,
+    body: remoteMessage?.data?.body,
     android: {
       channelId,
       importance: AndroidImportance.HIGH,
@@ -88,4 +88,8 @@ export const DisplayNotification = async remoteMessage => {
   });
 };
 
-export const server_key = 'AAAAGQzVeDU:APA91bFaGarR5HiCqumm_YtGkWuegtmIra4SvUFd31crvoY9gf_3tpP8RiS8SJ0YliB3OlpV-d-7xCn7obZwbaRn88x7tsp3we4_CrRbOkdzAbEVijcihDYSqF4oRgjYrXt3wdxrs5A_'
+export const server_key =
+  'AAAAGQzVeDU:APA91bFaGarR5HiCqumm_YtGkWuegtmIra4SvUFd31crvoY9gf_3tpP8RiS8SJ0YliB3OlpV-d-7xCn7obZwbaRn88x7tsp3we4_CrRbOkdzAbEVijcihDYSqF4oRgjYrXt3wdxrs5A_';
+
+export const defaultUserUrl =
+  'https://firebasestorage.googleapis.com/v0/b/chatbox-f5584.appspot.com/o/UsersProfileIcon%2FdefaultUser.png?alt=media&token=12ddff8b-696a-467a-8edb-ff5b99698669';

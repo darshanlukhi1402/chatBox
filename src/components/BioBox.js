@@ -17,7 +17,9 @@ const BioBox = ({currentUserData}) => {
         />
       </View>
       <View style={styles.userBioView}>
-        <Text style={styles.userLabel}>{currentUserData?.name}</Text>
+        <Text style={styles.userLabel}>
+          {`${currentUserData?.firstName} ${currentUserData?.lastName}`}
+        </Text>
         <Text style={styles.userNotesStyle}>Never give up 💪</Text>
       </View>
       <TouchableOpacity onPress={() => navigate('QRCodeScanners')}>
