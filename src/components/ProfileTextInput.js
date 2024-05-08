@@ -17,7 +17,9 @@ const ProfileTextInput = ({
   inputRef,
   aboutText,
   setAboutText,
+  blurOnSubmit,
   toggleEditMode,
+  onSubmitEditing,
 }) => {
   return (
     <View style={styles.aboutConStyle}>
@@ -26,14 +28,14 @@ const ProfileTextInput = ({
         <Text style={styles.aboutTextStyle}>About</Text>
         {editMode ? (
           <TextInput
-            ref={inputRef}
-            value={aboutText}
-            style={[styles.inputStyle]}
-            onChangeText={text => {
-              setAboutText(text);
-            }}
-            multiline={true}
             editable
+            ref={inputRef}
+            multiline={true}
+            value={aboutText}
+            blurOnSubmit={blurOnSubmit}
+            style={[styles.inputStyle]}
+            onSubmitEditing={onSubmitEditing}
+            onChangeText={text => setAboutText(text)}
           />
         ) : (
           <TextInput

@@ -26,6 +26,7 @@ export const strings = {
   write_your_message: 'Write your message',
   sign_up_with_email: 'Sign up with Email',
   no_contact_found: 'No Contact Found ....',
+  default_chatAbout:'Hey there! i am using chatBox.',
   no_chat_found: 'No chats yet? Start by\nreaching out to a friend!',
   no_user_found: 'No chats found 🙂‍↔️\nStart a conversation to see them here.',
   welcomeLine:

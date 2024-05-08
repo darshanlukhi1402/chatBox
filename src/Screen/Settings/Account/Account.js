@@ -9,6 +9,7 @@ import DocumentPicker from 'react-native-document-picker';
 
 import {images} from '../../../assets';
 import {colors} from '../../../utils/themes';
+import {strings} from '../../../utils/string';
 import {getUserData} from '../../../utils/Global';
 import HeaderCon from '../../../components/HeaderCon';
 import UpdateUser from '../../../components/UpdateUser';
@@ -30,7 +31,7 @@ const Account = () => {
     const userId = auth().currentUser.uid;
     getUserData(userId).then(res => {
       setCurrentUserData(res);
-      setAboutText(res?.about || '');
+      setAboutText(res?.about || strings?.default_chatAbout);
     });
   }, []);
 
@@ -78,6 +79,14 @@ const Account = () => {
     }
   };
 
+  const onSubmitEditing = async () => {
+    const userId = auth().currentUser.uid;
+    await firestore()
+      .collection('users')
+      .doc(userId)
+      .update({about: aboutText});
+  };
+
   return (
     <TouchableWithoutFeedback>
       <View style={styles.container}>
@@ -96,13 +105,13 @@ const Account = () => {
             editPress={() => userEditPress()}
           />
           <ProfileTextInput
-            {...{
-              editMode,
-              inputRef,
-              aboutText,
-              setAboutText,
-              toggleEditMode,
-            }}
+            editMode={editMode}
+            inputRef={inputRef}
+            blurOnSubmit={true}
+            aboutText={aboutText}
+            setAboutText={setAboutText}
+            toggleEditMode={toggleEditMode}
+            onSubmitEditing={onSubmitEditing}
           />
           <View style={{...styles.highlightStyle, width: '80%'}}></View>
         </View>
